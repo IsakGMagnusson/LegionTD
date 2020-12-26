@@ -1,0 +1,89 @@
+package game.gameplay.builder;
+
+import engine.GameContainer;
+import engine.Renderer;
+import game.GameManager;
+import game.GameObject;
+import game.HUD.BotHud;
+import game.HUD.RightHud;
+import game.gameplay.GamePlay;
+import game.gameplay.Player;
+import game.gameplay.builder.BuildArea;
+import game.unit.tower.Tower;
+
+public class Builder {
+    private BuildArea buildArea = new BuildArea();
+    private Player player;
+    private GamePlay gamePlay;
+
+
+    public Builder(Player player, GamePlay gamePlay){
+        this.player = player;
+        this.gamePlay = gamePlay;
+    }
+
+    public void update(GameContainer gc, GameManager gm) {
+        if (gc.getInput().isButtonDown(1) && RightHud.buying > -1 && buildArea.isSquareFree(gc) && gamePlay.isBuyState())
+            buildTower(gc, gm);
+
+        if (gc.getInput().isButtonDown(3))
+            unSelectTower();
+
+        if (gamePlay.isBuyState())
+            sellUnit(gm);
+    }
+
+    public void render(GameContainer gc, Renderer r) {
+        buildArea.render(gc, r);
+
+        if(RightHud.buying > -1)
+            r.drawImageTile(player.getTowers()[RightHud.buying].getImg(), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0);
+    }
+
+    private void buildTower(GameContainer gc, GameManager gm){
+        Tower t = createTower();
+        if(t.getCost() <= player.getGold()){
+            t.setSquare(buildArea.getHooveredSquare(gc));
+            t.setPosX(t.getSquare().getPosX());
+            t.setPosY(t.getSquare().getPosY());
+            gm.addObject(t);
+            player.addOwnedTower(t);
+            player.decGold(t.getCost());
+            buildArea.getHooveredSquare(gc).setIsOccupied(true);
+        } else{
+            System.out.println("no money");
+        }
+
+    }
+
+    private Tower createTower() {
+        switch (RightHud.buying) {
+            case 0:
+                return player.createTier1();
+            case 1:
+                return player.createTier2();
+            default:
+                return null;
+        }
+    }
+
+    private void unSelectTower(){
+        RightHud.buying = -1;
+    }
+
+    private void sellUnit(GameManager gm){
+        if(BotHud.getSell()){
+            for (GameObject t : gm.getObjects()){
+                if(t instanceof Tower){
+                    if (((Tower) t).getIsSelected()){
+                        player.incGold(((Tower) t).getCost()/2);
+                        ((Tower) t).setSelected(false);
+                        t.setDead(true);
+                        BotHud.setSell(false);
+                    }
+                }
+            }
+            BotHud.setSell(false);
+        }
+    }
+}
