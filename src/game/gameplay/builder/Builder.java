@@ -29,8 +29,8 @@ public class Builder {
         if (gc.getInput().isButtonDown(3))
             unSelectTower();
 
-        if (gamePlay.isBuyState())
-            sellUnit(gm);
+        if(BotHud.getSell() && gamePlay.isBuyState())
+            sellUnit();
     }
 
     public void render(GameContainer gc, Renderer r) {
@@ -71,19 +71,14 @@ public class Builder {
         RightHud.buying = -1;
     }
 
-    private void sellUnit(GameManager gm){
-        if(BotHud.getSell()){
-            for (GameObject t : gm.getObjects()){
-                if(t instanceof Tower){
-                    if (((Tower) t).getIsSelected()){
-                        player.incGold(((Tower) t).getCost()/2);
-                        ((Tower) t).setSelected(false);
-                        t.setDead(true);
-                        BotHud.setSell(false);
-                    }
-                }
+    private void sellUnit(){
+        for(Tower tower : player.getOwnedTowers()){
+            if(tower.getIsSelected()){
+                player.incGold(tower.getCost()/2);
+                tower.setSelected(false);
+                tower.setDead(true);
+                BotHud.setIsSelling(false);
             }
-            BotHud.setSell(false);
         }
     }
 }

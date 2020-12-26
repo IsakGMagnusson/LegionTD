@@ -69,7 +69,10 @@ public abstract class Tower extends Unit {
 
         if(animation > 4) animation = 0;
 
-        if(isSelected) BotHud.setInfo("hp: " + (int)health + " | Dmg: " + (int)damage + "     ");
+        if(isSelected){
+            BotHud.setInfo("hp: " + (int)health + " | Dmg: " + (int)damage + "     ");
+            BotHud.setSelectedType(BotHud.SelectedType.TOWER);
+        }
 
 
         if(detectUnit(gm)){
@@ -138,7 +141,6 @@ public abstract class Tower extends Unit {
     }
 
     public void resetTower(){
-        setDead(false);
         hasDetected = false;
         setPosX(getSquare().getPosX());
         setPosY(getSquare().getPosY());

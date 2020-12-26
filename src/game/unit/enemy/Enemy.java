@@ -55,7 +55,12 @@ public class Enemy extends Unit {
         animation += dt*10;
         if(animation > 4) animation = 0;
 
-        if(isSelected) if(isSelected) BotHud.setInfo("hp: " + (int)health + " | Dmg: " + (int)damage + "     ");
+        if(isSelected){
+            BotHud.setInfo("hp: " + (int)health + " | Dmg: " + (int)damage + "     ");
+            BotHud.setSelectedType(BotHud.SelectedType.ENEMY);
+        }
+
+
 
         if(detectUnit(gm)){
             if(getDistTo(unitToAttack) <= range){

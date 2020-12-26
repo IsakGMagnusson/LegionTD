@@ -4,6 +4,7 @@ import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
 import game.GameObject;
+import game.HUD.BotHud;
 import game.HUD.TopHud;
 import game.unit.enemy.Enemy;
 import game.unit.enemy.Waves.Wave;
@@ -18,7 +19,7 @@ public class GamePlay{
     }
 
     private Player player;
-    private State state = State.BUYTIME;
+    private static State state = State.BUYTIME;
     private double buildTime = 5;
     private int waveCount = 1;
     private double timeLeft = buildTime;
@@ -33,10 +34,9 @@ public class GamePlay{
         TopHud.setInfo("Time: " + (int)timeLeft + " |  State: " + state + "  |  wave: " + waveCount + "  |  Gold: " + player.getGold());
         player.update(gc, gm);
 
-        System.out.println(player.getOwnedTowers().size());
-
         if(timeLeft <= 0 && state == State.BUYTIME) startWave(gm);
         if(state == State.BATTLE && !Wave.areEnemiesDead(gm)) endWave(gm);
+
     }
 
     private void endWave(GameManager gm){
@@ -45,12 +45,14 @@ public class GamePlay{
         player.incGold(currentWave.getGold());
         waveCount++;
 
-        for (GameObject tower : gm.getObjects())
-            if (tower instanceof Tower)
-                tower.setDead(true);
-
         for(Tower t : player.getOwnedTowers()){
-            gm.addObject(t);
+
+            //bring back dead towers
+            if(t.isDead()) {
+                t.setDead(false);
+                gm.addObject(t);
+            }
+
             t.resetTower();
         }
     }
@@ -69,5 +71,9 @@ public class GamePlay{
     public boolean isBuyState(){
         if(state == State.BUYTIME) return true;
         else return false;
+    }
+
+    public static State getState(){
+        return state;
     }
 }
