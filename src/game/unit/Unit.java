@@ -36,6 +36,9 @@ public abstract class Unit extends GameObject {
         this.maxHealth = maxHealth;
     }
 
+    public boolean getIsSelected() {
+        return isSelected;
+    }
 
     protected void selectUnit(GameContainer gc){
         if (gc.getInput().isButtonDown(1)){
@@ -46,7 +49,6 @@ public abstract class Unit extends GameObject {
             }
         }
     }
-
 
     protected double getDistTo(GameObject unitToAttack){
         return Math.sqrt(Math.pow(posX - unitToAttack.getPosX(), 2) + Math.pow(posY - unitToAttack.getPosY(), 2));

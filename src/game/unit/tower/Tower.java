@@ -160,9 +160,6 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-    public boolean getIsSelected() {
-        return isSelected;
-    }
 
     public void setSelected(boolean selected) {
         isSelected = selected;

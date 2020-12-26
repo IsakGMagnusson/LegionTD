@@ -4,7 +4,11 @@ package game.gameplay;
 import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
+import game.GameObject;
+import game.HUD.BotHud;
 import game.gameplay.builder.Builder;
+import game.unit.Unit;
+import game.unit.enemy.Enemy;
 import game.unit.tower.Tower;
 import game.unit.tower.TowerFactory;
 
@@ -13,6 +17,7 @@ import java.util.ArrayList;
 public class Player {
 
     private Builder builder;
+    private Unit isSelecting;
 
     TowerFactory towerFactory = new TowerFactory();
     int randT1 = 0;
@@ -31,6 +36,20 @@ public class Player {
 
     public void update(GameContainer gc, GameManager gm) {
         builder.update(gc, gm);
+
+        //TODO: make selected belong to player and not each unit and fix this
+        for(GameObject obj : gm.getObjects()){
+            if(obj instanceof Unit){
+                if (obj instanceof Tower && ((Tower) obj).getIsSelected()){
+                    BotHud.setSelectedType(BotHud.SelectedType.TOWER);
+                } else if  (obj instanceof Enemy && ((Enemy) obj).getIsSelected()){
+                    BotHud.setSelectedType(BotHud.SelectedType.ENEMY);
+                } else{
+                    BotHud.setSelectedType(BotHud.SelectedType.DEF);
+                }
+            }
+
+        }
     }
 
     public void render(GameContainer gc, Renderer r) {
