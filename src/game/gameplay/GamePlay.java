@@ -20,7 +20,7 @@ public class GamePlay{
 
     private Player player;
     private static State state = State.BUYTIME;
-    private double buildTime = 5;
+    private double buildTime = 20;
     private int waveCount = 1;
     private double timeLeft = buildTime;
     private Wave currentWave;
@@ -47,8 +47,8 @@ public class GamePlay{
 
         for(Tower t : player.getOwnedTowers()){
 
-            //bring back dead towers
-            if(t.isDead()) {
+            //bring back dead and not sold towers
+            if(t.isDead() && !t.getSold()) {
                 t.setDead(false);
                 gm.addObject(t);
             }

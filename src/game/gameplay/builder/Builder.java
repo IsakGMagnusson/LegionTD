@@ -76,8 +76,10 @@ public class Builder {
             if(tower.getIsSelected()){
                 player.incGold(tower.getCost()/2);
                 tower.setSelected(false);
+                tower.setSold(true);
                 tower.setDead(true);
                 BotHud.setIsSelling(false);
+                tower.getSquare().setIsOccupied(false);
             }
         }
     }

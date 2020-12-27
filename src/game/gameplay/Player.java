@@ -56,7 +56,6 @@ public class Player {
         builder.render(gc, r);
     }
 
-
     public Tower createTier1(){
         return towerFactory.getTier1(randT1);
     }

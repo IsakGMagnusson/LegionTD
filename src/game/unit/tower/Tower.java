@@ -26,7 +26,11 @@ public abstract class Tower extends Unit {
     protected Healthbar healthbar = new Healthbar(this);
     protected int id;
     protected int cost;
-    BuildSquare square;
+    protected BuildSquare square;
+
+    protected boolean isSold = false;
+
+
 
 
     public Tower(int id, String path, double posX, double posY, double maxHealth, double damage, double range, double attackSpeed, BuildSquare square, int cost){
@@ -160,9 +164,16 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public boolean getSold() {
+        return isSold;
+    }
+
+    public void setSold(boolean sold) {
+        this.isSold = sold;
     }
 
 }

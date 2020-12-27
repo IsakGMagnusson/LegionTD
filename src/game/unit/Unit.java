@@ -7,7 +7,6 @@ public abstract class Unit extends GameObject {
     protected int view = 80;
     protected int fView = view*3;
 
-
     protected double health, maxHealth, percentHealth;
     protected double damage, range, attackSpeed;
 

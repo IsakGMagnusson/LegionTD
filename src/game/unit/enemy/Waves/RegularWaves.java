@@ -8,7 +8,7 @@ public class RegularWaves extends Wave{
     }
 
     public static final RegularWaves wave1 = new RegularWaves (20,
-            new Enemy[]{new Enemy(170,-20, 80, 20, 90, 2), new Enemy(120,-20, 80, 3, 90, 2)});
+            new Enemy[]{new Enemy(170,-20, 8, 20, 90, 2), new Enemy(120,-20, 8, 3, 90, 2)});
 
 
     public static final RegularWaves wave2 = new RegularWaves (40,
