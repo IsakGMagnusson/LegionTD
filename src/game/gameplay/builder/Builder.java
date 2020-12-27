@@ -3,12 +3,10 @@ package game.gameplay.builder;
 import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
-import game.GameObject;
 import game.HUD.BotHud;
 import game.HUD.RightHud;
 import game.gameplay.GamePlay;
 import game.gameplay.Player;
-import game.gameplay.builder.BuildArea;
 import game.unit.tower.Tower;
 
 public class Builder {
@@ -72,15 +70,16 @@ public class Builder {
     }
 
     private void sellUnit(){
-        for(Tower tower : player.getOwnedTowers()){
-            if(tower.getIsSelected()){
-                player.incGold(tower.getCost()/2);
-                tower.setSelected(false);
-                tower.setSold(true);
-                tower.setDead(true);
-                BotHud.setIsSelling(false);
-                tower.getSquare().setIsOccupied(false);
-            }
-        }
+      if (player.getSelectedObject() instanceof Tower){
+          player.incGold(((Tower) player.getSelectedObject()).getCost()/2);
+          ((Tower) player.getSelectedObject()).setSold(true);
+          player.getSelectedObject().setDead(true);
+          BotHud.setIsSelling(false);
+          ((Tower) player.getSelectedObject()).getSquare().setIsOccupied(false);
+          player.setSelectedObject(null);
+      }
+
+
+
     }
 }

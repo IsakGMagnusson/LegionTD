@@ -1,6 +1,5 @@
 package game.unit;
 
-import engine.GameContainer;
 import game.GameObject;
 
 public abstract class Unit extends GameObject {
@@ -10,7 +9,6 @@ public abstract class Unit extends GameObject {
     protected double health, maxHealth, percentHealth;
     protected double damage, range, attackSpeed;
 
-    protected boolean isSelected;
     protected boolean hasDetected = false;
 
 
@@ -20,6 +18,11 @@ public abstract class Unit extends GameObject {
     public void setpercentHealth(double percentHealth) {
         this.percentHealth = percentHealth;
     }
+
+    public double getDamage() {
+        return damage;
+    }
+
 
     public double getHealth() {
         return health;
@@ -33,20 +36,6 @@ public abstract class Unit extends GameObject {
     }
     public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
-    }
-
-    public boolean getIsSelected() {
-        return isSelected;
-    }
-
-    protected void selectUnit(GameContainer gc){
-        if (gc.getInput().isButtonDown(1)){
-            if (isHoovered(gc)){
-                isSelected = true;
-            } else{
-                isSelected = false;
-            }
-        }
     }
 
     protected double getDistTo(GameObject unitToAttack){

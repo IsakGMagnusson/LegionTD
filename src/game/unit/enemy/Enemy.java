@@ -42,8 +42,6 @@ public class Enemy extends Unit {
     public void render(GameContainer gc, Renderer r) {
         r.drawImageTile(twrImg, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, direction);
         healthbar.render(gc, r);
-
-        if(isSelected) r.drawRect((int)Math.floor(posX), (int)Math.floor(posY), PLAYER_SIZE, PLAYER_SIZE, 0xff00FA9A);
     }
 
     @Override
@@ -54,12 +52,6 @@ public class Enemy extends Unit {
 
         animation += dt*10;
         if(animation > 4) animation = 0;
-
-        if(isSelected){
-            BotHud.setInfo("hp: " + (int)health + " | Dmg: " + (int)damage + "     ");
-            BotHud.setSelectedType(BotHud.SelectedType.ENEMY);
-        }
-
 
 
         if(detectUnit(gm)){
@@ -74,7 +66,6 @@ public class Enemy extends Unit {
         }
 
         healthbar.update(gc, gm, dt);
-        selectUnit(gc);
     }
 
     private boolean detectUnit(GameManager gm){

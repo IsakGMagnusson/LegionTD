@@ -52,8 +52,7 @@ public abstract class GameObject {
         this.dead = dead;
     }
 
-
-    protected boolean isHoovered(GameContainer gc){
+    public boolean isHoovered(GameContainer gc){
         if(gc.getInput().getMouseX() >= posX && gc.getInput().getMouseX() <= posX + width
                 && gc.getInput().getMouseY() >= posY && gc.getInput().getMouseY() <= posY + height
         ){

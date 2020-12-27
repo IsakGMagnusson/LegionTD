@@ -7,18 +7,18 @@ import java.awt.event.ActionListener;
 
 public class BotHud extends JPanel {
 
-    public enum SelectedType{
-        DEF,
-        TOWER,
-        ENEMY
-    }
-
-    private static SelectedType selectedType = SelectedType.DEF;
-
     private static String info = "";
     private static Boolean isSelling = false;
     private JLabel towerInfo = new JLabel(info);
     private static JButton sellTower = new JButton("sell");
+
+    public enum SelectedObj{
+        NULL,
+        TOWER,
+        ENEMY
+    }
+    public static SelectedObj selectedObj = SelectedObj.NULL;
+
 
     public BotHud() {
         this.add(towerInfo);
@@ -35,26 +35,12 @@ public class BotHud extends JPanel {
     public void update() {
         getSell();
         towerInfo.setText(info);
-        display();
         setSellingOnOff(GamePlay.getState());
+        selectHUD();
     }
 
     public static void setInfo(String info) {
         BotHud.info = info;
-    }
-
-    private void display(){
-        switch (selectedType) {
-            case TOWER:
-                sellTower.setVisible(true);
-                break;
-
-            case ENEMY:
-                sellTower.setVisible(false);
-                break;
-
-            default: sellTower.setVisible(false);
-        }
     }
 
     public static void setIsSelling(boolean sell){
@@ -66,11 +52,39 @@ public class BotHud extends JPanel {
         else sellTower.setEnabled(false);
     }
 
-    public static void setSelectedType(SelectedType seltype){
-        selectedType = seltype;
-    }
-
     public static boolean getSell() {
         return isSelling;
     }
+
+    private void selectHUD(){
+        switch (selectedObj) {
+            case ENEMY:
+                enemyHUD();
+                break;
+
+            case TOWER:
+                towerHUD();
+                break;
+
+            default:
+                nullHUD();
+        }
+    }
+
+    //TODO: make different HUDS instead of one HUD hiding/showing components
+    private void towerHUD(){
+        towerInfo.setVisible(true);
+        sellTower.setVisible(true);
+    }
+
+    private void enemyHUD(){
+        sellTower.setVisible(false);
+        towerInfo.setVisible(true);
+    }
+
+    private void nullHUD(){
+        sellTower.setVisible(false);
+        towerInfo.setVisible(false);
+    }
+
 }

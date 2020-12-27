@@ -17,16 +17,14 @@ import java.util.ArrayList;
 public class Player {
 
     private Builder builder;
-    private Unit isSelecting;
+    private GameObject selectedObject;
 
-    TowerFactory towerFactory = new TowerFactory();
-    int randT1 = 0;
-    int randT2 = 0;
+    private TowerFactory towerFactory = new TowerFactory();
+    private int randT1 = 0;
+    private int randT2 = 0;
 
     private int gold;
     private Tower[] availableTowers = new Tower[]{createTier1(), createTier2()};
-
-
     private ArrayList<Tower> ownedTowers = new ArrayList();
 
     public Player(GamePlay gamePlay){
@@ -37,23 +35,50 @@ public class Player {
     public void update(GameContainer gc, GameManager gm) {
         builder.update(gc, gm);
 
-        //TODO: make selected belong to player and not each unit and fix this
-        for(GameObject obj : gm.getObjects()){
-            if(obj instanceof Unit){
-                if (obj instanceof Tower && ((Tower) obj).getIsSelected()){
-                    BotHud.setSelectedType(BotHud.SelectedType.TOWER);
-                } else if  (obj instanceof Enemy && ((Enemy) obj).getIsSelected()){
-                    BotHud.setSelectedType(BotHud.SelectedType.ENEMY);
-                } else{
-                    BotHud.setSelectedType(BotHud.SelectedType.DEF);
-                }
-            }
+
+        if(gc.getInput().isButtonDown(1))
+            selectedObject = selectUnit(gm, gc);
+
+
+        //TODO: make this change HUD entirely
+        if(selectedObject == null){
+            BotHud.setInfo("");
+            BotHud.selectedObj = BotHud.SelectedObj.NULL;
+
+            System.out.println("null");
 
         }
+        else if(selectedObject instanceof Tower) {
+            BotHud.setInfo("hp: " + (int) ((Tower) selectedObject).getHealth() + " | Dmg: " + (int) ((Tower) selectedObject).getDamage() + "     ");
+            BotHud.selectedObj = BotHud.SelectedObj.TOWER;
+            System.out.println("tower");
+        }
+        else if(selectedObject instanceof Enemy){
+            BotHud.setInfo("hp: " + (int)((Enemy) selectedObject).getHealth() + " | Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
+            BotHud.selectedObj = BotHud.SelectedObj.ENEMY;
+
+            System.out.println("enemy");
+        }
+
+
     }
 
     public void render(GameContainer gc, Renderer r) {
+
         builder.render(gc, r);
+
+        if(selectedObject != null)
+            r.drawRect((int)Math.floor(selectedObject.getPosX()), (int)Math.floor(selectedObject.getPosY()), Tower.PLAYER_SIZE, Tower.PLAYER_SIZE, 0xff00FA9A);
+    }
+
+
+    public GameObject selectUnit(GameManager gm, GameContainer gc){
+        for(GameObject object : gm.getObjects()){
+            if (object.isHoovered(gc)){
+                return object;
+            }
+        }
+        return null;
     }
 
     public Tower createTier1(){
@@ -85,6 +110,14 @@ public class Player {
 
     public ArrayList<Tower> getOwnedTowers() {
         return ownedTowers;
+    }
+
+    public GameObject getSelectedObject() {
+        return selectedObject;
+    }
+
+    public void setSelectedObject(GameObject selectedObject) {
+        this.selectedObject = selectedObject;
     }
 
 }

@@ -20,7 +20,7 @@ public abstract class Tower extends Unit {
     protected float animation = 0;
     protected double nextAttack = 0;
 
-    protected static int PLAYER_SIZE = 16;
+    public static final int PLAYER_SIZE = 16;
     protected Unit unitToAttack;
     protected static double SPEED = 0.5;
     protected Healthbar healthbar = new Healthbar(this);
@@ -59,8 +59,6 @@ public abstract class Tower extends Unit {
     public void render(GameContainer gc, Renderer r) {
        r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, direction);
 
-       if(isSelected) r.drawRect((int)Math.floor(posX), (int)Math.floor(posY), PLAYER_SIZE, PLAYER_SIZE, 0xff00FA9A);
-
         healthbar.render(gc, r);
     }
 
@@ -73,10 +71,6 @@ public abstract class Tower extends Unit {
 
         if(animation > 4) animation = 0;
 
-        if(isSelected){
-            BotHud.setInfo("hp: " + (int)health + " | Dmg: " + (int)damage + "     ");
-            BotHud.setSelectedType(BotHud.SelectedType.TOWER);
-        }
 
 
         if(detectUnit(gm)){
@@ -85,14 +79,12 @@ public abstract class Tower extends Unit {
                     attack(unitToAttack);
                     gm.getObjects().add(new Projectile(unitToAttack, posX+(width/2), posY, 1, 1, 0xff00FFFF));
                 }
-
             }  else{
                 moveTowardsUnit(unitToAttack);
             }
         }
 
         healthbar.update(gc, gm, dt);
-        selectUnit(gc);
     }
 
     private boolean detectUnit(GameManager gm){
@@ -164,9 +156,6 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
 
     public boolean getSold() {
         return isSold;

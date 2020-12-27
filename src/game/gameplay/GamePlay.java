@@ -17,9 +17,10 @@ public class GamePlay{
         BATTLE,
         BUYTIME
     }
+    private static State state = State.BUYTIME;
+
 
     private Player player;
-    private static State state = State.BUYTIME;
     private double buildTime = 20;
     private int waveCount = 1;
     private double timeLeft = buildTime;
@@ -36,7 +37,6 @@ public class GamePlay{
 
         if(timeLeft <= 0 && state == State.BUYTIME) startWave(gm);
         if(state == State.BATTLE && !Wave.areEnemiesDead(gm)) endWave(gm);
-
     }
 
     private void endWave(GameManager gm){
@@ -46,13 +46,11 @@ public class GamePlay{
         waveCount++;
 
         for(Tower t : player.getOwnedTowers()){
-
             //bring back dead and not sold towers
             if(t.isDead() && !t.getSold()) {
                 t.setDead(false);
                 gm.addObject(t);
             }
-
             t.resetTower();
         }
     }
