@@ -19,9 +19,8 @@ public class GamePlay{
     }
     private static State state = State.BUYTIME;
 
-
     private Player player;
-    private double buildTime = 20;
+    private double buildTime = 4;
     private int waveCount = 1;
     private double timeLeft = buildTime;
     private Wave currentWave;
@@ -74,5 +73,4 @@ public class GamePlay{
     public static State getState(){
         return state;
     }
-
 }

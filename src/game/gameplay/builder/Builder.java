@@ -14,7 +14,6 @@ public class Builder {
     private Player player;
     private GamePlay gamePlay;
 
-
     public Builder(Player player, GamePlay gamePlay){
         this.player = player;
         this.gamePlay = gamePlay;
@@ -27,7 +26,7 @@ public class Builder {
         if (gc.getInput().isButtonDown(3))
             unSelectTower();
 
-        if(BotHud.getSell() && gamePlay.isBuyState())
+        if(BotHud.getSell())
             sellUnit();
     }
 
@@ -70,16 +69,11 @@ public class Builder {
     }
 
     private void sellUnit(){
-      if (player.getSelectedObject() instanceof Tower){
           player.incGold(((Tower) player.getSelectedObject()).getCost()/2);
           ((Tower) player.getSelectedObject()).setSold(true);
           player.getSelectedObject().setDead(true);
           BotHud.setIsSelling(false);
           ((Tower) player.getSelectedObject()).getSquare().setIsOccupied(false);
           player.setSelectedObject(null);
-      }
-
-
-
     }
 }

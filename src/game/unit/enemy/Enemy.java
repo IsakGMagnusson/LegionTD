@@ -5,7 +5,6 @@ import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
 import game.GameObject;
-import game.HUD.BotHud;
 import game.unit.Healthbar;
 import game.unit.Projectile;
 import game.unit.Unit;
@@ -52,7 +51,6 @@ public class Enemy extends Unit {
 
         animation += dt*10;
         if(animation > 4) animation = 0;
-
 
         if(detectUnit(gm)){
             if(getDistTo(unitToAttack) <= range){

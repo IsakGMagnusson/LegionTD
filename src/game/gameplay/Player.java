@@ -7,7 +7,6 @@ import game.GameManager;
 import game.GameObject;
 import game.HUD.BotHud;
 import game.gameplay.builder.Builder;
-import game.unit.Unit;
 import game.unit.enemy.Enemy;
 import game.unit.tower.Tower;
 import game.unit.tower.TowerFactory;
@@ -35,7 +34,6 @@ public class Player {
     public void update(GameContainer gc, GameManager gm) {
         builder.update(gc, gm);
 
-
         if(gc.getInput().isButtonDown(1))
             selectedObject = selectUnit(gm, gc);
 
@@ -44,27 +42,19 @@ public class Player {
         if(selectedObject == null){
             BotHud.setInfo("");
             BotHud.selectedObj = BotHud.SelectedObj.NULL;
-
-            System.out.println("null");
-
         }
         else if(selectedObject instanceof Tower) {
-            BotHud.setInfo("hp: " + (int) ((Tower) selectedObject).getHealth() + " | Dmg: " + (int) ((Tower) selectedObject).getDamage() + "     ");
+            BotHud.setInfo("Type: " + "Tower | " + "hp: " + (int) ((Tower) selectedObject).getHealth() + " | Dmg: " + (int) ((Tower) selectedObject).getDamage() + "     ");
             BotHud.selectedObj = BotHud.SelectedObj.TOWER;
-            System.out.println("tower");
         }
         else if(selectedObject instanceof Enemy){
-            BotHud.setInfo("hp: " + (int)((Enemy) selectedObject).getHealth() + " | Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
+            BotHud.setInfo("Type: " + "Enemy | " +"hp: " + (int)((Enemy) selectedObject).getHealth() + " | Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
             BotHud.selectedObj = BotHud.SelectedObj.ENEMY;
-
-            System.out.println("enemy");
         }
-
 
     }
 
     public void render(GameContainer gc, Renderer r) {
-
         builder.render(gc, r);
 
         if(selectedObject != null)
@@ -119,5 +109,4 @@ public class Player {
     public void setSelectedObject(GameObject selectedObject) {
         this.selectedObject = selectedObject;
     }
-
 }

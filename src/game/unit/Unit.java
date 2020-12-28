@@ -23,7 +23,6 @@ public abstract class Unit extends GameObject {
         return damage;
     }
 
-
     public double getHealth() {
         return health;
     }

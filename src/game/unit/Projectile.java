@@ -24,10 +24,14 @@ public class Projectile extends GameObject {
     public void update(GameContainer gc, GameManager gm, float dt) {
         moveTowardsUnit(target);
 
-        if(posX >= target.getPosX() && posX <= target.getPosX() + target.getWidth()
-                && posY >= target.getPosY() && posY <= target.getPosY() + target.getHeight()){
+        if(posX >= target.getPosX() && target.getPosX() + target.getWidth() >= posX &&
+                posY >= target.getPosY() && target.getPosY() + target.getHeight() >= posY){
            setDead(true);
         }
+
+        if(target.isDead())
+            setDead(true);
+
     }
 
     @Override

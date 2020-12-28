@@ -5,7 +5,6 @@ import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
 import game.GameObject;
-import game.HUD.BotHud;
 import game.gameplay.builder.BuildSquare;
 import game.unit.Healthbar;
 import game.unit.Projectile;
@@ -70,7 +69,6 @@ public abstract class Tower extends Unit {
         animation += dt*5;
 
         if(animation > 4) animation = 0;
-
 
 
         if(detectUnit(gm)){
@@ -164,5 +162,4 @@ public abstract class Tower extends Unit {
     public void setSold(boolean sold) {
         this.isSold = sold;
     }
-
 }

@@ -19,7 +19,6 @@ public class BotHud extends JPanel {
     }
     public static SelectedObj selectedObj = SelectedObj.NULL;
 
-
     public BotHud() {
         this.add(towerInfo);
         this.add(sellTower);
@@ -86,5 +85,4 @@ public class BotHud extends JPanel {
         sellTower.setVisible(false);
         towerInfo.setVisible(false);
     }
-
 }
