@@ -77,9 +77,9 @@ public class Enemy extends Unit {
             }
         }
 
-        //if moving friend detected
+        //if moving friend detected enemy
         for(GameObject objDetected : gm.getObjects()) {
-            if (objDetected instanceof  Enemy && getDistTo(objDetected) <= fView && ((Enemy) objDetected).hasDetected) {
+            if (objDetected instanceof  Enemy && getDistTo(objDetected) <= friendView && ((Enemy) objDetected).hasDetected) {
                 moveTowardsEnemy(objDetected);
                 return false;
             }

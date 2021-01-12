@@ -4,13 +4,12 @@ import game.GameObject;
 
 public abstract class Unit extends GameObject {
     protected int view = 80;
-    protected int fView = view*3;
+    protected int friendView = view*2;
 
     protected double health, maxHealth, percentHealth;
     protected double damage, range, attackSpeed;
 
     protected boolean hasDetected = false;
-
 
     public double getpercentHealth() {
         return percentHealth;

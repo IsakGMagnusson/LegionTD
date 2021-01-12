@@ -46,7 +46,7 @@ public class BotHud extends JPanel {
         isSelling = sell;
     }
 
-    public static void setSellingOnOff(GamePlay.State state){
+    private void setSellingOnOff(GamePlay.State state){
         if(state.equals(GamePlay.State.BUYTIME)) sellTower.setEnabled(true);
         else sellTower.setEnabled(false);
     }

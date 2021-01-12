@@ -27,7 +27,7 @@ public class Builder {
             unSelectTower();
 
         if(BotHud.getSell())
-            sellUnit();
+            sellUnit((Tower) player.getSelectedObject());
     }
 
     public void render(GameContainer gc, Renderer r) {
@@ -68,12 +68,12 @@ public class Builder {
         RightHud.buying = -1;
     }
 
-    private void sellUnit(){
-          player.incGold(((Tower) player.getSelectedObject()).getCost()/2);
-          ((Tower) player.getSelectedObject()).setSold(true);
-          player.getSelectedObject().setDead(true);
+    private void sellUnit(Tower soldTower){
+          player.incGold(soldTower.getCost()/2);
+          player.getOwnedTowers().remove(soldTower);
+          soldTower.setDead(true);
           BotHud.setIsSelling(false);
-          ((Tower) player.getSelectedObject()).getSquare().setIsOccupied(false);
+          soldTower.getSquare().setIsOccupied(false);
           player.setSelectedObject(null);
     }
 }

@@ -44,21 +44,21 @@ public class GamePlay{
         player.incGold(currentWave.getGold());
         waveCount++;
 
-        for(Tower t : player.getOwnedTowers()){
-            //bring back dead and not sold towers
-            if(t.isDead() && !t.getSold()) {
-                t.setDead(false);
-                gm.addObject(t);
-            }
+        gm.getObjects().removeAll(player.getOwnedTowers());
+        gm.getObjects().addAll(player.getOwnedTowers());
+
+        for(Tower t : player.getOwnedTowers())
             t.resetTower();
-        }
+
     }
 
     private void startWave(GameManager gm){
         state = State.BATTLE;
         currentWave = Wave.WAVES[waveCount-1];
+
         for(Enemy enemy : currentWave.getWaveUnits())
             gm.getObjects().add(enemy);
+
     }
 
     public void render(GameContainer gc, Renderer r) {

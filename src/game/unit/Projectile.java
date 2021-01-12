@@ -37,7 +37,6 @@ public class Projectile extends GameObject {
     @Override
     public void render(GameContainer gc, Renderer r) {
         r.drawFillRect((int) posX, (int) posY, width, height, color);
-
     }
 
     private void moveTowardsUnit(GameObject objMoveTo){

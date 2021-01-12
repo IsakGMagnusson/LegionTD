@@ -27,10 +27,6 @@ public abstract class Tower extends Unit {
     protected int cost;
     protected BuildSquare square;
 
-    protected boolean isSold = false;
-
-
-
 
     public Tower(int id, String path, double posX, double posY, double maxHealth, double damage, double range, double attackSpeed, BuildSquare square, int cost){
         this.id = id;
@@ -95,12 +91,12 @@ public abstract class Tower extends Unit {
             }
         }
 
-        //if moving friend detected
+        //attack enemy if detected by friend in view
         for(GameObject objDetected : gm.getObjects()) {
-            if (objDetected instanceof  Tower && getDistTo(objDetected) <= fView && ((Tower) objDetected).hasDetected) {
-                moveTowardsUnit(objDetected);
+            if (objDetected instanceof  Tower && getDistTo(objDetected) <= friendView && ((Tower) objDetected).hasDetected) {
+                unitToAttack = ((Tower) objDetected).unitToAttack;
                 hasDetected = true;
-                return false;
+                return true;
             }
         }
 
@@ -139,6 +135,7 @@ public abstract class Tower extends Unit {
         setPosX(getSquare().getPosX());
         setPosY(getSquare().getPosY());
         setHealth(getMaxHealth());
+        setDead(false);
         setpercentHealth((getHealth()/getMaxHealth()) * 100);
     }
 
@@ -154,12 +151,4 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-
-    public boolean getSold() {
-        return isSold;
-    }
-
-    public void setSold(boolean sold) {
-        this.isSold = sold;
-    }
 }
