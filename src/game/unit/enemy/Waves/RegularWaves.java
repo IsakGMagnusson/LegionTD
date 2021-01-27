@@ -8,8 +8,8 @@ public class RegularWaves extends Wave{
     }
 
     protected static final RegularWaves wave1 = new RegularWaves (20,
-            new Enemy[]{new Enemy(150,-20, 20, 150, 90, 4),
-                    new Enemy(100,-20, 20, 150, 90, 4)});
+            new Enemy[]{new Enemy(150,-20, 20, 3, 90, 2),
+                    new Enemy(100,-20, 20, 3, 90, 2)});
 
 
     protected static final RegularWaves wave2 = new RegularWaves (40,
