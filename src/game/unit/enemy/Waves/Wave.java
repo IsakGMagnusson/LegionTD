@@ -1,21 +1,21 @@
 package game.unit.enemy.Waves;
 
-import game.GameManager;
-import game.GameObject;
 import game.unit.enemy.Enemy;
 
+import java.util.ArrayList;
+
 public abstract class Wave {
-    private Enemy[] units;
+    private ArrayList<Enemy> units;
     private int gold;
 
     public static final Wave[] WAVES = new Wave[]{RegularWaves.wave1, RegularWaves.wave2, RegularWaves.wave3};
 
-    public Wave(int gold, Enemy[] units) {
+    public Wave(int gold, ArrayList<Enemy> units) {
         this.gold = gold;
         this.units = units;
     }
 
-    public Enemy[] getWaveUnits(){
+    public ArrayList<Enemy>  getWaveUnits(){
         return units;
     }
 
@@ -23,10 +23,9 @@ public abstract class Wave {
         return gold;
     }
 
-    public static boolean areEnemiesDead(GameManager gm){
-        for (GameObject enemy : gm.getObjects())
-            if (enemy instanceof Enemy)
-                return true;
+    public static boolean areEnemiesDead(Wave wave){
+        if (wave.getWaveUnits().isEmpty())
+            return true;
 
         return false;
     }

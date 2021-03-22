@@ -77,7 +77,6 @@ public abstract class Tower extends Unit {
                 moveTowardsUnit(unitToAttack);
             }
         }
-
         healthbar.update(gc, gm, dt);
     }
 

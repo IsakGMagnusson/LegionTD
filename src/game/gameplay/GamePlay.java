@@ -3,12 +3,12 @@ package game.gameplay;
 import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
-import game.GameObject;
-import game.HUD.BotHud;
 import game.HUD.TopHud;
 import game.unit.enemy.Enemy;
 import game.unit.enemy.Waves.Wave;
 import game.unit.tower.Tower;
+
+import java.util.Iterator;
 
 
 public class GamePlay{
@@ -34,8 +34,23 @@ public class GamePlay{
         TopHud.setInfo("Time: " + (int)timeLeft + " |  State: " + state + "  |  wave: " + waveCount + "  |  Gold: " + player.getGold());
         player.update(gc, gm);
 
-        if(timeLeft <= 0 && state == State.BUYTIME) startWave(gm);
-        if(state == State.BATTLE && !Wave.areEnemiesDead(gm)) endWave(gm);
+
+        if(state.equals(State.BATTLE)) duringWave(gm);
+        if(timeLeft <= 0 && state.equals(State.BUYTIME)) startWave(gm);
+
+    }
+
+    private void duringWave(GameManager gm){
+        Iterator<Enemy> waveIterator = currentWave.getWaveUnits().iterator();
+        while (waveIterator.hasNext()){
+            Enemy e = waveIterator.next();
+            if(e.isDead()){
+                player.incGold(e.getGold());
+                waveIterator.remove();
+            }
+        }
+
+        if(Wave.areEnemiesDead(currentWave)) endWave(gm);
     }
 
     private void endWave(GameManager gm){
@@ -47,17 +62,14 @@ public class GamePlay{
         gm.getObjects().removeAll(player.getOwnedTowers());
         gm.getObjects().addAll(player.getOwnedTowers());
 
-        for(Tower t : player.getOwnedTowers())
-            t.resetTower();
+        player.getOwnedTowers().forEach(Tower::resetTower);
     }
 
     private void startWave(GameManager gm){
         state = State.BATTLE;
         currentWave = Wave.WAVES[waveCount-1];
 
-        for(Enemy enemy : currentWave.getWaveUnits())
-            gm.getObjects().add(enemy);
-
+        gm.getObjects().addAll(currentWave.getWaveUnits());
     }
 
     public void render(GameContainer gc, Renderer r) {

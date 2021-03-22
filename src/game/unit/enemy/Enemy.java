@@ -18,15 +18,17 @@ public class Enemy extends Unit {
     protected float animation = 0;
     protected double nextAttack = 0;
 
+    protected int gold;
+
     public static int PLAYER_SIZE = 16;
     private Unit unitToAttack;
     private static double SPEED = 0.5;
     private Healthbar healthbar = new Healthbar(this);
 
-
-    public Enemy(double posX, double posY, double maxHealth, double damage, double range, double attackSpeed){
+    public Enemy(double posX, double posY, int gold, double maxHealth, double damage, double range, double attackSpeed){
         this.posX = posX;
         this.posY = posY;
+        this.gold = gold;
         this.width = PLAYER_SIZE;
         this.height = PLAYER_SIZE;
         this.health = maxHealth;
@@ -45,7 +47,8 @@ public class Enemy extends Unit {
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        if(health <= 0) setDead(true);
+        if(health < 0 ) setDead(true);
+
 
         nextAttack += dt;
 
@@ -119,4 +122,9 @@ public class Enemy extends Unit {
         direction = 3;
         posY += SPEED;
     }
+
+    public int getGold() {
+        return gold;
+    }
+
 }

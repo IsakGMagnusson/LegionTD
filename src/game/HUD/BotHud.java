@@ -2,6 +2,7 @@ package game.HUD;
 import game.gameplay.GamePlay;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,6 +21,7 @@ public class BotHud extends JPanel {
     public static SelectedObj selectedObj = SelectedObj.NULL;
 
     public BotHud() {
+        this.setPreferredSize(new Dimension(35, 35));
         this.add(towerInfo);
         this.add(sellTower);
 
@@ -32,7 +34,6 @@ public class BotHud extends JPanel {
     }
 
     public void update() {
-        getSell();
         towerInfo.setText(info);
         setSellingOnOff(GamePlay.getState());
         selectHUD();

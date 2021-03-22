@@ -65,10 +65,11 @@ public class Player {
     public GameObject selectUnit(GameManager gm, GameContainer gc){
         for(GameObject object : gm.getObjects()){
             if (object.isHoovered(gc)){
+                BotHud.setIsSelling(false);
                 return object;
             }
         }
-        return null;
+        return selectedObject;
     }
 
     public Tower createTier1(){
@@ -106,7 +107,4 @@ public class Player {
         return selectedObject;
     }
 
-    public void setSelectedObject(GameObject selectedObject) {
-        this.selectedObject = selectedObject;
-    }
 }

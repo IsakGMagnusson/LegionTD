@@ -69,11 +69,12 @@ public class Builder {
     }
 
     private void sellUnit(Tower soldTower){
-          player.incGold(soldTower.getCost()/2);
-          player.getOwnedTowers().remove(soldTower);
-          soldTower.setDead(true);
-          BotHud.setIsSelling(false);
-          soldTower.getSquare().setIsOccupied(false);
-          player.setSelectedObject(null);
+        if (!soldTower.isDead()){
+            player.incGold(soldTower.getCost()/2);
+            player.getOwnedTowers().remove(soldTower);
+            soldTower.setDead(true);
+            BotHud.setIsSelling(false);
+            soldTower.getSquare().setIsOccupied(false);
+        }
     }
 }
