@@ -1,7 +1,6 @@
 package game.unit.enemy.Waves;
 
 import game.unit.enemy.Enemy;
-
 import java.util.ArrayList;
 
 public abstract class Wave {
@@ -29,9 +28,4 @@ public abstract class Wave {
 
         return false;
     }
-
-
-
-
-
 }

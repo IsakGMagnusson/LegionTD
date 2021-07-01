@@ -25,13 +25,19 @@ public class BuildArea {
     }
 
     public boolean isSquareFree(GameContainer gc){
-        for(BuildSquare square : buildArea) if(square.isSquareHoovered(gc) && !square.getIsOccupied()) return true;
+        for(BuildSquare square : buildArea)
+            if(square.isSquareHoovered(gc) && !square.getIsOccupied())
+                return true;
+
         return false;
     }
 
 
     public BuildSquare getHooveredSquare(GameContainer gc){
-        for(BuildSquare square : buildArea) if(square.isSquareHoovered(gc)) return square;
+        for(BuildSquare square : buildArea)
+            if(square.isSquareHoovered(gc))
+                return square;
+
         return null;
     }
 }
