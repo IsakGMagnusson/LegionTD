@@ -20,7 +20,7 @@ public class GamePlay{
     private static State state = State.BUYTIME;
 
     private Player player;
-    private double buildTime = 15;
+    private double buildTime = 5;
     private int waveCount = 1;
     private double timeLeft = buildTime;
     private Wave currentWave;
@@ -34,8 +34,10 @@ public class GamePlay{
         TopHud.setInfo("Time: " + (int)timeLeft + " |  State: " + state + "  |  wave: " + waveCount + "  |  Gold: " + player.getGold());
         player.update(gc, gm);
 
+
         if(state.equals(State.BATTLE)) duringWave(gm);
         if(timeLeft <= 0 && state.equals(State.BUYTIME)) startWave(gm);
+
     }
 
     private void duringWave(GameManager gm){
@@ -47,6 +49,7 @@ public class GamePlay{
                 waveIterator.remove();
             }
         }
+
         if(Wave.areEnemiesDead(currentWave)) endWave(gm);
     }
 
