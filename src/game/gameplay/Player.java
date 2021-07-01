@@ -9,7 +9,6 @@ import game.HUD.BotHud;
 import game.gameplay.builder.Builder;
 import game.unit.enemy.Enemy;
 import game.unit.tower.Tower;
-import game.unit.tower.TowerFactory;
 
 import java.util.ArrayList;
 
@@ -18,17 +17,15 @@ public class Player {
     private Builder builder;
     private GameObject selectedObject;
 
-    private TowerFactory towerFactory = new TowerFactory();
     private int randT1 = 0;
     private int randT2 = 0;
 
     private int gold;
-    private Tower[] availableTowers = new Tower[]{createTier1(), createTier2()};
     private ArrayList<Tower> ownedTowers = new ArrayList();
 
     public Player(GamePlay gamePlay){
         this.gold = 100;
-        builder = new Builder(this, gamePlay);
+        builder = new Builder(this, gamePlay, randT1, randT2);
     }
 
     public void update(GameContainer gc, GameManager gm) {
@@ -57,7 +54,7 @@ public class Player {
     public void render(GameContainer gc, Renderer r) {
         builder.render(gc, r);
 
-        if(selectedObject != null)
+        if(selectedObject != null && !selectedObject.isDead())
             r.drawRect((int)Math.floor(selectedObject.getPosX()), (int)Math.floor(selectedObject.getPosY()), Tower.PLAYER_SIZE, Tower.PLAYER_SIZE, 0xff00FA9A);
     }
 
@@ -70,17 +67,6 @@ public class Player {
             }
         }
         return selectedObject;
-    }
-
-    public Tower createTier1(){
-        return towerFactory.getTier1(randT1);
-    }
-    public Tower createTier2(){
-        return towerFactory.getTier2(randT2);
-    }
-
-    public Tower[] getTowers(){
-        return availableTowers;
     }
 
     public int getGold() {

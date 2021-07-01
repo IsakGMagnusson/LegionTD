@@ -47,8 +47,7 @@ public class Enemy extends Unit {
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        if(health < 0 ) setDead(true);
-
+        if(health <= 0 ) setDead(true);
 
         nextAttack += dt;
 
