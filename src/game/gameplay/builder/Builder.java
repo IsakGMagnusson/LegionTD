@@ -27,11 +27,13 @@ public class Builder {
     }
 
     public void update(GameContainer gc, GameManager gm) {
-        if(isBuild(gc)){
+        if(allowBuild(gc)){
             if (buildArea.isSquareFree(gc)){
                 buildTower(gc, gm);
-            } else if(!buildArea.isSquareFree(gc)){
+            } else if(!buildArea.isSquareFree(gc) && getHooveredTower(gc) != null){
                 getHooveredTower(gc);
+            } else{
+                System.out.println("can't build here!");
             }
         }
 
@@ -65,7 +67,7 @@ public class Builder {
     }
 
 
-    private boolean isBuild(GameContainer gc){
+    private boolean allowBuild(GameContainer gc){
         return gc.getInput().isButtonDown(1) && RightHud.buying > -1 && gamePlay.isBuyState() ? true : false;
     }
 
@@ -80,7 +82,8 @@ public class Builder {
     }
 
     private void buildTower(GameContainer gc, GameManager gm){
-        Tower t = createTower(buildArea.getHooveredSquare(gc).getPosX(), buildArea.getHooveredSquare(gc).getPosY(), buildArea.getHooveredSquare(gc));
+        BuildSquare buildSquare = buildArea.getHooveredSquare(gc);
+        Tower t = createTower(buildSquare.getPosX(), buildSquare.getPosY(), buildSquare);
         if(t.getCost() <= player.getGold()){
             gm.addObject(t);
             player.addOwnedTower(t);
