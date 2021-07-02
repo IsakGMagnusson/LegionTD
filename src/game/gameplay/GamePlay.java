@@ -4,6 +4,7 @@ import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
 import game.display.HUD.TopHud;
+import game.display.popup.Toast;
 import game.unit.enemy.Enemy;
 import game.unit.enemy.Waves.Wave;
 import game.unit.tower.Tower;
@@ -44,7 +45,6 @@ public class GamePlay{
             Enemy e = waveIterator.next();
             if(e.isDead()){
                 player.incGold(e.getGold());
-                System.out.println("gold from enemy: " +e.getGold());
                 waveIterator.remove();
             }
         }
@@ -55,6 +55,8 @@ public class GamePlay{
         state = State.BUYTIME;
         timeLeft = buildTime;
         player.incGold(currentWave.getGold());
+        Toast toast = new Toast("gold from wave: " + currentWave.getGold(), true);
+        gm.addObject(toast);
         waveCount++;
 
         gm.getObjects().removeAll(player.getOwnedTowers());

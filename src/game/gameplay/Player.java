@@ -56,7 +56,6 @@ public class Player {
             r.drawRect((int)Math.floor(selectedObject.getPosX())-1, (int)Math.floor(selectedObject.getPosY())-1, Tower.PLAYER_SIZE+1, Tower.PLAYER_SIZE+1, 0xFFbdc219);
     }
 
-
     public GameObject selectUnit(GameManager gm, GameContainer gc){
         for(GameObject object : gm.getObjects()){
             if (object.isHoovered(gc)){

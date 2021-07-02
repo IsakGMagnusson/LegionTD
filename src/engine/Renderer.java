@@ -14,7 +14,6 @@ public class Renderer {
     private Font font = Font.font;
 
     public Renderer(GameContainer gc) {
-
         pW = gc.getWidth();
         pH = gc.getHeight();
         p = ((DataBufferInt) gc.getWindow().getImage().getRaster().getDataBuffer()).getData();
@@ -35,7 +34,6 @@ public class Renderer {
     }
 
     public void drawText(String text, int offX, int offY, int color){
-
         text = text.toUpperCase();
         int offset = 0;
 
@@ -49,13 +47,11 @@ public class Renderer {
                     }
                 }
             }
-
             offset += font.getWidths()[unicdoe];
         }
     }
 
     public void drawImage(Image image, int offX, int offY) {
-
         //dont render
         if (offX < -image.getW()) return;
         if (offY < -image.getH()) return;
@@ -79,7 +75,6 @@ public class Renderer {
     }
 
     public void drawImageTile(ImageTile image, int offX, int offY, int tileX, int tileY) {
-
         //dont render
         if (offX < -image.getTileW()) return;
         if (offY < -image.getTileH()) return;
@@ -115,9 +110,7 @@ public class Renderer {
         }
     }
 
-    //todo BUG making 0 = 1 and 1 = etc. So smallest rect is 0.
     public void drawFillRect(int offX, int offY, int width, int height, int color) {
-
         //dont render
         if (offX < -width) return;
         if (offY < -height) return;
@@ -141,7 +134,6 @@ public class Renderer {
                 setPixel(x + offX,y + offY, color);
             }
         }
-
     }
 
 }

@@ -1,4 +1,4 @@
-package game.display;
+package game.display.popup;
 
 import engine.GameContainer;
 import engine.Renderer;

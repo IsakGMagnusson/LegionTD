@@ -5,7 +5,7 @@ import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
 import game.GameObject;
-import game.display.GoldPop;
+import game.display.popup.GoldPop;
 import game.unit.Healthbar;
 import game.unit.Projectile;
 import game.unit.Unit;

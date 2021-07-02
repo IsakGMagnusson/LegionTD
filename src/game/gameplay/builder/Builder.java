@@ -4,9 +4,10 @@ import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
-import game.display.GoldPop;
+import game.display.popup.GoldPop;
 import game.display.HUD.BotHud;
 import game.display.HUD.RightHud;
+import game.display.popup.Toast;
 import game.gameplay.GamePlay;
 import game.gameplay.Player;
 import game.unit.tower.Tower;
@@ -34,7 +35,8 @@ public class Builder {
             } else if(getHooveredTower(gc) != null){
                 getHooveredTower(gc);
             } else{
-                System.out.println("can't build here!");
+                Toast toast = new Toast("bad terrain", false);
+                gm.addObject(toast);
             }
         }
 
@@ -89,7 +91,8 @@ public class Builder {
             player.decGold(t.getCost());
             buildArea.getHooveredSquare(gc).setIsOccupied(true);
         } else{
-            System.out.println("no money");
+            Toast toast = new Toast("insufficient funds", false);
+            gm.addObject(toast);
         }
     }
 
