@@ -1,4 +1,4 @@
-package game.HUD;
+package game.display.HUD;
 import game.gameplay.GamePlay;
 
 import javax.swing.*;

@@ -4,8 +4,9 @@ import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
-import game.HUD.BotHud;
-import game.HUD.RightHud;
+import game.display.GoldPop;
+import game.display.HUD.BotHud;
+import game.display.HUD.RightHud;
 import game.gameplay.GamePlay;
 import game.gameplay.Player;
 import game.unit.tower.Tower;
@@ -30,7 +31,7 @@ public class Builder {
         if(allowBuild(gc)){
             if (buildArea.isSquareFree(gc)){
                 buildTower(gc, gm);
-            } else if(!buildArea.isSquareFree(gc) && getHooveredTower(gc) != null){
+            } else if(getHooveredTower(gc) != null){
                 getHooveredTower(gc);
             } else{
                 System.out.println("can't build here!");
@@ -42,7 +43,7 @@ public class Builder {
         }
 
         if (BotHud.getSell()){
-            sellUnit((Tower) player.getSelectedObject());
+            sellUnit((Tower) player.getSelectedObject(), gm);
         }
     }
 
@@ -53,6 +54,10 @@ public class Builder {
             r.drawImageTile(getTierImg(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0);
         }
 
+    }
+
+    private boolean allowBuild(GameContainer gc){
+        return gc.getInput().isButtonDown(1) && RightHud.buying > -1 && gamePlay.isBuyState() ? true : false;
     }
 
     private ImageTile getTierImg(int tier){
@@ -66,18 +71,12 @@ public class Builder {
         }
     }
 
-
-    private boolean allowBuild(GameContainer gc){
-        return gc.getInput().isButtonDown(1) && RightHud.buying > -1 && gamePlay.isBuyState() ? true : false;
-    }
-
     public Tower getHooveredTower(GameContainer gc){
         for(Tower t : player.getOwnedTowers()) {
             if (t.getSquare().equals(buildArea.getHooveredSquare(gc))) {
                 return t;
             }
         }
-
         return null;
     }
 
@@ -92,7 +91,6 @@ public class Builder {
         } else{
             System.out.println("no money");
         }
-
     }
 
     private Tower createTower(int x, int y, BuildSquare square) {
@@ -110,13 +108,16 @@ public class Builder {
         RightHud.buying = -1;
     }
 
-    private void sellUnit(Tower soldTower){
+    private void sellUnit(Tower soldTower, GameManager gm){
         if (!soldTower.isDead()){
             player.incGold(soldTower.getCost()/2);
             player.getOwnedTowers().remove(soldTower);
             soldTower.setDead(true);
             BotHud.setIsSelling(false);
             soldTower.getSquare().setIsOccupied(false);
+
+            GoldPop goldPop = new GoldPop(soldTower.getSquare().getPosX(), soldTower.getSquare().getPosY(), soldTower.getCost()/2);
+            gm.addObject(goldPop);
         }
     }
 }

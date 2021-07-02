@@ -5,6 +5,7 @@ import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
 import game.GameObject;
+import game.display.GoldPop;
 import game.unit.Healthbar;
 import game.unit.Projectile;
 import game.unit.Unit;
@@ -47,8 +48,11 @@ public class Enemy extends Unit {
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        if(health < 0 ) setDead(true);
-
+        if(health <= 0){
+            GoldPop goldPop = new GoldPop( (int)Math.floor(posX), (int)Math.floor(posY), gold);
+            gm.addObject(goldPop);
+            setDead(true);
+        }
 
         nextAttack += dt;
 

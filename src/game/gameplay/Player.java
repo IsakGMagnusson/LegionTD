@@ -5,7 +5,7 @@ import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
 import game.GameObject;
-import game.HUD.BotHud;
+import game.display.HUD.BotHud;
 import game.gameplay.builder.Builder;
 import game.unit.enemy.Enemy;
 import game.unit.tower.Tower;
@@ -34,7 +34,6 @@ public class Player {
         if(gc.getInput().isButtonDown(1))
             selectedObject = selectUnit(gm, gc);
 
-
         //TODO: make this change HUD entirely
         if(selectedObject == null){
             BotHud.setInfo("");
@@ -48,14 +47,13 @@ public class Player {
             BotHud.setInfo("Type: " + "Enemy | " +"hp: " + (int)((Enemy) selectedObject).getHealth() + " | Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
             BotHud.selectedObj = BotHud.SelectedObj.ENEMY;
         }
-
     }
 
     public void render(GameContainer gc, Renderer r) {
         builder.render(gc, r);
 
         if(selectedObject != null && !selectedObject.isDead())
-            r.drawRect((int)Math.floor(selectedObject.getPosX()), (int)Math.floor(selectedObject.getPosY()), Tower.PLAYER_SIZE, Tower.PLAYER_SIZE, 0xff00FA9A);
+            r.drawRect((int)Math.floor(selectedObject.getPosX())-1, (int)Math.floor(selectedObject.getPosY())-1, Tower.PLAYER_SIZE+1, Tower.PLAYER_SIZE+1, 0xFFbdc219);
     }
 
 

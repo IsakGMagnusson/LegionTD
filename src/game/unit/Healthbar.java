@@ -11,9 +11,10 @@ public class Healthbar extends GameObject {
 
     private int hpColor;
     private final int LOWHP_COLOR      = 0xFFFF0000;
-    private final int REGULARHP_COLOR  = 0xff33ff33;
+    private final int REGULARHP_COLOR  = 0xff229013;
     private final int BACKGROUND_COLOR = 0xff000000;
 
+    int heigth = 2;
 
     public Healthbar(Unit barOwner){
         this.barOwner = barOwner;
@@ -26,7 +27,7 @@ public class Healthbar extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawFillRect((int)Math.floor(barOwner.getPosX()-1), (int)Math.floor(barOwner.getPosY()-4), barOwner.getWidth(), 2, BACKGROUND_COLOR);
-        r.drawFillRect((int)Math.floor(barOwner.getPosX()-1), (int)Math.floor(barOwner.getPosY()-4), (int) hpBar, 2, hpColor);
+        r.drawFillRect((int)Math.floor(barOwner.getPosX()-1), (int)Math.floor(barOwner.getPosY()-4), barOwner.getWidth(), heigth, BACKGROUND_COLOR);
+        r.drawFillRect((int)Math.floor(barOwner.getPosX()-1), (int)Math.floor(barOwner.getPosY()-4), (int)hpBar, heigth, hpColor);
     }
 }

@@ -1,8 +1,8 @@
 package engine;
 
-import game.HUD.BotHud;
-import game.HUD.RightHud;
-import game.HUD.TopHud;
+import game.display.HUD.BotHud;
+import game.display.HUD.RightHud;
+import game.display.HUD.TopHud;
 
 import javax.swing.*;
 import java.awt.*;

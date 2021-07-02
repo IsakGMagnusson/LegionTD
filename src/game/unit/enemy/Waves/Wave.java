@@ -14,7 +14,7 @@ public abstract class Wave {
         this.units = units;
     }
 
-    public ArrayList<Enemy>  getWaveUnits(){
+    public ArrayList<Enemy> getWaveUnits(){
         return units;
     }
 
@@ -23,9 +23,6 @@ public abstract class Wave {
     }
 
     public static boolean areEnemiesDead(Wave wave){
-        if (wave.getWaveUnits().isEmpty())
-            return true;
-
-        return false;
+        return wave.getWaveUnits().isEmpty() ? true : false;
     }
 }

@@ -3,7 +3,7 @@ package game.gameplay;
 import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
-import game.HUD.TopHud;
+import game.display.HUD.TopHud;
 import game.unit.enemy.Enemy;
 import game.unit.enemy.Waves.Wave;
 import game.unit.tower.Tower;
@@ -20,7 +20,7 @@ public class GamePlay{
     private static State state = State.BUYTIME;
 
     private Player player;
-    private double buildTime = 15;
+    private double buildTime = 8;
     private int waveCount = 1;
     private double timeLeft = buildTime;
     private Wave currentWave;
@@ -44,6 +44,7 @@ public class GamePlay{
             Enemy e = waveIterator.next();
             if(e.isDead()){
                 player.incGold(e.getGold());
+                System.out.println("gold from enemy: " +e.getGold());
                 waveIterator.remove();
             }
         }

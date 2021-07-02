@@ -29,9 +29,7 @@ public class Projectile extends GameObject {
            setDead(true);
         }
 
-        if(target.isDead())
-            setDead(true);
-
+        if(target.isDead()) setDead(true);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package engine;
 
+import engine.gfx.Font;
 import engine.gfx.Image;
 import engine.gfx.ImageTile;
 
@@ -9,6 +10,8 @@ public class Renderer {
 
     private int pW, pH;
     private int[] p;
+
+    private Font font = Font.font;
 
     public Renderer(GameContainer gc) {
 
@@ -29,6 +32,26 @@ public class Renderer {
         }
 
         p[x + y * pW] = value;
+    }
+
+    public void drawText(String text, int offX, int offY, int color){
+
+        text = text.toUpperCase();
+        int offset = 0;
+
+        for(int i = 0; i < text.length(); i++){
+            int unicdoe = text.codePointAt(i)-32;
+
+            for(int y = 0; y < font.getFontImage().getH(); y++){
+                for(int x = 0; x < font.getWidths()[unicdoe]; x++){
+                    if(font.getFontImage().getP()[(x + font.getOffsets()[unicdoe]) + y * font.getFontImage().getW()] == 0xffffffff){
+                        setPixel(x + offX + offset, y + offY, color);
+                    }
+                }
+            }
+
+            offset += font.getWidths()[unicdoe];
+        }
     }
 
     public void drawImage(Image image, int offX, int offY) {
@@ -81,8 +104,6 @@ public class Renderer {
     }
 
     public void drawRect(int offX, int offY, int width, int height, int color) {
-
-
         for (int y = 0; y <= height; y++) {
             setPixel(offX, y + offY, color);
             setPixel(offX + width, y + offY, color);
