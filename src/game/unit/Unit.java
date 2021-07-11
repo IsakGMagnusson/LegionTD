@@ -3,7 +3,7 @@ package game.unit;
 import game.GameObject;
 
 public abstract class Unit extends GameObject {
-    protected int view = 80;
+    protected int view = 80*2;
     protected int friendView = view*2;
 
     protected double health, maxHealth, percentHealth;

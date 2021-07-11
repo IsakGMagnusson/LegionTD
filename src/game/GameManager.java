@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 public class GameManager extends AbstractGame {
 
+    public static final int SCREEN_WIDTH =1420;
+    public static final int SCREEN_HEIGHT =880;
+
+
     private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
     GamePlay gamePlay = new GamePlay();
@@ -56,9 +60,11 @@ public class GameManager extends AbstractGame {
 
     public static void main(String args[]){
         GameContainer gc = new GameContainer(new GameManager());
-        gc.setWidth(1920/4);
-        gc.setHeight(1080/4);
-        gc.setScale(3f);
+        gc.setWidth(SCREEN_WIDTH);
+        gc.setHeight(SCREEN_HEIGHT);
+       // gc.setWidth(1920/4);
+      //  gc.setHeight(1080/4);
+        //gc.setScale(3f);
         gc.start();
     }
 }

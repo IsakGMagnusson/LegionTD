@@ -26,7 +26,7 @@ public class Renderer {
     }
 
     public void setPixel(int x, int y, int value) {
-        if (x < 0 || x >= pW || y < 0 || y >= pH || ((value >> 24) & 0xff) == 0) {
+        if (x < 0 || x >= pW || y < 0 || y >= pH) {
             return;
         }
 
@@ -36,18 +36,26 @@ public class Renderer {
     public void drawText(String text, int offX, int offY, int color){
         text = text.toUpperCase();
         int offset = 0;
+        int scale = 5;
 
-        for(int i = 0; i < text.length(); i++){
-            int unicdoe = text.codePointAt(i)-32;
+        for(int n = 0; n < text.length(); n++){
+            int unicdoe = text.codePointAt(n)-32;
 
             for(int y = 0; y < font.getFontImage().getH(); y++){
                 for(int x = 0; x < font.getWidths()[unicdoe]; x++){
-                    if(font.getFontImage().getP()[(x + font.getOffsets()[unicdoe]) + y * font.getFontImage().getW()] == 0xffffffff){
-                        setPixel(x + offX + offset, y + offY, color);
+
+                    for(int i = 0; i < scale; i++){
+                        for(int j = 0; j < scale; j++) {
+                            if(font.getFontImage().getP()[(x + font.getOffsets()[unicdoe]) + y * font.getFontImage().getW()] == 0xffffffff) {
+                                setPixel((offX + offset + i + x*scale), (offY + j + y*scale), color);
+                            }
+                        }
                     }
+
+
                 }
             }
-            offset += font.getWidths()[unicdoe];
+            offset += font.getWidths()[unicdoe]*scale;
         }
     }
 
@@ -74,7 +82,8 @@ public class Renderer {
                 setPixel(x + offX, y + offY, image.getP()[x + y * image.getW()]);
     }
 
-    public void drawImageTile(ImageTile image, int offX, int offY, int tileX, int tileY) {
+    //no scaling or rotation
+    /*public void drawImageTile(ImageTile image, int offX, int offY, int tileX, int tileY) {
         //dont render
         if (offX < -image.getTileW()) return;
         if (offY < -image.getTileH()) return;
@@ -96,6 +105,48 @@ public class Renderer {
             for (int x = newX; x < newWidth; x++)
                 setPixel(x + offX, y + offY, image.getP()[(x + tileX * image.getTileW()) + (y + tileY * image.getTileH()) * image.getW()]);
 
+    }*/
+
+    public void drawImageTile(ImageTile image, int offX, int offY, int tileX, int tileY, int scale, double rotation){
+        double angle2 = Math.toRadians(rotation);
+        rotation = angle2;
+        int w = image.getTileW();
+        int h  = image.getTileH();
+        int size =  (int) (Math.sqrt(w * w + h * h));
+        int xCenter = w / 2;
+        int yCenter = h / 2;
+        final int halfSize = size / 2;
+
+        for(int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                int samplePointX = x - halfSize;
+                int samplePointY = y - halfSize;
+                int xData, yData;
+                xData = (int) (samplePointX * -Math.cos(rotation) + samplePointY * Math.sin(rotation));
+                yData = (int) (samplePointX * -Math.sin(rotation) - samplePointY * Math.cos(rotation));
+                xData += xCenter;
+                yData += yCenter;
+
+
+                if (!(xData >= 0 && xData < w)) {
+                    continue;
+                }
+                if (!(yData >= 0 && yData < h)) {
+                    continue;
+                }
+                if ((x) + (y) * size > size * size) {
+                    continue;
+                }
+
+                for(int i = 0; i < scale; i++){
+                    for(int j = 0; j < scale; j++) {
+                        setPixel((offX + i + x*scale), (offY + j + y*scale), image.getP()[(xData + tileX * image.getTileW()) + (yData + tileY * image.getTileH()) * image.getW()]);
+                    }
+                }
+
+            }
+
+        }
     }
 
     public void drawRect(int offX, int offY, int width, int height, int color) {
@@ -136,4 +187,7 @@ public class Renderer {
         }
     }
 
-}
+
+
+
+    }

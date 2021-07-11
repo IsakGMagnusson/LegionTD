@@ -42,7 +42,7 @@ public class Enemy extends Unit {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawImageTile(twrImg, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, direction);
+        r.drawImageTile(twrImg, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, direction, 2, 180);
         healthbar.render(gc, r);
     }
 
@@ -63,7 +63,7 @@ public class Enemy extends Unit {
             if(getDistTo(unitToAttack) <= range){
                 if(attackSpeed <= nextAttack){
                     attack(unitToAttack);
-                    gm.getObjects().add(new Projectile(unitToAttack, posX+(width/2), posY, 1, 1, 0xffFF0000));
+                    gm.getObjects().add(new Projectile(unitToAttack, posX+(width/2), posY, 3, 3, 0xffFF0000));
                 }
             }
         }else{

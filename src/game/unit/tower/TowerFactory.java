@@ -1,6 +1,7 @@
 package game.unit.tower;
 
 import game.gameplay.builder.BuildSquare;
+import game.unit.tower.TierOne.TowerTier1;
 
 public class TowerFactory {
 

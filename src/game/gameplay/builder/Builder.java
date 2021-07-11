@@ -53,7 +53,7 @@ public class Builder {
         buildArea.render(gc, r);
 
         if(RightHud.buying > -1){
-            r.drawImageTile(getTierImg(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0);
+            r.drawImageTile(getTierImg(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 2, 180);
         }
 
     }

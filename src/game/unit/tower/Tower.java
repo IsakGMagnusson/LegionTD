@@ -15,7 +15,7 @@ public abstract class Tower extends Unit {
 
     protected ImageTile imgTile;
 
-    protected int direction = 0;
+    protected int animationType = 0;
     protected float animation = 0;
     protected double nextAttack = 0;
 
@@ -45,6 +45,8 @@ public abstract class Tower extends Unit {
         this.cost = cost;
     }
 
+    int d = 180;
+
 
     public ImageTile getImg() {
         return imgTile;
@@ -52,13 +54,19 @@ public abstract class Tower extends Unit {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-       r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, direction);
 
+
+        r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), 0, animationType,2, d);
         healthbar.render(gc, r);
     }
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
+        if(gc.getInput().isButtonDown(1)){
+            d +=5;
+        }
+
+
         if(health <= 0) setDead(true);
 
         nextAttack += dt;
@@ -71,7 +79,7 @@ public abstract class Tower extends Unit {
             if(getDistTo(unitToAttack) <= range){
                 if(attackSpeed <= nextAttack){
                     attack(unitToAttack);
-                    gm.getObjects().add(new Projectile(unitToAttack, posX+(width/2), posY, 1, 1, 0xff00FFFF));
+                    gm.getObjects().add(new Projectile(unitToAttack, posX+(width/2), posY, 5, 5, 0xff00FFFF));
                 }
             }  else{
                 moveTowardsUnit(unitToAttack);
@@ -112,21 +120,23 @@ public abstract class Tower extends Unit {
 
     private void moveTowardsUnit(GameObject objMoveTo){
         if(objMoveTo.getPosX() > posX){
-            direction = 0;
             posX += SPEED;
         }
         if(objMoveTo.getPosX() < posX){
-            direction = 1;
             posX -= SPEED;
         }
         if(objMoveTo.getPosY() < posY){
-            direction = 2;
             posY -= SPEED;
         }
         if(objMoveTo.getPosY() > posY){
-            direction = 3;
             posY += SPEED;
         }
+    }
+
+    private void rotateTower(GameObject rotateTo){
+
+
+
     }
 
     public void resetTower(){

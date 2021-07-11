@@ -7,14 +7,13 @@ import game.GameObject;
 
 public class Toast extends GameObject {
 
+    int boxHeight = 20*4;
     int uptime = 2*60;
     String text;
     boolean isGood;
     int goodColor = 0xff19ff26;
     int badColor  = 0xffff160b;
     int color;
-    int posX = 200;
-    int posY = (1080/4)-25;
 
     public Toast(String text, boolean isGood){
         this.text = text;
@@ -30,7 +29,11 @@ public class Toast extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawFillRect(posX, posY,text.length()*5, 20, color);
-        r.drawText(text, posX+5, posY+7, 0xffffffff);
+        int posX = GameManager.SCREEN_WIDTH/2-(text.length()*5*5)/2;
+        int posY = GameManager.SCREEN_HEIGHT-boxHeight-5;
+
+        //magic number (*5) is text scale in drawText in renderer
+        r.drawFillRect(posX, posY,text.length()*5*5, boxHeight, color);
+        r.drawText(text, posX+(text.length())/2, posY+20, 0xffffffff);
     }
 }

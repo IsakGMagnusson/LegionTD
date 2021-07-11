@@ -4,7 +4,7 @@ import engine.GameContainer;
 import engine.Renderer;
 
 public class BuildSquare {
-    public static final int SQUARE_WIDTH = 15;
+    public static final int SQUARE_WIDTH = 15*3;
 
     private int posX, posY;
     private boolean isOccupied;
