@@ -52,8 +52,8 @@ public class Player {
     public void render(GameContainer gc, Renderer r) {
         builder.render(gc, r);
 
-       // if(selectedObject != null && !selectedObject.isDead())
-         //   r.drawRect((int)Math.floor(selectedObject.getPosX())-1, (int)Math.floor(selectedObject.getPosY())-1, Tower.PLAYER_SIZE+1, Tower.PLAYER_SIZE+1, 0xFFbdc219);
+        if(selectedObject != null && !selectedObject.isDead())
+            r.drawRect((int)Math.floor(selectedObject.getPosX())-1, (int)Math.floor(selectedObject.getPosY())-1, Tower.PLAYER_SIZE*2+1, Tower.PLAYER_SIZE*2+1, 0xFFbdc219);
     }
 
     public GameObject selectUnit(GameManager gm, GameContainer gc){

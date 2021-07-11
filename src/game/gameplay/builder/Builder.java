@@ -29,14 +29,19 @@ public class Builder {
     }
 
     public void update(GameContainer gc, GameManager gm) {
-        if(allowBuild(gc)){
-            if (buildArea.isSquareFree(gc)){
-                buildTower(gc, gm);
-            } else if(getHooveredTower(gc) != null){
-                getHooveredTower(gc);
-            } else{
-                Toast toast = new Toast("bad terrain", false);
+        if(isTryingToBuild(gc)){
+            if(!gamePlay.isBuyState()){
+                Toast toast = new Toast("not buystate", false);
                 gm.addObject(toast);
+            } else if(gamePlay.isBuyState()){
+                if (buildArea.isSquareFree(gc)){
+                    buildTower(gc, gm);
+                } else if(getHooveredTower(gc) != null){
+                    getHooveredTower(gc);
+                }
+                else{ Toast toast = new Toast("bad terrain", false);
+                    gm.addObject(toast);
+                }
             }
         }
 
@@ -58,8 +63,8 @@ public class Builder {
 
     }
 
-    private boolean allowBuild(GameContainer gc){
-        return gc.getInput().isButtonDown(1) && RightHud.buying > -1 && gamePlay.isBuyState() ? true : false;
+    private boolean isTryingToBuild(GameContainer gc){
+        return gc.getInput().isButtonDown(1) && RightHud.buying > -1;
     }
 
     private ImageTile getTierImg(int tier){
