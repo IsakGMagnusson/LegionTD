@@ -53,7 +53,9 @@ public class Player {
         builder.render(gc, r);
 
         if(selectedObject != null && !selectedObject.isDead())
-            r.drawRect((int)Math.floor(selectedObject.getPosX())-1, (int)Math.floor(selectedObject.getPosY())-1, Tower.PLAYER_SIZE*2+1, Tower.PLAYER_SIZE*2+1, 0xFFbdc219);
+            r.drawCircle((int)Math.floor(selectedObject.getPosX()+Tower.PLAYER_SIZE*2-8),
+                    (int)Math.floor(selectedObject.getPosY())+Tower.PLAYER_SIZE*2-8, Tower.PLAYER_SIZE*2, 0xFF49ffa0);
+           // r.drawRect((int)Math.floor(selectedObject.getPosX())-1, (int)Math.floor(selectedObject.getPosY())-1, Tower.PLAYER_SIZE*2+1, Tower.PLAYER_SIZE*2+1, 0xFF004203);
     }
 
     public GameObject selectUnit(GameManager gm, GameContainer gc){

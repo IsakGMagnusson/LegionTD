@@ -150,14 +150,29 @@ public class Renderer {
     }
 
     public void drawRect(int offX, int offY, int width, int height, int color) {
+
         for (int y = 0; y <= height; y++) {
             setPixel(offX, y + offY, color);
             setPixel(offX + width, y + offY, color);
         }
-
         for (int x = 0; x <= width; x++) {
             setPixel(x + offX, offY, color);
             setPixel(x + offX, offY + height, color);
+        }
+    }
+
+     public void drawCircle(int x, int y, int r, int color) {
+        double PI = 3.1415926535;
+        double i, angle, x1, y1;
+
+        for (i = 0; i < 360; i += 1) {
+            angle = i;
+            x1 = r * Math.cos(angle * PI / 180);
+            y1 = r * Math.sin(angle * PI / 180);
+
+            int ElX = (int) (x + x1);
+            int ElY = (int) (y + y1);
+            setPixel(ElX, ElY, color);
         }
     }
 
@@ -186,8 +201,4 @@ public class Renderer {
             }
         }
     }
-
-
-
-
-    }
+}
