@@ -8,7 +8,7 @@ import game.GameObject;
 public class Projectile extends GameObject {
 
     private int color;
-    private final int SPEED = 1;
+    private final double SPEED = 0.9;
     private Unit target;
 
     public Projectile(Unit target, double posX, double posY, int width, int height, int color){
@@ -22,7 +22,7 @@ public class Projectile extends GameObject {
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        moveTowardsUnit(target);
+        moveTowardsUnit(target, SPEED);
 
         if(posX >= target.getPosX() && target.getPosX() + target.getWidth() >= posX &&
                 posY >= target.getPosY() && target.getPosY() + target.getHeight() >= posY){
@@ -37,18 +37,5 @@ public class Projectile extends GameObject {
         r.drawFillRect((int) posX, (int) posY, width, height, color);
     }
 
-    private void moveTowardsUnit(GameObject objMoveTo){
-        if(objMoveTo.getPosX() > posX){
-            posX += SPEED;
-        }
-        if(objMoveTo.getPosX() < posX){
-            posX -= SPEED;
-        }
-        if(objMoveTo.getPosY() < posY){
-            posY -= SPEED;
-        }
-        if(objMoveTo.getPosY() > posY){
-            posY += SPEED;
-        }
-    }
+
 }

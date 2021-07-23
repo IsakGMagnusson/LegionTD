@@ -8,6 +8,7 @@ public abstract class GameObject {
     protected double posX, posY;
     protected int width, height;
     protected boolean dead = false;
+    protected int rotation = 0;
 
     public abstract void update(GameContainer gc, GameManager gm, float dt);
     public abstract void render(GameContainer gc, Renderer r);
@@ -60,6 +61,20 @@ public abstract class GameObject {
         } else{
             return false;
         }
+    }
+
+    protected void moveTowardsUnit(GameObject objMoveTo, double speed){
+        double distance =  Math.sqrt((objMoveTo.getPosX() - posX)*(objMoveTo.getPosX() - posX) + (objMoveTo.getPosY() - posY)*(objMoveTo.getPosY() - posY)); //calculates the distance between the two points
+        double speedX = (objMoveTo.getPosX() - posX) /distance;
+        double speedY = (objMoveTo.getPosY() - posY) /distance;
+
+        posX += speed*speedX;
+        posY += speed*speedY;
+
+    }
+
+    public int getRotation() {
+        return rotation;
     }
 
 }

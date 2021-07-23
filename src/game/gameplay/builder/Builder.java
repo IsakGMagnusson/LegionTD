@@ -60,7 +60,6 @@ public class Builder {
         if(RightHud.buying > -1){
             r.drawImageTile(getTierImg(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 2, 180);
         }
-
     }
 
     private boolean isTryingToBuild(GameContainer gc){

@@ -45,27 +45,21 @@ public abstract class Tower extends Unit {
         this.cost = cost;
     }
 
-    int d = 180;
-
-
     public ImageTile getImg() {
         return imgTile;
     }
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-
-
-        r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), 0, animationType,2, d);
+        r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, animationType,2, rotation);
         healthbar.render(gc, r);
     }
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
         if(gc.getInput().isButtonDown(1)){
-            d +=5;
+            rotation +=5;
         }
-
 
         if(health <= 0) setDead(true);
 
@@ -73,7 +67,6 @@ public abstract class Tower extends Unit {
         animation += dt*5;
 
         if(animation > 4) animation = 0;
-
 
         if(detectUnit(gm)){
             if(getDistTo(unitToAttack) <= range){
@@ -119,24 +112,23 @@ public abstract class Tower extends Unit {
     }
 
     private void moveTowardsUnit(GameObject objMoveTo){
-        if(objMoveTo.getPosX() > posX){
-            posX += SPEED;
-        }
-        if(objMoveTo.getPosX() < posX){
-            posX -= SPEED;
-        }
-        if(objMoveTo.getPosY() < posY){
-            posY -= SPEED;
-        }
-        if(objMoveTo.getPosY() > posY){
-            posY += SPEED;
+
+        if(rotateTower(45)){
+            moveTowardsUnit(objMoveTo, 0.9);
         }
     }
 
-    private void rotateTower(GameObject rotateTo){
+    //todo fix rotation
+    private boolean rotateTower(double angle){
+        if(rotation == (int)angle){
+            return true;
+        } else if(rotation > angle){
+                rotation--;
+        } else if(rotation < angle){
+                rotation++;
+        }
 
-
-
+        return false;
     }
 
     public void resetTower(){
@@ -159,5 +151,6 @@ public abstract class Tower extends Unit {
     public int getCost() {
         return cost;
     }
+
 
 }
