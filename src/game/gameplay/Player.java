@@ -20,6 +20,8 @@ public class Player {
     private int randT1 = 0;
     private int randT2 = 0;
 
+    private final int unitSelectColor = 0xFF49ffa0;
+
     private int gold;
     private ArrayList<Tower> ownedTowers = new ArrayList();
 
@@ -53,9 +55,8 @@ public class Player {
         builder.render(gc, r);
 
         if(selectedObject != null && !selectedObject.isDead())
-            r.drawCircle((int)Math.floor(selectedObject.getPosX()+Tower.PLAYER_SIZE*2-8),
-                    (int)Math.floor(selectedObject.getPosY())+Tower.PLAYER_SIZE*2-8, Tower.PLAYER_SIZE*2, 0xFF49ffa0);
-           // r.drawRect((int)Math.floor(selectedObject.getPosX())-1, (int)Math.floor(selectedObject.getPosY())-1, Tower.PLAYER_SIZE*2+1, Tower.PLAYER_SIZE*2+1, 0xFF004203);
+            r.drawCircle((int)Math.floor(selectedObject.getPosX()+Tower.PLAYER_SIZE/2),
+                    (int)Math.floor(selectedObject.getPosY())+Tower.PLAYER_SIZE/2, Tower.PLAYER_SIZE, unitSelectColor,4);
     }
 
     public GameObject selectUnit(GameManager gm, GameContainer gc){

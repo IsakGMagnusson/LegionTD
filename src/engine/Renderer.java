@@ -161,18 +161,22 @@ public class Renderer {
         }
     }
 
-     public void drawCircle(int x, int y, int r, int color) {
-        double PI = 3.1415926535;
-        double i, angle, x1, y1;
+     public void drawCircle(int x, int y, int r, int color, int thickness) {
+        if(thickness > 0) {
+            double PI = 3.1415926535;
+            double i, angle, x1, y1;
 
-        for (i = 0; i < 360; i += 1) {
-            angle = i;
-            x1 = r * Math.cos(angle * PI / 180);
-            y1 = r * Math.sin(angle * PI / 180);
+            for (i = 0; i < 360; i += 1) {
+                angle = i;
+                x1 = (r - thickness) * Math.cos(angle * PI / 180);
+                y1 = (r - thickness) * Math.sin(angle * PI / 180);
 
-            int ElX = (int) (x + x1);
-            int ElY = (int) (y + y1);
-            setPixel(ElX, ElY, color);
+                int ElX = (int) (x + x1);
+                int ElY = (int) (y + y1);
+                setPixel(ElX, ElY, color);
+            }
+
+            drawCircle(x, y, r, color, thickness - 1);
         }
     }
 

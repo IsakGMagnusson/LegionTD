@@ -13,7 +13,7 @@ import game.unit.tower.Tower;
 
 public class Enemy extends Unit {
 
-    protected ImageTile twrImg = new ImageTile("/images/testanim.png", PLAYER_SIZE, PLAYER_SIZE);
+    protected ImageTile twrImg = new ImageTile("/images/testanim.png", 16, 16);
 
     protected int direction = 0;
     protected float animation = 0;
@@ -21,7 +21,7 @@ public class Enemy extends Unit {
 
     protected int gold;
 
-    public static int PLAYER_SIZE = 16;
+    public static int PLAYER_SIZE = 16*2;
     private Unit unitToAttack;
     private static double SPEED = 0.5;
     private Healthbar healthbar = new Healthbar(this);
@@ -63,7 +63,7 @@ public class Enemy extends Unit {
             if(getDistTo(unitToAttack) <= range){
                 if(attackSpeed <= nextAttack){
                     attack(unitToAttack);
-                    gm.getObjects().add(new Projectile(unitToAttack, posX+(width/2), posY, 3, 3, 0xffFF0000));
+                    gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 3, 3, 0xffFF0000));
                 }
             }
         }else{

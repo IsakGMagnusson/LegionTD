@@ -19,9 +19,8 @@ public abstract class Tower extends Unit {
     protected float animation = 0;
     protected double nextAttack = 0;
 
-    public static final int PLAYER_SIZE = 16;
+    public static final int PLAYER_SIZE = 32;
     protected Unit unitToAttack;
-    protected static double SPEED = 0.5;
     protected Healthbar healthbar = new Healthbar(this);
     protected int id;
     protected int cost;
@@ -30,7 +29,7 @@ public abstract class Tower extends Unit {
 
     public Tower(int id, String path, double posX, double posY, double maxHealth, double damage, double range, double attackSpeed, BuildSquare square, int cost){
         this.id = id;
-        this.imgTile = new ImageTile(path, PLAYER_SIZE, PLAYER_SIZE);
+        this.imgTile = new ImageTile(path, 16, 16);
         this.posX = posX;
         this.posY = posY;
         this.width = PLAYER_SIZE;
@@ -71,8 +70,7 @@ public abstract class Tower extends Unit {
         if(detectUnit(gm)){
             if(getDistTo(unitToAttack) <= range){
                 if(attackSpeed <= nextAttack){
-                    attack(unitToAttack);
-                    gm.getObjects().add(new Projectile(unitToAttack, posX+(width/2), posY, 5, 5, 0xff00FFFF));
+                    attack(gm);
                 }
             }  else{
                 moveTowardsUnit(unitToAttack);
@@ -105,9 +103,8 @@ public abstract class Tower extends Unit {
         return false;
     }
 
-    private void attack(Unit objToAttack){
-        objToAttack.setHealth(objToAttack.getHealth()-damage);
-        objToAttack.setpercentHealth((objToAttack.getHealth()/objToAttack.getMaxHealth()) * 100);
+    private void attack(GameManager gm){
+        gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 5, 5, 0xff00FFFF));
         nextAttack = 0;
     }
 
