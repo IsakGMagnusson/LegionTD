@@ -31,6 +31,10 @@ public class Projectile extends GameObject {
             target.setpercentHealth((target.getHealth()/target.getMaxHealth()) * 100);
             setDead(true);
         }
+
+        if(target.isDead()){
+            setDead(true);
+        }
     }
 
     @Override
@@ -43,6 +47,7 @@ public class Projectile extends GameObject {
                 posY >= target.getPosY() && target.getPosY() + target.getHeight() >= posY){
             return true;
         }
+
         return false;
     }
 }

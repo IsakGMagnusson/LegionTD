@@ -11,8 +11,8 @@ public class Toast extends GameObject {
     int uptime = 2*60;
     String text;
     boolean isGood;
-    int goodColor = 0xff19ff26;
-    int badColor  = 0xffff160b;
+    int goodColor = 0xff5cff5d;
+    int badColor  = 0xffff273b;
     int color;
 
     public Toast(String text, boolean isGood){
@@ -34,6 +34,6 @@ public class Toast extends GameObject {
 
         //magic number (*5) is text scale in drawText in renderer
         r.drawFillRect(posX, posY,text.length()*5*5, boxHeight, color);
-        r.drawText(text, posX+(text.length())/2, posY+20, 0xffffffff);
+        r.drawText(text, posX+(text.length())/2, posY+20, 0xff000000);
     }
 }

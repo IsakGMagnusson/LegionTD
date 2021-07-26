@@ -15,8 +15,6 @@ public abstract class Tower extends Unit {
 
     protected ImageTile imgTile;
 
-    protected int animationType = 0;
-    protected float animation = 0;
     protected double nextAttack = 0;
 
     public static final int PLAYER_SIZE = 32;
@@ -26,10 +24,17 @@ public abstract class Tower extends Unit {
     protected int cost;
     protected BuildSquare square;
 
+    private enum AnimationAction{
+        IDLE,
+        WALKING
+    }
+
+    protected float animation = 0;
+    private int animationAction;
 
     public Tower(int id, String path, double posX, double posY, double maxHealth, double damage, double range, double attackSpeed, BuildSquare square, int cost){
         this.id = id;
-        this.imgTile = new ImageTile(path, 16, 16);
+        this.imgTile = new ImageTile(path, PLAYER_SIZE, PLAYER_SIZE);
         this.posX = posX;
         this.posY = posY;
         this.width = PLAYER_SIZE;
@@ -50,16 +55,12 @@ public abstract class Tower extends Unit {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, animationType,2, rotation);
+        r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, animationAction,1, rotation);
         healthbar.render(gc, r);
     }
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        if(gc.getInput().isButtonDown(1)){
-            rotation +=5;
-        }
-
         if(health <= 0) setDead(true);
 
         nextAttack += dt;
@@ -75,6 +76,8 @@ public abstract class Tower extends Unit {
             }  else{
                 moveTowardsUnit(unitToAttack);
             }
+        } else{
+            animationAction = setAnimationAction(AnimationAction.IDLE);
         }
         healthbar.update(gc, gm, dt);
     }
@@ -111,6 +114,7 @@ public abstract class Tower extends Unit {
     private void moveTowardsUnit(GameObject objMoveTo){
 
         if(rotateTower(45)){
+            animationAction = setAnimationAction(AnimationAction.WALKING);
             moveTowardsUnit(objMoveTo, 0.9);
         }
     }
@@ -149,5 +153,14 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-
+    private int setAnimationAction(AnimationAction animationAction){
+        switch(animationAction) {
+            case IDLE:
+                return 0;
+            case WALKING:
+                return 1;
+            default:
+                return 0;
+        }
+    }
 }

@@ -7,6 +7,7 @@ import game.GameManager;
 import game.GameObject;
 import game.display.HUD.BotHud;
 import game.gameplay.builder.Builder;
+import game.unit.Unit;
 import game.unit.enemy.Enemy;
 import game.unit.tower.Tower;
 
@@ -55,13 +56,13 @@ public class Player {
         builder.render(gc, r);
 
         if(selectedObject != null && !selectedObject.isDead())
-            r.drawCircle((int)Math.floor(selectedObject.getPosX()+Tower.PLAYER_SIZE/2),
-                    (int)Math.floor(selectedObject.getPosY())+Tower.PLAYER_SIZE/2, Tower.PLAYER_SIZE, unitSelectColor,4);
+            r.drawCircle((int)Math.floor(selectedObject.getPosX()+Tower.PLAYER_SIZE/2+5),
+                    (int)Math.floor(selectedObject.getPosY())+Tower.PLAYER_SIZE/2+3, Tower.PLAYER_SIZE, unitSelectColor,4);
     }
 
     public GameObject selectUnit(GameManager gm, GameContainer gc){
         for(GameObject object : gm.getObjects()){
-            if (object.isHoovered(gc)){
+            if (object.isHoovered(gc) && object instanceof Unit){
                 BotHud.setIsSelling(false);
                 return object;
             }
