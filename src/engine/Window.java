@@ -17,7 +17,6 @@ public class Window {
     private BufferStrategy bs;
     private Graphics g;
 
-    private RightHud rightHud = new RightHud();
     private TopHud topHud = new TopHud();
     private BotHud botHud = new BotHud();
 
@@ -34,10 +33,6 @@ public class Window {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(canvas, BorderLayout.CENTER);
-
-
-        rightHud.setLayout(new BoxLayout(rightHud, BoxLayout.Y_AXIS));
-        frame.add(rightHud, BorderLayout.EAST);
 
         topHud.setLayout(new BoxLayout(topHud, BoxLayout.X_AXIS));
         frame.add(topHud, BorderLayout.NORTH);

@@ -33,10 +33,9 @@ public class Renderer {
         p[x + y * pW] = value;
     }
 
-    public void drawText(String text, int offX, int offY, int color){
+    public void drawText(String text, int offX, int offY, int color, int scale){
         text = text.toUpperCase();
         int offset = 0;
-        int scale = 5;
 
         for(int n = 0; n < text.length(); n++){
             int unicdoe = text.codePointAt(n)-32;
@@ -82,30 +81,6 @@ public class Renderer {
                 setPixel(x + offX, y + offY, image.getP()[x + y * image.getW()]);
     }
 
-    //no scaling or rotation
-    /*public void drawImageTile(ImageTile image, int offX, int offY, int tileX, int tileY) {
-        //dont render
-        if (offX < -image.getTileW()) return;
-        if (offY < -image.getTileH()) return;
-        if (offX >= pW) return;
-        if (offY >= pH) return;
-
-        int newX = 0;
-        int newY = 0;
-        int newWidth = image.getTileW();
-        int newHeight = image.getTileH();
-
-        //clipping code
-        if (offX < 0) newX -= offX;
-        if (offY < 0) newY -= offY;
-        if (newWidth + offX >= pW) newWidth -= newWidth + offX - pW;
-        if (newHeight + offY >= pH) newHeight -= newHeight + offY - pH;
-
-        for (int y = newY; y < newHeight; y++)
-            for (int x = newX; x < newWidth; x++)
-                setPixel(x + offX, y + offY, image.getP()[(x + tileX * image.getTileW()) + (y + tileY * image.getTileH()) * image.getW()]);
-
-    }*/
 
     public void drawImageTile(ImageTile image, int offX, int offY, int tileX, int tileY, int scale, double rotation){
         double angle2 = Math.toRadians(rotation);

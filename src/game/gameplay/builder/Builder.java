@@ -27,7 +27,7 @@ public class Builder {
         this.tier1ID = tier1ID;
         this.tier2ID = tier2ID;
 
-        setRightHUDImages();
+        setRightHUDTowers();
     }
 
     public void update(GameContainer gc, GameManager gm) {
@@ -74,17 +74,6 @@ public class Builder {
                 return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
             case 1:
                 return towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile();
-            default:
-                return null;
-        }
-    }
-
-    private String getIconPath(int tier){
-        switch (tier) {
-            case 0:
-                return towerFactory.getTier1(tier1ID, 0, 0, null).getPath();
-            case 1:
-                return towerFactory.getTier2(tier2ID, 0, 0, null).getPath();
             default:
                 return null;
         }
@@ -141,7 +130,8 @@ public class Builder {
         }
     }
 
-    private void setRightHUDImages(){
-        RightHud.setTierOnePath(getIconPath(0));
+    private void setRightHUDTowers(){
+
+        RightHud.setTierOne(towerFactory.getTier1(tier1ID, 0, 0, null));
     }
 }

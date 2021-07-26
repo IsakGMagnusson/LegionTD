@@ -34,6 +34,6 @@ public class Toast extends GameObject {
 
         //magic number (*5) is text scale in drawText in renderer
         r.drawFillRect(posX, posY,text.length()*5*5, boxHeight, color);
-        r.drawText(text, posX+(text.length())/2, posY+20, 0xff000000);
+        r.drawText(text, posX+(text.length())/2, posY+20, 0xff000000, 5);
     }
 }

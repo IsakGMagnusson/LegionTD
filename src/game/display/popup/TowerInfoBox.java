@@ -9,8 +9,14 @@ import game.unit.tower.Tower;
 public class TowerInfoBox extends GameObject {
     private Tower tower;
     private boolean keepShowing = false;
+    private int scale = 3;
+    private int yMargin = 20;
 
-    public TowerInfoBox(Tower tower){
+    public TowerInfoBox(double posX, double posY, int width, int height,  Tower tower){
+        this.posX = posX;
+        this.posY = posY;
+        this.width = width;
+        this.height = height;
         this.tower = tower;
     }
 
@@ -21,19 +27,13 @@ public class TowerInfoBox extends GameObject {
         } else{
             setDead(true);
         }
-
     }
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        int posX = GameManager.SCREEN_WIDTH/2;
-        int posY = GameManager.SCREEN_HEIGHT/2;
-
-        r.drawFillRect(posX, posY,500, 2000, 0xFFFFFFFF);
-        r.drawText("Name: " + tower.getName(), posX+20, posY+20, 0xff000000);
-        r.drawText("Dmg: " + tower.getDamage(), posX+20, posY+40, 0xff000000);
-        r.drawText("Health: " + tower.getHealth(), posX+20, posY+60, 0xff000000);
-        r.drawText("Health: " + tower.getCost(), posX+20, posY+80, 0xff000000);
-
+        r.drawText("Name: " + tower.getName(), (int)posX, (int)posY+yMargin, 0xff000000, scale);
+        r.drawText("Dmg: " + tower.getDamage(), (int)posX, (int)posY+yMargin*2, 0xff000000, scale);
+        r.drawText("Health: " + tower.getHealth(), (int)posX,(int) posY+yMargin*3, 0xff000000, scale);
+        r.drawText("Cost: " + tower.getCost(), (int)posX, (int)posY+yMargin*4, 0xff000000, scale);
     }
 }

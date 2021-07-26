@@ -26,7 +26,7 @@ public class GoldPop extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawText("+" + gold, (int)posX, (int)posY-textFloat, 0xffffffff);
+        r.drawText("+" + gold, (int)posX, (int)posY-textFloat, 0xffffffff, 5);
     }
 
 }

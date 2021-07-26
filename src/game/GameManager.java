@@ -4,6 +4,7 @@ import engine.AbstractGame;
 import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.Image;
+import game.display.HUD.RightHud;
 import game.gameplay.GamePlay;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class GameManager extends AbstractGame {
 
     public static final int SCREEN_WIDTH =1420;
     public static final int SCREEN_HEIGHT =880;
+    private boolean areHUDSCreated = false;
 
 
     private ArrayList<GameObject> objects = new ArrayList<GameObject>();
@@ -38,6 +40,11 @@ public class GameManager extends AbstractGame {
                 i--;
             }
         }
+
+        if(!areHUDSCreated){
+            createHUDS();
+            areHUDSCreated = true;
+        }
     }
 
     @Override
@@ -56,6 +63,11 @@ public class GameManager extends AbstractGame {
 
     public ArrayList<GameObject> getObjects(){
         return objects;
+    }
+
+    private void createHUDS(){
+        int rightHUDWidth = 200;
+        objects.add(new RightHud(SCREEN_WIDTH-rightHUDWidth,0,rightHUDWidth,SCREEN_HEIGHT, 0xFFFFFFFF));
     }
 
     public static void main(String args[]){

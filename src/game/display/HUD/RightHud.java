@@ -1,48 +1,61 @@
 package game.display.HUD;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class RightHud extends JPanel{
-    private static String tierOnePath = "";
+import engine.GameContainer;
+import engine.Renderer;
+import engine.gfx.Image;
+import game.GameManager;
+import game.GameObject;
+import game.display.popup.TowerInfoBox;
+import game.unit.tower.Tower;
 
+public class RightHud extends GameObject {
 
-    Icon tierOneImage = new ImageIcon(getClass().getResource(tierOnePath+"icon.png"));
+    private int color;
 
-    JButton buttonT1 = new JButton(tierOneImage);
-    JButton buttonT2 = new JButton("Tier 2");
-
+    private Button buttonT1;
+    private static Tower tierOne;
+    private TowerInfoBox tierOneInfoBox;
+    private Image tierOneImage = new Image(tierOne.getPath()+"icon.png");
 
     public static int buying = -1;
 
-    public RightHud(){
+    public RightHud(double posX, double posY, int width, int height, int color){
+        this.posX = posX;
+        this.posY = posY;
+        this.width = width;
+        this.height = height;
+        this.color = color;
 
-        buttonT1.setBorderPainted(false);
-        buttonT1.setFocusPainted(false);
-        buttonT1.setContentAreaFilled(false);
+        this.buttonT1 = new Button(posX+5, posY+5, 32, 32, tierOneImage);
+        this.tierOneInfoBox = new TowerInfoBox(posX, posY+buttonT1.getHeight(), width, height, tierOne);
 
-        this.add(buttonT1);
-        this.add(buttonT2);
-
-
-        buttonT1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buying = 0;
-            }
-        });
-
-        buttonT2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buying = 1;
-            }
-        });
     }
 
 
-    public static void setTierOnePath(String tierOnePath) {
-        RightHud.tierOnePath = tierOnePath;
+    @Override
+    public void update(GameContainer gc, GameManager gm, float dt) {
+        buttonT1.update(gc, gm, dt);
+
+        if(buttonT1.getIsPressed()){
+            buying = 0;
+        }
+
     }
+
+    @Override
+    public void render(GameContainer gc, Renderer r) {
+        r.drawFillRect((int)posX, (int)posY, width, height, color);
+
+        buttonT1.render(gc, r);
+        tierOneInfoBox.render(gc, r);
+
+
+    }
+
+
+    public static void setTierOne(Tower tierOne) {
+        RightHud.tierOne = tierOne;
+    }
+
 }
