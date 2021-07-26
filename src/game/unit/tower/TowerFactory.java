@@ -1,16 +1,17 @@
 package game.unit.tower;
 
 import game.gameplay.builder.BuildSquare;
-import game.unit.tower.TierOne.TowerTier1;
+import game.unit.tower.TierOne.Cat;
+import game.unit.tower.TierOne.Crab;
 
 public class TowerFactory {
 
     public Tower getTier1(Integer id, int x, int y, BuildSquare square) {
         switch (id) {
             case 0:
-                return new TowerTier1(x,y,square);
+                return new Crab(x,y,square);
             case 1:
-                return new TowerTier1(x,y,square);
+                return new Cat(x,y,square);
             default:
                 return null;
         }

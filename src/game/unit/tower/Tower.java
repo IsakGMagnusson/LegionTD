@@ -12,16 +12,17 @@ import game.unit.Unit;
 import game.unit.enemy.Enemy;
 
 public abstract class Tower extends Unit {
-
-    protected ImageTile imgTile;
-
-    protected double nextAttack = 0;
-
     public static final int PLAYER_SIZE = 32;
+    protected double nextAttack = 0;
     protected Unit unitToAttack;
-    protected Healthbar healthbar = new Healthbar(this);
-    protected int id;
+
+
+    protected String name;
+    protected String path;
     protected int cost;
+
+
+    protected Healthbar healthbar = new Healthbar(this);
     protected BuildSquare square;
 
     private enum AnimationAction{
@@ -32,9 +33,9 @@ public abstract class Tower extends Unit {
     protected float animation = 0;
     private int animationAction;
 
-    public Tower(int id, String path, double posX, double posY, double maxHealth, double damage, double range, double attackSpeed, BuildSquare square, int cost){
-        this.id = id;
-        this.imgTile = new ImageTile(path, PLAYER_SIZE, PLAYER_SIZE);
+    public Tower(String name, String path, double posX, double posY, double maxHealth, double damage, double range, double attackSpeed, BuildSquare square, int cost){
+        this.name = name;
+        this.path = path;
         this.posX = posX;
         this.posY = posY;
         this.width = PLAYER_SIZE;
@@ -49,13 +50,9 @@ public abstract class Tower extends Unit {
         this.cost = cost;
     }
 
-    public ImageTile getImg() {
-        return imgTile;
-    }
-
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawImageTile(imgTile, (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, animationAction,1, rotation);
+        r.drawImageTile(getAnimationTile(), (int)Math.floor(posX), (int)Math.floor(posY), (int)animation, animationAction,1, rotation);
         healthbar.render(gc, r);
     }
 
@@ -141,16 +138,28 @@ public abstract class Tower extends Unit {
         setpercentHealth((getHealth()/getMaxHealth()) * 100);
     }
 
-    public void setSquare(BuildSquare buildSquare){
-        square = buildSquare;
-    }
-
     public BuildSquare getSquare(){
         return square;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getCost() {
         return cost;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public ImageTile getAnimationTile() {
+        return new ImageTile(path+"animations.png", 32, 32);
+    }
+
+    public void setSquare(BuildSquare buildSquare){
+        square = buildSquare;
     }
 
     private int setAnimationAction(AnimationAction animationAction){
@@ -163,4 +172,6 @@ public abstract class Tower extends Unit {
                 return 0;
         }
     }
+
+
 }

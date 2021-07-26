@@ -26,6 +26,8 @@ public class Builder {
         this.gamePlay = gamePlay;
         this.tier1ID = tier1ID;
         this.tier2ID = tier2ID;
+
+        setRightHUDImages();
     }
 
     public void update(GameContainer gc, GameManager gm) {
@@ -58,7 +60,7 @@ public class Builder {
         buildArea.render(gc, r);
 
         if(RightHud.buying > -1){
-            r.drawImageTile(getTierImg(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 2, 180);
+            r.drawImageTile(getAnimationTile(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 1, 180);
         }
     }
 
@@ -66,12 +68,23 @@ public class Builder {
         return gc.getInput().isButtonDown(1) && RightHud.buying > -1;
     }
 
-    private ImageTile getTierImg(int tier){
+    private ImageTile getAnimationTile(int tier){
         switch (tier) {
             case 0:
-                return towerFactory.getTier1(tier1ID, 0, 0, null).getImg();
+                return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
             case 1:
-                return towerFactory.getTier2(tier2ID, 0, 0, null).getImg();
+                return towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile();
+            default:
+                return null;
+        }
+    }
+
+    private String getIconPath(int tier){
+        switch (tier) {
+            case 0:
+                return towerFactory.getTier1(tier1ID, 0, 0, null).getPath();
+            case 1:
+                return towerFactory.getTier2(tier2ID, 0, 0, null).getPath();
             default:
                 return null;
         }
@@ -126,5 +139,9 @@ public class Builder {
             GoldPop goldPop = new GoldPop(soldTower.getSquare().getPosX(), soldTower.getSquare().getPosY(), soldTower.getCost()/2);
             gm.addObject(goldPop);
         }
+    }
+
+    private void setRightHUDImages(){
+        RightHud.setTierOnePath(getIconPath(0));
     }
 }

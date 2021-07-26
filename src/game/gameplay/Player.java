@@ -17,11 +17,11 @@ public class Player {
 
     private Builder builder;
     private GameObject selectedObject;
-
-    private int randT1 = 0;
-    private int randT2 = 0;
-
     private final int unitSelectColor = 0xFF49ffa0;
+
+
+    private int randT1 = 1;
+    private int randT2 = 0;
 
     private int gold;
     private ArrayList<Tower> ownedTowers = new ArrayList();
