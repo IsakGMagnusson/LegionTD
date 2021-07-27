@@ -33,7 +33,7 @@ public class Toast extends GameObject {
         int posY = GameManager.SCREEN_HEIGHT-boxHeight-5;
 
         //magic number (*5) is text scale in drawText in renderer
-        r.drawFillRect(posX, posY,text.length()*5*5, boxHeight, color);
-        r.drawText(text, posX+(text.length())/2, posY+20, 0xff000000, 5);
+        r.drawFillRect(posX, posY-50,text.length()*5*5, boxHeight, color);
+        r.drawText(text, posX+(text.length())/2, posY+20-50, 0xff000000, 5);
     }
 }

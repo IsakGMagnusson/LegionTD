@@ -1,7 +1,5 @@
 package engine;
 
-import game.display.HUD.BotHud;
-import game.display.HUD.RightHud;
 import game.display.HUD.TopHud;
 
 import javax.swing.*;
@@ -18,7 +16,6 @@ public class Window {
     private Graphics g;
 
     private TopHud topHud = new TopHud();
-    private BotHud botHud = new BotHud();
 
 
     public Window(GameContainer gc){
@@ -37,9 +34,6 @@ public class Window {
         topHud.setLayout(new BoxLayout(topHud, BoxLayout.X_AXIS));
         frame.add(topHud, BorderLayout.NORTH);
 
-        botHud.setLayout(new BoxLayout(botHud, BoxLayout.X_AXIS));
-        frame.add(botHud, BorderLayout.SOUTH);
-
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
@@ -54,7 +48,6 @@ public class Window {
 
     public void update(){
         topHud.update();
-        botHud.update();
 
         g.drawImage(image,0,0,canvas.getWidth(),canvas.getHeight(), null);
         bs.show();

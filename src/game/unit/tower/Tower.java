@@ -173,5 +173,7 @@ public abstract class Tower extends Unit {
         }
     }
 
-
+    public int getTier(){
+        return 0;
+    }
 }

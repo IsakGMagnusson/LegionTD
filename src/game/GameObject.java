@@ -71,9 +71,4 @@ public abstract class GameObject {
         posX += speed*speedX;
         posY += speed*speedY;
     }
-
-    public int getRotation() {
-        return rotation;
-    }
-
 }

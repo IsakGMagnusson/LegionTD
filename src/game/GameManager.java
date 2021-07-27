@@ -3,8 +3,8 @@ package game;
 import engine.AbstractGame;
 import engine.GameContainer;
 import engine.Renderer;
-import engine.gfx.Image;
-import game.display.HUD.RightHud;
+import game.display.HUD.BotHud;
+import game.display.HUD.RightHud.RightHud;
 import game.gameplay.GamePlay;
 
 import java.util.ArrayList;
@@ -66,8 +66,11 @@ public class GameManager extends AbstractGame {
     }
 
     private void createHUDS(){
-        int rightHUDWidth = 200;
-        objects.add(new RightHud(SCREEN_WIDTH-rightHUDWidth,0,rightHUDWidth,SCREEN_HEIGHT, 0xFFFFFFFF));
+        int rightHUDwidth = 200;
+        objects.add(new RightHud(SCREEN_WIDTH-rightHUDwidth,0,rightHUDwidth, SCREEN_HEIGHT));
+
+        int botHUDheight = 50;
+        objects.add(new BotHud(0,SCREEN_HEIGHT-botHUDheight, SCREEN_WIDTH, botHUDheight));
     }
 
     public static void main(String args[]){

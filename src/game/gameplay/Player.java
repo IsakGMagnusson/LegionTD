@@ -20,7 +20,7 @@ public class Player {
     private final int unitSelectColor = 0xFF49ffa0;
 
 
-    private int randT1 = 1;
+    private int randT1 = 0;
     private int randT2 = 0;
 
     private int gold;
@@ -43,11 +43,11 @@ public class Player {
             BotHud.selectedObj = BotHud.SelectedObj.NULL;
         }
         else if(selectedObject instanceof Tower) {
-            BotHud.setInfo("Type: " + "Tower | " + "hp: " + (int) ((Tower) selectedObject).getHealth() + " | Dmg: " + (int) ((Tower) selectedObject).getDamage() + "     ");
+            BotHud.setInfo("Type: " + "Tower  " + "hp: " + (int) ((Tower) selectedObject).getHealth() + "  Dmg: " + (int) ((Tower) selectedObject).getDamage() + "     ");
             BotHud.selectedObj = BotHud.SelectedObj.TOWER;
         }
         else if(selectedObject instanceof Enemy){
-            BotHud.setInfo("Type: " + "Enemy | " +"hp: " + (int)((Enemy) selectedObject).getHealth() + " | Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
+            BotHud.setInfo("Type: " + "Enemy  " +"hp: " + (int)((Enemy) selectedObject).getHealth() + "  Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
             BotHud.selectedObj = BotHud.SelectedObj.ENEMY;
         }
     }
@@ -93,5 +93,4 @@ public class Player {
     public GameObject getSelectedObject() {
         return selectedObject;
     }
-
 }

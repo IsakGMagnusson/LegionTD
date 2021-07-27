@@ -6,7 +6,7 @@ import engine.gfx.ImageTile;
 import game.GameManager;
 import game.display.popup.GoldPop;
 import game.display.HUD.BotHud;
-import game.display.HUD.RightHud;
+import game.display.HUD.RightHud.RightHud;
 import game.display.popup.Toast;
 import game.gameplay.GamePlay;
 import game.gameplay.Player;
@@ -27,7 +27,7 @@ public class Builder {
         this.tier1ID = tier1ID;
         this.tier2ID = tier2ID;
 
-        setRightHUDTowers();
+        giveRightHUDTowers();
     }
 
     public void update(GameContainer gc, GameManager gm) {
@@ -59,7 +59,7 @@ public class Builder {
     public void render(GameContainer gc, Renderer r) {
         buildArea.render(gc, r);
 
-        if(RightHud.buying > -1){
+        if(RightHud.buying > 0){
             r.drawImageTile(getAnimationTile(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 1, 180);
         }
     }
@@ -70,9 +70,9 @@ public class Builder {
 
     private ImageTile getAnimationTile(int tier){
         switch (tier) {
-            case 0:
-                return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
             case 1:
+                return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
+            case 2:
                 return towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile();
             default:
                 return null;
@@ -104,9 +104,9 @@ public class Builder {
 
     private Tower createTower(int x, int y, BuildSquare square) {
         switch (RightHud.buying) {
-            case 0:
-                return towerFactory.getTier1(tier1ID, x, y, square);
             case 1:
+                return towerFactory.getTier1(tier1ID, x, y, square);
+            case 2:
                 return towerFactory.getTier2(tier2ID, x, y, square);
             default:
                 return null;
@@ -130,8 +130,8 @@ public class Builder {
         }
     }
 
-    private void setRightHUDTowers(){
-
-        RightHud.setTierOne(towerFactory.getTier1(tier1ID, 0, 0, null));
+    private void giveRightHUDTowers(){
+        RightHud.setTierOneInfo(towerFactory.getTier1(tier1ID, 0, 0, null));
+        RightHud.setTierTwoInfo(towerFactory.getTier2(tier2ID, 0, 0, null));
     }
 }

@@ -48,5 +48,4 @@ public class BuildSquare {
     public void setIsOccupied(boolean b){
         isOccupied = b;
     }
-
 }

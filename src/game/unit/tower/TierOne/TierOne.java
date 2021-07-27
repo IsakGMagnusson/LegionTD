@@ -8,5 +8,8 @@ public abstract class TierOne extends Tower {
         super(name, path, posX, posY, maxHealth, damage, range, attackSpeed, square, cost);
     }
 
-
+    @Override
+    public int getTier(){
+        return 1;
+    }
 }

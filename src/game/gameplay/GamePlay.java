@@ -40,6 +40,8 @@ public class GamePlay{
     }
 
     private void duringWave(GameManager gm){
+        timeLeft = 0;
+
         Iterator<Enemy> waveIterator = currentWave.getWaveUnits().iterator();
         while (waveIterator.hasNext()){
             Enemy e = waveIterator.next();

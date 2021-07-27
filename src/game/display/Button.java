@@ -1,4 +1,4 @@
-package game.display.HUD;
+package game.display;
 
 import engine.GameContainer;
 import engine.Renderer;
@@ -6,9 +6,13 @@ import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
 
+import java.util.Arrays;
+
 public class Button extends GameObject {
     private Image image;
     private boolean isPressed;
+    private boolean isActive = true;
+
     private int borderColor = 0xff000000;
     private int hooveredColor = 0xffc9cd00;
     private int regularColor = 0xff000000;
@@ -27,7 +31,7 @@ public class Button extends GameObject {
     public void update(GameContainer gc, GameManager gm, float dt) {
         borderColor = isHoovered(gc) ? hooveredColor : regularColor;
 
-        if(isHoovered(gc)){
+        if(isHoovered(gc) && isActive){
            leftClick(gc);
         }
     }
@@ -48,5 +52,13 @@ public class Button extends GameObject {
         } else{
             isPressed = false;
         }
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
