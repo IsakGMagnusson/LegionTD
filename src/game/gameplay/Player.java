@@ -7,6 +7,7 @@ import game.GameManager;
 import game.GameObject;
 import game.display.HUD.BotHud;
 import game.gameplay.builder.Builder;
+import game.unit.King;
 import game.unit.Unit;
 import game.unit.enemy.Enemy;
 import game.unit.tower.Tower;
@@ -16,26 +17,34 @@ import java.util.ArrayList;
 public class Player {
 
     private Builder builder;
+    private King king;
+    boolean isKingCreated = false;
     private GameObject selectedObject;
     private final int unitSelectColor = 0xFF49ffa0;
 
-
     private int randT1 = 0;
     private int randT2 = 0;
+    private int randT3 = 0;
 
     private int gold;
     private ArrayList<Tower> ownedTowers = new ArrayList();
 
     public Player(GamePlay gamePlay){
         this.gold = 100;
-        builder = new Builder(this, gamePlay, randT1, randT2);
+        builder = new Builder(this, gamePlay, randT1, randT2, randT3);
+        king = new King();
     }
 
-    public void update(GameContainer gc, GameManager gm) {
+    public void update(GameContainer gc, GameManager gm, float dt) {
         builder.update(gc, gm);
+        king.update(gc, gm, dt);
 
-        if(gc.getInput().isButtonDown(1))
-            selectedObject = selectUnit(gm, gc);
+        if(!isKingCreated){
+            createKing(gm);
+        }
+
+        if(gc.getInput().isButtonDown(1)) selectedObject = selectUnit(gm, gc);
+
 
         //TODO: make this change HUD entirely
         if(selectedObject == null){
@@ -50,14 +59,19 @@ public class Player {
             BotHud.setInfo("Type: " + "Enemy  " +"hp: " + (int)((Enemy) selectedObject).getHealth() + "  Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
             BotHud.selectedObj = BotHud.SelectedObj.ENEMY;
         }
+        else if(selectedObject instanceof King){
+            BotHud.setInfo("Type: " + "King  " +"hp: " + (int)((King) selectedObject).getHealth() + "  Dmg: " + (int)((King) selectedObject).getDamage() + "     ");
+            BotHud.selectedObj = BotHud.SelectedObj.KING;
+        }
     }
 
     public void render(GameContainer gc, Renderer r) {
         builder.render(gc, r);
+        king.render(gc, r);
 
         if(selectedObject != null && !selectedObject.isDead())
-            r.drawCircle((int)Math.floor(selectedObject.getPosX()+Tower.PLAYER_SIZE/2+5),
-                    (int)Math.floor(selectedObject.getPosY())+Tower.PLAYER_SIZE/2+3, Tower.PLAYER_SIZE, unitSelectColor,4);
+            r.drawCircle((int)Math.floor(selectedObject.getPosX()+selectedObject.getWidth()/2+5),
+                    (int)Math.floor(selectedObject.getPosY())+selectedObject.getWidth()/2+3, selectedObject.getWidth(), unitSelectColor,4);
     }
 
     public GameObject selectUnit(GameManager gm, GameContainer gc){
@@ -92,5 +106,10 @@ public class Player {
 
     public GameObject getSelectedObject() {
         return selectedObject;
+    }
+
+    private void createKing(GameManager gm){
+        gm.addObject(king);
+        isKingCreated = true;
     }
 }

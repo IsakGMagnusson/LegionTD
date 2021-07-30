@@ -4,7 +4,7 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
-import game.display.Button;
+import game.display.Buttons.Button;
 import game.gameplay.GamePlay;
 
 
@@ -18,7 +18,8 @@ public class BotHud extends GameObject {
     public enum SelectedObj{
         NULL,
         TOWER,
-        ENEMY
+        ENEMY,
+        KING
     }
     public static SelectedObj selectedObj = SelectedObj.NULL;
 

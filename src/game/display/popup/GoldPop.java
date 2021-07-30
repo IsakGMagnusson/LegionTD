@@ -10,6 +10,7 @@ public class GoldPop extends GameObject {
     int uptime = 1*60;
     int textFloat = 0;
     int gold;
+    int goldColor = 0xFFcff500;
 
     public GoldPop(int posX, int posY, int gold){
         this.posX = posX;
@@ -26,7 +27,7 @@ public class GoldPop extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawText("+" + gold, (int)posX, (int)posY-textFloat, 0xffffffff, 5);
+        r.drawText("+" + gold, (int)posX, (int)posY-textFloat, goldColor, 5);
     }
 
 }

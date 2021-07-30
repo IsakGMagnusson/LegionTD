@@ -29,36 +29,29 @@ public class TowerInfoBox extends GameObject {
         if(this.isHoovered(gc) && gc.getInput().isButtonDown(1)){
             isShrunk = !isShrunk;
         }
-
     }
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawRect((int)posX, (int)posY, width, height, 0xFF000000);
+        r.drawFillRect((int)posX, (int)posY, width, height, 0xFFb1ffae);
 
         int infoCounter = 0;
-
-        if(!isShrunk){
-            setHeight(getTowerInfo(tower).length * yMargin);
-            for(String info : getTowerInfo(tower)){
-                r.drawText(info, (int)posX, (int)posY+yMargin*infoCounter, textColor, scale);
-                infoCounter++;
-            }
-        } else{
-            setHeight(yMargin);
-            r.drawText(getTowerInfo(tower)[0], (int)posX, (int)posY+yMargin*infoCounter, textColor, scale);
+        setHeight(getTowerInfo(tower).length * yMargin);
+        for(String info : getTowerInfo(tower)){
+            r.drawText(info, (int)posX, (int)posY+yMargin*infoCounter, textColor, scale);
+            infoCounter++;
         }
     }
 
     private String[] getTowerInfo(Tower tower){
         String[] allInfo = {
-                "Tier: " + tower.getTier(),
-                "Name: " + tower.getName(),
-                "Dmg: " + tower.getDamage(),
-                "Health: " + tower.getHealth(),
-                "Cost: " + tower.getCost()
+                "Tier " + tower.getTier(),
+                "Name " + tower.getName(),
+                "Dmg " + (int) tower.getDamage(),
+                "attack/sec " +  tower.getAttackSpeed(),
+                "Health " + (int) tower.getHealth(),
+                "Cost " + tower.getCost()
         };
-
         return allInfo;
     }
 
@@ -71,15 +64,6 @@ public class TowerInfoBox extends GameObject {
         }
 
         int fontWidth = 4;
-        return longestInfoRow*scale*fontWidth;
+        return (longestInfoRow*scale*fontWidth)+3;
     }
-
-    private void shrink(){
-        if(isShrunk){
-
-        } else{
-        }
-    }
-
-
 }

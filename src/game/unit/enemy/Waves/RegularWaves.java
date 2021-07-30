@@ -11,8 +11,8 @@ public class RegularWaves extends Wave{
     }
 
     protected static final RegularWaves wave1 = new RegularWaves (1,
-            new ArrayList<Enemy>(Arrays.asList(new Enemy(150, 20, 5, 60, 3, 90, 2),
-                    new Enemy(100, 20, 5, 20, 3, 90, 2))));
+            new ArrayList<Enemy>(Arrays.asList(new Enemy(150, 300, 5, 60, 3, 90, 1),
+                    new Enemy(100, 300, 5, 20, 3, 90, 1))));
 
 
     protected static final RegularWaves wave2 = new RegularWaves (1,

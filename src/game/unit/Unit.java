@@ -3,7 +3,7 @@ package game.unit;
 import game.GameObject;
 
 public abstract class Unit extends GameObject {
-    protected int view = 80*150;
+    protected int view = 80*15;
     protected int friendView = view*2;
 
     protected double health, maxHealth, percentHealth;
@@ -36,7 +36,15 @@ public abstract class Unit extends GameObject {
         this.maxHealth = maxHealth;
     }
 
-    protected double getDistTo(GameObject unitToAttack){
+    public double getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public void setAttackSpeed(double attackSpeed) {
+        this.attackSpeed = attackSpeed;
+    }
+
+    public double getDistTo(GameObject unitToAttack){
         return Math.sqrt(Math.pow(posX - unitToAttack.getPosX(), 2) + Math.pow(posY - unitToAttack.getPosY(), 2));
     }
 }

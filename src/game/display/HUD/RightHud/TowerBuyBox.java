@@ -5,7 +5,7 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
-import game.display.Button;
+import game.display.Buttons.Button;
 import game.display.popup.TowerInfoBox;
 import game.unit.tower.Tower;
 
@@ -21,7 +21,7 @@ public class TowerBuyBox extends GameObject {
         this.posY = posY;
         this.tower = tower;
 
-       buyButton = new Button(posX+30, posY, 32, 32, new Image(tower.getPath()+"icon.png"));
+      // buyButton = new Button(posX+30, posY, 32, 32, new Image(tower.getPath()+"icon.png"));
        towerInfoBox = new TowerInfoBox(posX, posY+buyButton.getHeight()+5, tower);
 
        height = (int) (buyButton.getPosY()+buyButton.getHeight() + towerInfoBox.getHeight() + towerInfoBox.getPosY());

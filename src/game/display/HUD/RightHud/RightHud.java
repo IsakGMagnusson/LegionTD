@@ -3,8 +3,11 @@ package game.display.HUD.RightHud;
 
 import engine.GameContainer;
 import engine.Renderer;
+import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
+import game.display.Buttons.Button;
+import game.display.Buttons.BuyButton;
 import game.unit.tower.Tower;
 
 public class RightHud extends GameObject {
@@ -13,12 +16,14 @@ public class RightHud extends GameObject {
 
     private static Tower tierOne;
     private static Tower tierTwo;
+    private static Tower tierThree;
 
-    private TowerBuyBox tierOneBox;
-    private TowerBuyBox tierTwoBox;
-
+    private BuyButton tier1BuyButton;
+    private BuyButton tier2BuyButton;
+    private BuyButton tier3BuyButton;
 
     public static int buying = -1;
+
 
     public RightHud(double posX, double posY, int width, int height){
         this.posX = posX;
@@ -26,23 +31,24 @@ public class RightHud extends GameObject {
         this.width = width;
         this.height = height;
 
-        this.tierOneBox = new TowerBuyBox(posX+5, posY+5, tierOne);
-        this.tierTwoBox = new TowerBuyBox(posX+5, posY+tierOneBox.getHeight(), tierTwo);
+        tier1BuyButton = new BuyButton(posX+30, posY+15, 32, 32, new Image(tierOne.getPath()+"icon.png"), tierOne);;
+        tier2BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getHeight()+35, 32, 32, new Image(tierTwo.getPath()+"icon.png"), tierTwo);
+        tier3BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getHeight()+tier2BuyButton.getPosY()+15, 32, 32, new Image(tierThree.getPath()+"icon.png"), tierThree);;
     }
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        tierOneBox.update(gc, gm, dt);
-        tierTwoBox.update(gc, gm, dt);
-
-        tierTwoBox.setPosY(posY+tierOneBox.getHeight());
+        tier1BuyButton.update(gc, gm, dt);
+        tier2BuyButton.update(gc, gm, dt);
+        tier3BuyButton.update(gc, gm, dt);
     }
 
     @Override
     public void render(GameContainer gc, Renderer r) {
         r.drawFillRect((int)posX, (int)posY, width, height, color);
-        tierOneBox.render(gc, r);
-        tierTwoBox.render(gc, r);
+        tier1BuyButton.render(gc, r);
+        tier2BuyButton.render(gc, r);
+        tier3BuyButton.render(gc, r);
     }
 
 
@@ -52,4 +58,8 @@ public class RightHud extends GameObject {
     public static void setTierTwoInfo(Tower tierTwo) {
         RightHud.tierTwo = tierTwo;
     }
+    public static void setTierThreeInfo(Tower tierThree) {
+        RightHud.tierThree = tierThree;
+    }
+
 }

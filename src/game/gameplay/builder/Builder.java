@@ -20,12 +20,14 @@ public class Builder {
     private TowerFactory towerFactory = new TowerFactory();
     private int tier1ID;
     private int tier2ID;
+    private int tier3ID;
 
-    public Builder(Player player, GamePlay gamePlay, int tier1ID, int tier2ID){
+    public Builder(Player player, GamePlay gamePlay, int tier1ID, int tier2ID, int tier3ID){
         this.player = player;
         this.gamePlay = gamePlay;
         this.tier1ID = tier1ID;
         this.tier2ID = tier2ID;
+        this.tier3ID = tier2ID;
 
         giveRightHUDTowers();
     }
@@ -74,6 +76,9 @@ public class Builder {
                 return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
             case 2:
                 return towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile();
+            case 3:
+                return towerFactory.getTier3(tier3ID, 0, 0, null).getAnimationTile();
+
             default:
                 return null;
         }
@@ -108,6 +113,8 @@ public class Builder {
                 return towerFactory.getTier1(tier1ID, x, y, square);
             case 2:
                 return towerFactory.getTier2(tier2ID, x, y, square);
+            case 3:
+                return towerFactory.getTier3(tier3ID, x, y, square);
             default:
                 return null;
         }
@@ -133,5 +140,6 @@ public class Builder {
     private void giveRightHUDTowers(){
         RightHud.setTierOneInfo(towerFactory.getTier1(tier1ID, 0, 0, null));
         RightHud.setTierTwoInfo(towerFactory.getTier2(tier2ID, 0, 0, null));
+        RightHud.setTierThreeInfo(towerFactory.getTier3(tier3ID, 0, 0, null));
     }
 }

@@ -1,12 +1,10 @@
-package game.display;
+package game.display.Buttons;
 
 import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
-
-import java.util.Arrays;
 
 public class Button extends GameObject {
     private Image image;
@@ -16,8 +14,6 @@ public class Button extends GameObject {
     private int borderColor = 0xff000000;
     private int hooveredColor = 0xffc9cd00;
     private int regularColor = 0xff000000;
-
-
 
     public Button(double posX, double posY, int width, int height, Image image){
         this.posX = posX;

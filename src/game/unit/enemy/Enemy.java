@@ -7,6 +7,7 @@ import game.GameManager;
 import game.GameObject;
 import game.display.popup.GoldPop;
 import game.unit.Healthbar;
+import game.unit.King;
 import game.unit.Projectile;
 import game.unit.Unit;
 import game.unit.tower.Tower;
@@ -65,6 +66,8 @@ public class Enemy extends Unit {
                     attack(unitToAttack);
                     gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 3, 3, 0xffFF0000));
                 }
+            } else{
+                moveTowardsEnemy(unitToAttack);
             }
         }else{
             movement();
@@ -74,15 +77,23 @@ public class Enemy extends Unit {
     }
 
     private boolean detectUnit(GameManager gm){
-
         //if enemy detected
         for(GameObject objDetected : gm.getObjects()){
-            if(getDistTo(objDetected) <= view && objDetected instanceof Tower) {
+            if(getDistTo(objDetected) <= view && (objDetected instanceof Tower)) {
                 hasDetected = true;
                 unitToAttack = (Unit) objDetected;
                 return true;
             }
         }
+
+        for(GameObject objDetected : gm.getObjects()){
+            if(getDistTo(objDetected) <= view && (objDetected instanceof King)) {
+                hasDetected = true;
+                unitToAttack = (Unit) objDetected;
+                return true;
+            }
+        }
+
 
         //if moving friend detected enemy
         for(GameObject objDetected : gm.getObjects()) {
