@@ -1,12 +1,10 @@
 package game.display.HUD.RightHud;
 
-
 import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
-import game.display.Buttons.Button;
 import game.display.Buttons.BuyButton;
 import game.unit.tower.Tower;
 
@@ -31,9 +29,9 @@ public class RightHud extends GameObject {
         this.width = width;
         this.height = height;
 
-        tier1BuyButton = new BuyButton(posX+30, posY+15, 32, 32, new Image(tierOne.getPath()+"icon.png"), tierOne);;
+        tier1BuyButton = new BuyButton(posX+30, posY+15, 32, 32, new Image(tierOne.getPath()+"icon.png"), tierOne);
         tier2BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getHeight()+35, 32, 32, new Image(tierTwo.getPath()+"icon.png"), tierTwo);
-        tier3BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getHeight()+tier2BuyButton.getPosY()+15, 32, 32, new Image(tierThree.getPath()+"icon.png"), tierThree);;
+        tier3BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getHeight()+tier2BuyButton.getPosY()+15, 32, 32, new Image(tierThree.getPath()+"icon.png"), tierThree);
     }
 
     @Override

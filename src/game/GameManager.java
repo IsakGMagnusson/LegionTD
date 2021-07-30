@@ -3,7 +3,7 @@ package game;
 import engine.AbstractGame;
 import engine.GameContainer;
 import engine.Renderer;
-import game.display.HUD.BotHud;
+import game.display.HUD.BotHud.BotHud;
 import game.display.HUD.RightHud.RightHud;
 import game.gameplay.GamePlay;
 
@@ -69,8 +69,7 @@ public class GameManager extends AbstractGame {
         int rightHUDwidth = 200;
         objects.add(new RightHud(SCREEN_WIDTH-rightHUDwidth,0,rightHUDwidth, SCREEN_HEIGHT));
 
-        int botHUDheight = 50;
-        objects.add(new BotHud(0,SCREEN_HEIGHT-botHUDheight, SCREEN_WIDTH, botHUDheight));
+        objects.add(new BotHud());
     }
 
     public static void main(String args[]){

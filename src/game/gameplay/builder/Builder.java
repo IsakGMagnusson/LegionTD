@@ -4,8 +4,9 @@ import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
+import game.display.HUD.BotHud.TowerHud;
 import game.display.popup.GoldPop;
-import game.display.HUD.BotHud;
+import game.display.HUD.BotHud.BotHud;
 import game.display.HUD.RightHud.RightHud;
 import game.display.popup.Toast;
 import game.gameplay.GamePlay;
@@ -53,7 +54,7 @@ public class Builder {
             unSelectTower();
         }
 
-        if (BotHud.getSell()){
+        if (TowerHud.getSell()){
             sellUnit((Tower) player.getSelectedObject(), gm);
         }
     }
@@ -129,7 +130,7 @@ public class Builder {
             player.incGold(soldTower.getCost()/2);
             player.getOwnedTowers().remove(soldTower);
             soldTower.setDead(true);
-            BotHud.setIsSelling(false);
+            TowerHud.setIsSelling(false);
             soldTower.getSquare().setIsOccupied(false);
 
             GoldPop goldPop = new GoldPop(soldTower.getSquare().getPosX(), soldTower.getSquare().getPosY(), soldTower.getCost()/2);

@@ -5,6 +5,7 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.display.HUD.RightHud.RightHud;
+import game.display.popup.Toast;
 import game.display.popup.TowerInfoBox;
 import game.unit.tower.Tower;
 
@@ -23,10 +24,9 @@ public class BuyButton extends Button {
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
         super.update(gc,gm,dt);
-        if(getIsPressed()){
+        if(getIsPressed(gc)){
             RightHud.buying = tower.getTier();
         }
-
     }
 
     @Override

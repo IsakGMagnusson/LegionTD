@@ -14,6 +14,8 @@ public class Toast extends GameObject {
     int goodColor = 0xff5cff5d;
     int badColor  = 0xffff273b;
     int color;
+    int posX;
+    int posY;
 
     public Toast(String text, boolean isGood){
         this.text = text;
@@ -29,8 +31,8 @@ public class Toast extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        int posX = GameManager.SCREEN_WIDTH/2-(text.length()*5*5)/2;
-        int posY = GameManager.SCREEN_HEIGHT-boxHeight-5;
+        posX = GameManager.SCREEN_WIDTH/2-(text.length()*5*5)/2;
+        posY = GameManager.SCREEN_HEIGHT-boxHeight-5;
 
         //magic number (*5) is text scale in drawText in renderer
         r.drawFillRect(posX, posY-50,text.length()*5*5, boxHeight, color);

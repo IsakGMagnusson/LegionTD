@@ -5,7 +5,8 @@ import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
 import game.GameObject;
-import game.display.HUD.BotHud;
+import game.display.HUD.BotHud.BotHud;
+import game.display.HUD.BotHud.TowerHud;
 import game.gameplay.builder.Builder;
 import game.unit.King;
 import game.unit.Unit;
@@ -44,25 +45,6 @@ public class Player {
         }
 
         if(gc.getInput().isButtonDown(1)) selectedObject = selectUnit(gm, gc);
-
-
-        //TODO: make this change HUD entirely
-        if(selectedObject == null){
-            BotHud.setInfo("");
-            BotHud.selectedObj = BotHud.SelectedObj.NULL;
-        }
-        else if(selectedObject instanceof Tower) {
-            BotHud.setInfo("Type: " + "Tower  " + "hp: " + (int) ((Tower) selectedObject).getHealth() + "  Dmg: " + (int) ((Tower) selectedObject).getDamage() + "     ");
-            BotHud.selectedObj = BotHud.SelectedObj.TOWER;
-        }
-        else if(selectedObject instanceof Enemy){
-            BotHud.setInfo("Type: " + "Enemy  " +"hp: " + (int)((Enemy) selectedObject).getHealth() + "  Dmg: " + (int)((Enemy) selectedObject).getDamage() + "     ");
-            BotHud.selectedObj = BotHud.SelectedObj.ENEMY;
-        }
-        else if(selectedObject instanceof King){
-            BotHud.setInfo("Type: " + "King  " +"hp: " + (int)((King) selectedObject).getHealth() + "  Dmg: " + (int)((King) selectedObject).getDamage() + "     ");
-            BotHud.selectedObj = BotHud.SelectedObj.KING;
-        }
     }
 
     public void render(GameContainer gc, Renderer r) {
@@ -77,7 +59,8 @@ public class Player {
     public GameObject selectUnit(GameManager gm, GameContainer gc){
         for(GameObject object : gm.getObjects()){
             if (object.isHoovered(gc) && object instanceof Unit){
-                BotHud.setIsSelling(false);
+                TowerHud.setIsSelling(false);
+                BotHud.selectedNewObject(object);
                 return object;
             }
         }

@@ -5,10 +5,10 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
+import game.display.popup.Toast;
 
 public class Button extends GameObject {
     private Image image;
-    private boolean isPressed;
     private boolean isActive = true;
 
     private int borderColor = 0xff000000;
@@ -27,9 +27,11 @@ public class Button extends GameObject {
     public void update(GameContainer gc, GameManager gm, float dt) {
         borderColor = isHoovered(gc) ? hooveredColor : regularColor;
 
-        if(isHoovered(gc) && isActive){
-           leftClick(gc);
+
+        if (leftClick(gc) && getIsActive()) {
+
         }
+
     }
 
     @Override
@@ -38,19 +40,17 @@ public class Button extends GameObject {
         r.drawImage(image, (int)posX, (int)posY);
     }
 
-    public boolean getIsPressed() {
-        return isPressed;
+    public boolean getIsPressed(GameContainer gc) {
+        if(isHoovered(gc) && leftClick(gc)) return true;
+        else return false;
     }
 
-    private void leftClick(GameContainer gc){
-        if(gc.getInput().isButtonDown(1)){
-            isPressed = true;
-        } else{
-            isPressed = false;
-        }
+    private boolean leftClick(GameContainer gc){
+        if(gc.getInput().isButtonDown(1)) return true;
+        else return false;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
