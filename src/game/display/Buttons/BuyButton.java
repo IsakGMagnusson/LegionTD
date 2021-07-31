@@ -5,7 +5,6 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.display.HUD.RightHud.RightHud;
-import game.display.popup.Toast;
 import game.display.popup.TowerInfoBox;
 import game.unit.tower.Tower;
 
@@ -13,8 +12,8 @@ public class BuyButton extends Button {
     private Tower tower;
     private TowerInfoBox towerInfoBox;
 
-    public BuyButton(double posX, double posY, int width, int height, Image image, Tower tower) {
-        super(posX, posY, width, height, image);
+    public BuyButton(double posX, double posY, Image image, Tower tower) {
+        super(posX, posY, image);
         this.tower = tower;
 
         this.towerInfoBox = new TowerInfoBox(posX-200, posY, tower);

@@ -1,6 +1,5 @@
 package game.gameplay;
 
-
 import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
@@ -60,7 +59,6 @@ public class Player {
             if (object.isHoovered(gc) && object instanceof Unit){
                 TowerHud.setIsSelling(false);
                 BotHud.selectedNewObject(object);
-                BotHud.newHudSelected = true;
                 return object;
             }
         }

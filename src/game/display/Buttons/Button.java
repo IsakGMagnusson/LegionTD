@@ -5,21 +5,20 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
-import game.display.popup.Toast;
 
 public class Button extends GameObject {
     private Image image;
     private boolean isActive = true;
 
     private int borderColor = 0xff000000;
-    private int hooveredColor = 0xffc9cd00;
+    private int hooveredColor = 0xff5cff35;
     private int regularColor = 0xff000000;
 
-    public Button(double posX, double posY, int width, int height, Image image){
+    public Button(double posX, double posY, Image image){
         this.posX = posX;
         this.posY = posY;
-        this.width = width;
-        this.height = height;
+        this.width = image.getW();
+        this.height = image.getH();
         this.image = image;
     }
 
@@ -27,11 +26,9 @@ public class Button extends GameObject {
     public void update(GameContainer gc, GameManager gm, float dt) {
         borderColor = isHoovered(gc) ? hooveredColor : regularColor;
 
-
         if (leftClick(gc) && getIsActive()) {
 
         }
-
     }
 
     @Override

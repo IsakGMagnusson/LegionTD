@@ -54,7 +54,6 @@ public class BotHud extends GameObject {
 
         if(selectedEnum != SelectedObj.NULL)selectedHud.render(gc, r);
         else r.drawText("Nothing selected", (int)getPosX(), (int)getPosY(), 0xFF000000, 3);
-
     }
 
     private void updateEnum(){
@@ -66,6 +65,7 @@ public class BotHud extends GameObject {
 
     public static void selectedNewObject(Object object){
         selectedObj = object;
+        BotHud.newHudSelected = true;
     }
 
     private BotHud selectHUD(){

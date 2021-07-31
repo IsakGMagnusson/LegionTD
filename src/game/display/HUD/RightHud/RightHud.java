@@ -11,6 +11,8 @@ import game.unit.tower.Tower;
 public class RightHud extends GameObject {
 
     private int color = 0xFFfd94ff;
+    private int rightHUDwidth = 200;
+
 
     private static Tower tierOne;
     private static Tower tierTwo;
@@ -20,18 +22,22 @@ public class RightHud extends GameObject {
     private BuyButton tier2BuyButton;
     private BuyButton tier3BuyButton;
 
+    private double buyButtonSize = 1.5;
+
     public static int buying = -1;
 
 
-    public RightHud(double posX, double posY, int width, int height){
-        this.posX = posX;
-        this.posY = posY;
-        this.width = width;
-        this.height = height;
+    public RightHud(){
+        this.posX = GameManager.SCREEN_WIDTH-rightHUDwidth;
+        this.posY = 0;
+        this.width = rightHUDwidth;
+        this.height = GameManager.SCREEN_HEIGHT;
 
-        tier1BuyButton = new BuyButton(posX+30, posY+15, 32, 32, new Image(tierOne.getPath()+"icon.png"), tierOne);
-        tier2BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getHeight()+35, 32, 32, new Image(tierTwo.getPath()+"icon.png"), tierTwo);
-        tier3BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getHeight()+tier2BuyButton.getPosY()+15, 32, 32, new Image(tierThree.getPath()+"icon.png"), tierThree);
+        tier1BuyButton = new BuyButton(posX+30, posY+15, new Image(tierOne.getPath()+"icon.png", buyButtonSize), tierOne);
+        tier2BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getPosY()+(tier1BuyButton.getHeight()*tierTwo.getTier()),
+                 new Image(tierTwo.getPath()+"icon.png", buyButtonSize), tierTwo);
+        tier3BuyButton = new BuyButton(posX+30, posY+tier2BuyButton.getPosY()+(tier1BuyButton.getHeight()*tierTwo.getTier()),
+                new Image(tierThree.getPath()+"icon.png", buyButtonSize), tierThree);
     }
 
     @Override

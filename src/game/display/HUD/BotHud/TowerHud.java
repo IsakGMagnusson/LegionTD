@@ -19,7 +19,7 @@ public class TowerHud extends BotHud {
     public TowerHud(Tower tower) {
         this.tower = tower;
 
-        sellTower = new Button(getPosX()+5, getPosY()+5, 32, 32, new Image("/images/sell.png"));
+        sellTower = new Button(getPosX()+5, getPosY()+5, new Image("/images/sell.png", 1));
         info = "Name: " + tower.getName() + " hp: " + (int)tower.getHealth() + " Dmg: " + (int)tower.getDamage();
     }
 

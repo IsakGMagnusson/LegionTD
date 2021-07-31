@@ -66,9 +66,7 @@ public class GameManager extends AbstractGame {
     }
 
     private void createHUDS(){
-        int rightHUDwidth = 200;
-        objects.add(new RightHud(SCREEN_WIDTH-rightHUDwidth,0,rightHUDwidth, SCREEN_HEIGHT));
-
+        objects.add(new RightHud());
         objects.add(new BotHud());
     }
 

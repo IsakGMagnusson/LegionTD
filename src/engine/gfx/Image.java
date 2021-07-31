@@ -1,6 +1,8 @@
 package engine.gfx;
 
 import javax.imageio.ImageIO;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -9,7 +11,8 @@ public class Image {
     private int w, h;
     private int[] p;
 
-    public Image(String path){
+
+    public Image(String path, double scale){
         BufferedImage image = null;
 
         try {
@@ -18,12 +21,23 @@ public class Image {
             e.printStackTrace();
         }
 
-        w = image.getWidth();
-        h = image.getHeight();
-        p = image.getRGB(0,0, w, h,null,0, w);
+        w = (int) (image.getWidth()*scale);
+        h = (int) (image.getHeight()*scale);
+
+        BufferedImage scaled = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        AffineTransform at = new AffineTransform();
+        at.scale(scale, scale);
+        AffineTransformOp scaleOp =
+                new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        scaled = scaleOp.filter(image, scaled);
+        w = scaled.getWidth();
+        h = scaled.getHeight();
+        p = scaled.getRGB(0,0, w, h,null,0, w);
 
         image.flush();
     }
+
+
 
     public int getW() {
         return w;

@@ -10,7 +10,7 @@ public class GoldPop extends GameObject {
     int uptime = 1*60;
     int textFloat = 0;
     int gold;
-    int goldColor = 0xFFcff500;
+    int goldColor = 0xFFada900;
 
     public GoldPop(int posX, int posY, int gold){
         this.posX = posX;

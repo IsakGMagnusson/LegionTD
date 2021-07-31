@@ -64,7 +64,7 @@ public class Enemy extends Unit {
             if(getDistTo(unitToAttack) <= range){
                 if(attackSpeed <= nextAttack){
                     attack(unitToAttack);
-                    gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 3, 3, 0xffFF0000));
+                    gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 3, 3, 0xFFFF0000));
                 }
             } else{
                 moveTowardsEnemy(unitToAttack);

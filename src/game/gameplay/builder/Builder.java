@@ -43,12 +43,12 @@ public class Builder {
         this.tier2ID = tier2ID;
         this.tier3ID = tier3ID;
 
+        //null is for (tier1 = first index), and so on. Maybe fix so (tier1 = tier0)?
         imageArray = new ImageTile[]{null,
                 towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile(),
                 towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile(),
                 towerFactory.getTier3(tier3ID, 0, 0, null).getAnimationTile()
         };
-
 
         giveRightHUDTowers();
     }
@@ -70,11 +70,11 @@ public class Builder {
             }
         }
 
-        if (gc.getInput().isButtonDown(3)){
+        if(gc.getInput().isButtonDown(3)){
             unSelectTower();
         }
 
-        if (TowerHud.getSell()){
+        if(TowerHud.getSell()){
             sellUnit((Tower) player.getSelectedObject(), gm);
         }
     }
