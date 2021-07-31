@@ -21,6 +21,15 @@ public class BotHud extends GameObject {
     public static SelectedObj selectedEnum = SelectedObj.NULL;
     public static Object selectedObj;
 
+    /*
+    the reason behind the use of this boolean is to avoid
+    having to create selectHUD().update()/render()
+    and instead use update on <BotHud selectedHud>
+    to avoid creating new Hud every iteration
+     */
+    public static boolean newHudSelected = false;
+    private BotHud selectedHud;
+
     public BotHud(){
         this.posX = 0;
         this.posY = GameManager.SCREEN_HEIGHT-botHUDheight;
@@ -30,21 +39,29 @@ public class BotHud extends GameObject {
 
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        updateEnum();
-        selectHUD().update(gc, gm, dt);
+        if(newHudSelected){
+            updateEnum();
+            selectedHud = selectHUD();
+            newHudSelected = false;
+        }
+
+        if(selectedEnum != SelectedObj.NULL) selectedHud.update(gc,gm,dt);
     }
 
     @Override
     public void render(GameContainer gc, Renderer r) {
         r.drawFillRect((int)posX, (int)posY, width, height, 0xFFFFFFFF);
-        selectHUD().render(gc, r);
+
+        if(selectedEnum != SelectedObj.NULL)selectedHud.render(gc, r);
+        else r.drawText("Nothing selected", (int)getPosX(), (int)getPosY(), 0xFF000000, 3);
+
     }
 
     private void updateEnum(){
-        if(selectedObj == null) selectedEnum = SelectedObj.NULL;
+        if(selectedObj == null)          selectedEnum = SelectedObj.NULL;
         if(selectedObj instanceof Tower) selectedEnum = SelectedObj.TOWER;
         if(selectedObj instanceof Enemy) selectedEnum = SelectedObj.ENEMY;
-        if(selectedObj instanceof King) selectedEnum = SelectedObj.KING;
+        if(selectedObj instanceof King)  selectedEnum = SelectedObj.KING;
     }
 
     public static void selectedNewObject(Object object){

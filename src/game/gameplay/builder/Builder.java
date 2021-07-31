@@ -4,9 +4,9 @@ import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
+import game.display.HUD.BotHud.BotHud;
 import game.display.HUD.BotHud.TowerHud;
 import game.display.popup.GoldPop;
-import game.display.HUD.BotHud.BotHud;
 import game.display.HUD.RightHud.RightHud;
 import game.display.popup.Toast;
 import game.gameplay.GamePlay;
@@ -16,19 +16,39 @@ import game.unit.tower.TowerFactory;
 
 public class Builder {
     private BuildArea buildArea = new BuildArea();
+    private TowerFactory towerFactory = new TowerFactory();
     private Player player;
     private GamePlay gamePlay;
-    private TowerFactory towerFactory = new TowerFactory();
     private int tier1ID;
     private int tier2ID;
     private int tier3ID;
+
+    /*
+    the reason behind the use of this array is to avoid
+       private ImageTile getAnimationTile(int tier){
+        switch (tier) {
+            case 1:
+                return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
+            ...
+        }
+    }
+    ,creating new objects every iteration
+    */
+    private ImageTile[] imageArray;
 
     public Builder(Player player, GamePlay gamePlay, int tier1ID, int tier2ID, int tier3ID){
         this.player = player;
         this.gamePlay = gamePlay;
         this.tier1ID = tier1ID;
         this.tier2ID = tier2ID;
-        this.tier3ID = tier2ID;
+        this.tier3ID = tier3ID;
+
+        imageArray = new ImageTile[]{null,
+                towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile(),
+                towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile(),
+                towerFactory.getTier3(tier3ID, 0, 0, null).getAnimationTile()
+        };
+
 
         giveRightHUDTowers();
     }
@@ -63,7 +83,7 @@ public class Builder {
         buildArea.render(gc, r);
 
         if(RightHud.buying > 0){
-            r.drawImageTile(getAnimationTile(RightHud.buying), gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 1, 180);
+            r.drawImageTile(imageArray[RightHud.buying], gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 1, 180);
         }
     }
 
@@ -71,19 +91,7 @@ public class Builder {
         return gc.getInput().isButtonDown(1) && RightHud.buying > -1;
     }
 
-    private ImageTile getAnimationTile(int tier){
-        switch (tier) {
-            case 1:
-                return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
-            case 2:
-                return towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile();
-            case 3:
-                return towerFactory.getTier3(tier3ID, 0, 0, null).getAnimationTile();
 
-            default:
-                return null;
-        }
-    }
 
     public Tower getHooveredTower(GameContainer gc){
         for(Tower t : player.getOwnedTowers()) {

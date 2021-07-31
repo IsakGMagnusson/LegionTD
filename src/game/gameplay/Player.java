@@ -10,7 +10,6 @@ import game.display.HUD.BotHud.TowerHud;
 import game.gameplay.builder.Builder;
 import game.unit.King;
 import game.unit.Unit;
-import game.unit.enemy.Enemy;
 import game.unit.tower.Tower;
 
 import java.util.ArrayList;
@@ -61,6 +60,7 @@ public class Player {
             if (object.isHoovered(gc) && object instanceof Unit){
                 TowerHud.setIsSelling(false);
                 BotHud.selectedNewObject(object);
+                BotHud.newHudSelected = true;
                 return object;
             }
         }

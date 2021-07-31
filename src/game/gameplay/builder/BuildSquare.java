@@ -4,7 +4,7 @@ import engine.GameContainer;
 import engine.Renderer;
 
 public class BuildSquare {
-    public static final int SQUARE_WIDTH = 15*3;
+    public static final int SQUARE_WIDTH = 36;
 
     private int posX, posY;
     private boolean isOccupied;
@@ -23,7 +23,7 @@ public class BuildSquare {
         color = (isSquareHoovered(gc)) ? hooveredColor : regColor;
         r.drawFillRect( getPosX(),  getPosY(), SQUARE_WIDTH, SQUARE_WIDTH, color);
 
-        r.drawRect(posX, posY ,SQUARE_WIDTH, SQUARE_WIDTH, 0xFF000000);
+        r.drawRect(posX, posY, SQUARE_WIDTH, SQUARE_WIDTH, 0xFF000000);
     }
 
     public boolean isSquareHoovered(GameContainer gc){

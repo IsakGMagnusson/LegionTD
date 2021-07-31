@@ -18,7 +18,6 @@ public class BuyButton extends Button {
         this.tower = tower;
 
         this.towerInfoBox = new TowerInfoBox(posX-200, posY, tower);
-
     }
 
     @Override

@@ -17,11 +17,10 @@ public class TowerHud extends BotHud {
     private static Button sellTower;
 
     public TowerHud(Tower tower) {
-        super();
         this.tower = tower;
 
         sellTower = new Button(getPosX()+5, getPosY()+5, 32, 32, new Image("/images/sell.png"));
-        info = "Name: " + tower.getName() + " hp: " + tower.getHealth() + " Dmg: " + tower.getDamage();
+        info = "Name: " + tower.getName() + " hp: " + (int)tower.getHealth() + " Dmg: " + (int)tower.getDamage();
     }
 
     @Override
@@ -29,7 +28,7 @@ public class TowerHud extends BotHud {
         setSellingOnOff(GamePlay.getState());
         sellTower.update(gc, gm, dt);
 
-        info = "Name: " + tower.getName() + " hp: " + tower.getHealth() + " Dmg: " + tower.getDamage();
+        info = "Name: " + tower.getName() + " hp: " + (int)tower.getHealth() + " Dmg: " + (int)tower.getDamage();
 
         if(sellTower.getIsPressed(gc) && sellTower.getIsActive()){
             setIsSelling(true);
