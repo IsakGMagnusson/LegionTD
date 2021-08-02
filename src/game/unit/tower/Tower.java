@@ -6,16 +6,15 @@ import engine.gfx.ImageTile;
 import game.GameManager;
 import game.GameObject;
 import game.gameplay.builder.BuildSquare;
-import game.unit.Healthbar;
-import game.unit.Projectile;
+import game.unit.misc.Healthbar;
+import game.unit.misc.Projectile;
 import game.unit.Unit;
 import game.unit.enemy.Enemy;
 
 public abstract class Tower extends Unit {
-    public static final int PLAYER_SIZE = 32;
+    public static final int PLAYER_SIZE = 64;
     protected double nextAttack = 0;
     protected Unit unitToAttack;
-
 
     protected String name;
     protected String path;
@@ -61,7 +60,7 @@ public abstract class Tower extends Unit {
         if(health <= 0) setDead(true);
 
         nextAttack += dt;
-        animation += dt*5;
+        animation += dt*4;
 
         if(animation > 4) animation = 0;
 
@@ -81,18 +80,18 @@ public abstract class Tower extends Unit {
 
     private boolean detectUnit(GameManager gm){
         //if enemy detected
-        for(GameObject objDetected : gm.getObjects()){
-            if(getDistTo(objDetected) <= view && objDetected instanceof Enemy) {
+        for(Enemy enemy : gm.getEnemies()){
+            if(getDistTo(enemy) <= view) {
                 hasDetected = true;
-                unitToAttack = (Unit) objDetected;
+                unitToAttack = enemy;
                 return true;
             }
         }
 
         //attack enemy if detected by friend in view
-        for(GameObject objDetected : gm.getObjects()) {
-            if (objDetected instanceof  Tower && getDistTo(objDetected) <= friendView && ((Tower) objDetected).hasDetected) {
-                unitToAttack = ((Tower) objDetected).unitToAttack;
+        for(Tower friendlyTower : gm.getTowers()) {
+            if (getDistTo(friendlyTower) <= friendView && friendlyTower.hasDetected) {
+                unitToAttack = friendlyTower.unitToAttack;
                 hasDetected = true;
                 return true;
             }
@@ -104,7 +103,7 @@ public abstract class Tower extends Unit {
     }
 
     private void attack(GameManager gm){
-        gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 5, 5, 0xff00FFFF));
+        gm.addProjectile(new Projectile(unitToAttack, damage, posX+(width/2), posY, 5, 5));
         nextAttack = 0;
     }
 
@@ -155,7 +154,7 @@ public abstract class Tower extends Unit {
     }
 
     public ImageTile getAnimationTile() {
-        return new ImageTile(path+"animations.png", 32, 32);
+        return new ImageTile(path+"animations.png", PLAYER_SIZE, PLAYER_SIZE);
     }
 
     public void setSquare(BuildSquare buildSquare){

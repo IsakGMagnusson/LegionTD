@@ -3,9 +3,10 @@ package game.gameplay.builder;
 import engine.GameContainer;
 import engine.Renderer;
 
+
 public class BuildArea {
     private int xSquares = 8; int ySquares = 12;
-    private int areaOffX = 100; int areaOffY  = 60;
+    private int posX = 100; int posY  = 60;
 
     private BuildSquare[] buildArea = new BuildSquare[xSquares*ySquares];
 
@@ -21,7 +22,7 @@ public class BuildArea {
         int i = 0;
         for(int n = 0; n < xSquares; n++)
             for(int m = 0; m < ySquares; m++)
-                buildArea[i++] = new BuildSquare((BuildSquare.SQUARE_WIDTH*n)+areaOffX, (BuildSquare.SQUARE_WIDTH*m)+areaOffY);
+                buildArea[i++] = new BuildSquare((BuildSquare.SQUARE_WIDTH*n)+posX, (BuildSquare.SQUARE_WIDTH*m)+posY);
     }
 
     public boolean isSquareFree(GameContainer gc){
@@ -39,5 +40,9 @@ public class BuildArea {
                 return square;
 
         return null;
+    }
+
+    public BuildSquare[] getBuildArea() {
+        return buildArea;
     }
 }

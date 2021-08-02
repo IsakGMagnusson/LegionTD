@@ -4,7 +4,6 @@ import engine.GameContainer;
 import engine.Renderer;
 import engine.gfx.ImageTile;
 import game.GameManager;
-import game.display.HUD.BotHud.BotHud;
 import game.display.HUD.BotHud.TowerHud;
 import game.display.popup.GoldPop;
 import game.display.HUD.RightHud.RightHud;
@@ -22,6 +21,8 @@ public class Builder {
     private int tier1ID;
     private int tier2ID;
     private int tier3ID;
+
+    private boolean addBuildArea = false;
 
     /*
     the reason behind the use of this array is to avoid
@@ -54,18 +55,25 @@ public class Builder {
     }
 
     public void update(GameContainer gc, GameManager gm) {
+        if(!addBuildArea){
+            for(BuildSquare buildSquare : buildArea.getBuildArea())
+            gm.addBuildSquares(buildSquare);
+            addBuildArea = true;
+        }
+
+
         if(isTryingToBuild(gc)){
             if(!gamePlay.isBuyState()){
-                Toast toast = new Toast("not buystate", false);
-                gm.addObject(toast);
+                gm.addToast(new Toast("not buystate", false));
             } else if(gamePlay.isBuyState()){
                 if (buildArea.isSquareFree(gc)){
                     buildTower(gc, gm);
                 } else if(getHooveredTower(gc) != null){
                     getHooveredTower(gc);
                 }
-                else{ Toast toast = new Toast("bad terrain", false);
-                    gm.addObject(toast);
+                else{
+                    gm.addToast(new Toast("bad terrain", false));
+
                 }
             }
         }
@@ -80,8 +88,7 @@ public class Builder {
     }
 
     public void render(GameContainer gc, Renderer r) {
-        buildArea.render(gc, r);
-
+        //buildArea.render(gc, r);
         if(RightHud.buying > 0){
             r.drawImageTile(imageArray[RightHud.buying], gc.getInput().getMouseX(),  gc.getInput().getMouseY(), 0, 0, 1, 180);
         }
@@ -104,15 +111,14 @@ public class Builder {
 
     private void buildTower(GameContainer gc, GameManager gm){
         BuildSquare buildSquare = buildArea.getHooveredSquare(gc);
-        Tower t = createTower(buildSquare.getPosX(), buildSquare.getPosY(), buildSquare);
+        Tower t = createTower((int)buildSquare.getPosX(), (int)buildSquare.getPosY(), buildSquare);
         if(t.getCost() <= player.getGold()){
-            gm.addObject(t);
+            gm.addTower(t);
             player.addOwnedTower(t);
             player.decGold(t.getCost());
             buildArea.getHooveredSquare(gc).setIsOccupied(true);
         } else{
-            Toast toast = new Toast("insufficient funds", false);
-            gm.addObject(toast);
+            gm.addToast(new Toast("insufficient funds", false));
         }
     }
 
@@ -140,9 +146,7 @@ public class Builder {
             soldTower.setDead(true);
             TowerHud.setIsSelling(false);
             soldTower.getSquare().setIsOccupied(false);
-
-            GoldPop goldPop = new GoldPop(soldTower.getSquare().getPosX(), soldTower.getSquare().getPosY(), soldTower.getCost()/2);
-            gm.addObject(goldPop);
+            gm.addGoldPop(new GoldPop((int)soldTower.getSquare().getPosX(), (int)soldTower.getSquare().getPosY(), soldTower.getCost()/2));
         }
     }
 

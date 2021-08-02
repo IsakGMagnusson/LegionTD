@@ -1,25 +1,26 @@
-package game.unit;
+package game.unit.misc;
 
 import engine.GameContainer;
 import engine.Renderer;
+import engine.gfx.Image;
 import game.GameManager;
 import game.GameObject;
+import game.unit.Unit;
 
 public class Projectile extends GameObject {
 
-    private int color;
-    private final double SPEED = 0.9;
+    private final double SPEED = 2.2;
     private Unit target;
     private double damage;
+    Image image =  new Image("/images/bullet.png", 0.5);
 
-    public Projectile(Unit target, double damage, double posX, double posY, int width, int height, int color){
+    public Projectile(Unit target, double damage, double posX, double posY, int width, int height){
         this.target = target;
         this.damage = damage;
         this.posX = posX;
         this.posY = posY;
         this.width = width;
         this.height = height;
-        this.color = color;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Projectile extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawFillRect((int) posX, (int) posY, width, height, color);
+        r.drawImage(image, (int) posX, (int) posY);
     }
 
     private boolean hasHitTarget(Unit target){

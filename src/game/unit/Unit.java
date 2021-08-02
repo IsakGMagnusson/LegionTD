@@ -1,11 +1,13 @@
 package game.unit;
 
 import game.GameObject;
+import game.unit.ability.Ability;
 
 public abstract class Unit extends GameObject {
     protected int view = 80*15;
     protected int friendView = view*2;
 
+    protected Ability[] unitAbilities;
     protected double health, maxHealth, percentHealth;
     protected double damage, range, attackSpeed;
 
@@ -42,6 +44,14 @@ public abstract class Unit extends GameObject {
 
     public void setAttackSpeed(double attackSpeed) {
         this.attackSpeed = attackSpeed;
+    }
+
+    public Ability[] getUnitAbilities() {
+        return unitAbilities;
+    }
+
+    public void setUnitAbilities(Ability[] unitAbilities) {
+        this.unitAbilities = unitAbilities;
     }
 
     public double getDistTo(GameObject unitToAttack){

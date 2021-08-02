@@ -2,11 +2,13 @@ package game.gameplay.builder;
 
 import engine.GameContainer;
 import engine.Renderer;
+import game.GameManager;
+import game.GameObject;
 
-public class BuildSquare {
-    public static final int SQUARE_WIDTH = 36;
+public class BuildSquare extends GameObject {
+    public static final int SQUARE_WIDTH = 64;
 
-    private int posX, posY;
+    private double posX, posY;
     private boolean isOccupied;
 
     private int color;
@@ -19,11 +21,17 @@ public class BuildSquare {
         this.posY = posY;
     }
 
+    @Override
+    public void update(GameContainer gc, GameManager gm, float dt) {
+
+    }
+
+    @Override
     public void render(GameContainer gc, Renderer r) {
         color = (isSquareHoovered(gc)) ? hooveredColor : regColor;
-        r.drawFillRect( getPosX(),  getPosY(), SQUARE_WIDTH, SQUARE_WIDTH, color);
 
-        r.drawRect(posX, posY, SQUARE_WIDTH, SQUARE_WIDTH, 0xFF000000);
+        r.drawFillRect((int)posX, (int)posY, SQUARE_WIDTH, SQUARE_WIDTH, color);
+        r.drawRect((int)posX, (int)posY, SQUARE_WIDTH, SQUARE_WIDTH, 0xFF000000);
     }
 
     public boolean isSquareHoovered(GameContainer gc){
@@ -33,12 +41,20 @@ public class BuildSquare {
          else return false;
     }
 
-    public int getPosX(){
+    public double getPosX(){
         return posX;
     }
 
-    public int getPosY(){
+    public double getPosY(){
         return posY;
+    }
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(double posY) {
+        this.posY = posY;
     }
 
     public boolean getIsOccupied(){

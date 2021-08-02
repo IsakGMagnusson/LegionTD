@@ -33,7 +33,7 @@ public class TowerHud extends BotHud {
         if(sellTower.getIsPressed(gc) && sellTower.getIsActive()){
             setIsSelling(true);
         } else if(sellTower.getIsPressed(gc) && !sellTower.getIsActive()){
-            gm.addObject(new Toast("Can't sell in combat", false));
+            gm.addToast(new Toast("Can't sell in combat", false));
         }
     }
 

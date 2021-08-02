@@ -1,9 +1,10 @@
-package game.unit;
+package game.unit.misc;
 
 import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
 import game.GameObject;
+import game.unit.Unit;
 
 public class Healthbar extends GameObject {
     private Unit barOwner;

@@ -6,9 +6,9 @@ import engine.gfx.ImageTile;
 import game.GameManager;
 import game.GameObject;
 import game.display.popup.GoldPop;
-import game.unit.Healthbar;
+import game.unit.misc.Healthbar;
 import game.unit.King;
-import game.unit.Projectile;
+import game.unit.misc.Projectile;
 import game.unit.Unit;
 import game.unit.tower.Tower;
 
@@ -50,8 +50,7 @@ public class Enemy extends Unit {
     @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
         if(health <= 0){
-            GoldPop goldPop = new GoldPop( (int)Math.floor(posX), (int)Math.floor(posY), gold);
-            gm.addObject(goldPop);
+            gm.addGoldPop(new GoldPop( (int)Math.floor(posX), (int)Math.floor(posY), gold));
             setDead(true);
         }
 
@@ -64,7 +63,7 @@ public class Enemy extends Unit {
             if(getDistTo(unitToAttack) <= range){
                 if(attackSpeed <= nextAttack){
                     attack(unitToAttack);
-                    gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 3, 3, 0xFFFF0000));
+                    gm.addProjectile(new Projectile(unitToAttack, damage, posX+(width/2), posY, 5, 5));
                 }
             } else{
                 moveTowardsEnemy(unitToAttack);
@@ -78,27 +77,27 @@ public class Enemy extends Unit {
 
     private boolean detectUnit(GameManager gm){
         //if enemy detected
-        for(GameObject objDetected : gm.getObjects()){
-            if(getDistTo(objDetected) <= view && (objDetected instanceof Tower)) {
+        for(Tower tower : gm.getTowers()){
+            if(getDistTo(tower) <= view) {
                 hasDetected = true;
-                unitToAttack = (Unit) objDetected;
+                unitToAttack = tower;
                 return true;
             }
         }
 
-        for(GameObject objDetected : gm.getObjects()){
-            if(getDistTo(objDetected) <= view && (objDetected instanceof King)) {
+        for(King king : gm.getKings()){
+            if(getDistTo(king) <= view) {
                 hasDetected = true;
-                unitToAttack = (Unit) objDetected;
+                unitToAttack = king;
                 return true;
             }
         }
 
 
         //if moving friend detected enemy
-        for(GameObject objDetected : gm.getObjects()) {
-            if (objDetected instanceof  Enemy && getDistTo(objDetected) <= friendView && ((Enemy) objDetected).hasDetected) {
-                moveTowardsEnemy(objDetected);
+        for(Enemy friendlyEnemy: gm.getEnemies()) {
+            if (getDistTo(friendlyEnemy) <= friendView && (friendlyEnemy).hasDetected) {
+                moveTowardsEnemy(friendlyEnemy);
                 return false;
             }
         }

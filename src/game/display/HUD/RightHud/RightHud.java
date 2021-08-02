@@ -2,27 +2,21 @@ package game.display.HUD.RightHud;
 
 import engine.GameContainer;
 import engine.Renderer;
-import engine.gfx.Image;
 import game.GameManager;
-import game.GameObject;
-import game.display.Buttons.BuyButton;
 import game.unit.tower.Tower;
 
-public class RightHud extends GameObject {
+public class RightHud  {
 
     private int color = 0xFFfd94ff;
     private int rightHUDwidth = 200;
 
+    private int posX, posY, width, height;
 
     private static Tower tierOne;
     private static Tower tierTwo;
     private static Tower tierThree;
 
-    private BuyButton tier1BuyButton;
-    private BuyButton tier2BuyButton;
-    private BuyButton tier3BuyButton;
-
-    private double buyButtonSize = 1.5;
+    private UnitDisplay[] unitDisplays;
 
     public static int buying = -1;
 
@@ -33,28 +27,24 @@ public class RightHud extends GameObject {
         this.width = rightHUDwidth;
         this.height = GameManager.SCREEN_HEIGHT;
 
-        tier1BuyButton = new BuyButton(posX+30, posY+15, new Image(tierOne.getPath()+"icon.png", buyButtonSize), tierOne);
-        tier2BuyButton = new BuyButton(posX+30, posY+tier1BuyButton.getPosY()+(tier1BuyButton.getHeight()*tierTwo.getTier()),
-                 new Image(tierTwo.getPath()+"icon.png", buyButtonSize), tierTwo);
-        tier3BuyButton = new BuyButton(posX+30, posY+tier2BuyButton.getPosY()+(tier1BuyButton.getHeight()*tierTwo.getTier()),
-                new Image(tierThree.getPath()+"icon.png", buyButtonSize), tierThree);
+        UnitDisplay tier1Display = new UnitDisplay(posX, posY, tierOne);
+        UnitDisplay tier2Display = new UnitDisplay(posX, posY+120, tierTwo);
+        UnitDisplay tier3Display = new UnitDisplay(posX, posY+120*2, tierThree);
+        unitDisplays = new UnitDisplay[]{tier1Display, tier2Display, tier3Display};
     }
 
-    @Override
     public void update(GameContainer gc, GameManager gm, float dt) {
-        tier1BuyButton.update(gc, gm, dt);
-        tier2BuyButton.update(gc, gm, dt);
-        tier3BuyButton.update(gc, gm, dt);
+        for(UnitDisplay unitDisplay : unitDisplays){
+            unitDisplay.update(gc, gm, dt);
+        }
     }
 
-    @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawFillRect((int)posX, (int)posY, width, height, color);
-        tier1BuyButton.render(gc, r);
-        tier2BuyButton.render(gc, r);
-        tier3BuyButton.render(gc, r);
+        r.drawFillRect(posX, posY, width, height, color);
+        for(UnitDisplay unitDisplay : unitDisplays){
+            unitDisplay.render(gc, r);
+        }
     }
-
 
     public static void setTierOneInfo(Tower tierOne) {
         RightHud.tierOne = tierOne;

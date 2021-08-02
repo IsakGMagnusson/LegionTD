@@ -45,12 +45,12 @@ public class TowerInfoBox extends GameObject {
 
     private String[] getTowerInfo(Tower tower){
         String[] allInfo = {
-                "Tier " + tower.getTier(),
-                "Name " + tower.getName(),
-                "Dmg " + (int) tower.getDamage(),
-                "attack/sec " +  tower.getAttackSpeed(),
-                "Health " + (int) tower.getHealth(),
-                "Cost " + tower.getCost()
+                "Tier: " + tower.getTier(),
+                "Name: " + tower.getName(),
+                "Dmg: " + (int) tower.getDamage(),
+                "attack/sec: " +  tower.getAttackSpeed(),
+                "Health: " + (int) tower.getHealth(),
+                "Cost: " + tower.getCost()
         };
         return allInfo;
     }

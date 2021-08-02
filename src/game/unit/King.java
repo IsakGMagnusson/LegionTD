@@ -6,6 +6,8 @@ import engine.gfx.ImageTile;
 import game.GameManager;
 import game.GameObject;
 import game.unit.enemy.Enemy;
+import game.unit.misc.Healthbar;
+import game.unit.misc.Projectile;
 
 public class King extends Unit {
     private int kingSize = 64;
@@ -17,7 +19,7 @@ public class King extends Unit {
 
     public King(){
         this.posX = 250;
-        this.posY = 700;
+        this.posY = (12*64)+250;
         this.width = kingSize;
         this.height = kingSize;
         this.maxHealth = 1000;
@@ -53,16 +55,16 @@ public class King extends Unit {
     }
 
     private void attack(GameManager gm){
-        gm.getObjects().add(new Projectile(unitToAttack, damage, posX+(width/2), posY, 5, 5, 0xff00FFFF));
+        gm.addProjectile(new Projectile(unitToAttack, damage, posX+(width/2), posY, 5, 5));
         nextAttack = 0;
     }
 
     private boolean detectUnit(GameManager gm){
         //if enemy detected
-        for(GameObject objDetected : gm.getObjects()){
-            if(getDistTo(objDetected) <= view && objDetected instanceof Enemy) {
+        for(Enemy enemy : gm.getEnemies()){
+            if(getDistTo(enemy) <= view) {
                 hasDetected = true;
-                unitToAttack = (Unit) objDetected;
+                unitToAttack = enemy;
                 return true;
             }
         }
