@@ -7,6 +7,7 @@ import game.GameObject;
 import game.display.HUD.BotHud.BotHud;
 import game.display.HUD.BotHud.TowerHud;
 import game.display.HUD.RightHud.RightHud;
+import game.display.HUD.TopHud;
 import game.gameplay.builder.Builder;
 import game.unit.King;
 import game.unit.Unit;
@@ -18,26 +19,24 @@ public class Player {
 
     private Builder builder;
     private King king;
-    boolean isKingCreated = false;
+    private boolean isKingCreated = false;
     private GameObject selectedObject;
     private final int unitSelectColor = 0xFF49ffa0;
 
     private RightHud rightHud;
     private BotHud botHud;
-
-    private int randT1 = 0;
-    private int randT2 = 0;
-    private int randT3 = 0;
+    private TopHud topHud;
 
     private int gold;
     private ArrayList<Tower> ownedTowers = new ArrayList();
 
     public Player(GamePlay gamePlay){
         this.gold = 100;
-        builder = new Builder(this, gamePlay, randT1, randT2, randT3);
+        builder = new Builder(this, gamePlay);
         king = new King();
         rightHud = new RightHud();
         botHud = new BotHud();
+        topHud = new TopHud();
 
     }
 
@@ -55,14 +54,15 @@ public class Player {
     }
 
     public void render(GameContainer gc, Renderer r) {
-        builder.render(gc, r);
        // king.render(gc, r);
-        rightHud.render(gc, r);
-        botHud.render(gc, r);
-
         if(selectedObject != null && !selectedObject.isDead())
             r.drawCircle((int)Math.floor(selectedObject.getPosX()+selectedObject.getWidth()/2+5),
                     (int)Math.floor(selectedObject.getPosY())+selectedObject.getWidth()/2+3, selectedObject.getWidth(), unitSelectColor,4);
+
+        rightHud.render(gc, r);
+        botHud.render(gc, r);
+        topHud.render(gc, r);
+        builder.render(gc, r);
     }
 
     public GameObject selectUnit(GameManager gm, GameContainer gc){
@@ -96,8 +96,8 @@ public class Player {
         this.gold -= gold;
     }
 
-    public void addOwnedTower(Tower object){
-        ownedTowers.add(object);
+    public void addOwnedTower(Tower tower){
+        ownedTowers.add(tower);
     }
 
     public ArrayList<Tower> getOwnedTowers() {

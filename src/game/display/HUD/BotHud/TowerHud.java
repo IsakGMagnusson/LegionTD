@@ -39,8 +39,8 @@ public class TowerHud extends BotHud {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawFillRect((int)getPosX(), (int)getPosY(), getWidth(), getHeight(), 0xFFFFFFFF);
-        r.drawText(info, (int) (getPosX()+sellTower.getPosX()+sellTower.getWidth()), (int)getPosY(), 0xff000000, 4);
+      //  r.drawFillRect((int)getPosX(), (int)getPosY(), getWidth(), getHeight(), 0xFFFFFFFF);
+        r.drawText(info, (int) (getPosX()+sellTower.getPosX()+sellTower.getWidth()), (int)getPosY(), 0xff000000, 2);
 
         sellTower.render(gc, r);
     }

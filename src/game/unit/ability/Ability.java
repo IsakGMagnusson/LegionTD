@@ -2,6 +2,7 @@ package game.unit.ability;
 
 import engine.GameContainer;
 import engine.Renderer;
+import engine.gfx.Image;
 import game.GameManager;
 import game.unit.Unit;
 
@@ -9,8 +10,10 @@ public class Ability {
     protected Unit abilityOwner;
     protected int castRange;
     protected double posX, posY;
-    protected double cooldown, timer;
+    protected double cooldown, timer, damage;
     protected String name;
+    protected String description;
+    protected Image icon;
 
     public Ability(Unit unit){
         this.abilityOwner = unit;
@@ -81,5 +84,29 @@ public class Ability {
 
     public void setTimer(double timer) {
         this.timer = timer;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+
+    public Image getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Image icon) {
+        this.icon = icon;
     }
 }

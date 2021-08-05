@@ -5,18 +5,14 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.display.HUD.RightHud.RightHud;
-import game.display.popup.TowerInfoBox;
 import game.unit.tower.Tower;
 
 public class BuyButton extends Button {
     private Tower tower;
-    private TowerInfoBox towerInfoBox;
 
     public BuyButton(double posX, double posY, Image image, Tower tower) {
         super(posX, posY, image);
         this.tower = tower;
-
-        this.towerInfoBox = new TowerInfoBox(posX-200, posY, tower);
     }
 
     @Override
@@ -30,11 +26,6 @@ public class BuyButton extends Button {
     @Override
     public void render(GameContainer gc, Renderer r) {
         super.render(gc, r);
-
-        if(isHoovered(gc)){
-            towerInfoBox.render(gc, r);
-        }
     }
-
 
 }

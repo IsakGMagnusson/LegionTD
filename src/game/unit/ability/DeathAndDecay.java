@@ -2,18 +2,20 @@ package game.unit.ability;
 
 import engine.GameContainer;
 import engine.Renderer;
+import engine.gfx.Image;
 import game.GameManager;
-import game.GameObject;
 import game.unit.Unit;
 import game.unit.enemy.Enemy;
 
 public class DeathAndDecay extends Ability {
-    private int castRange = 150;
-    private int cooldown = 1;
-
     public DeathAndDecay(Unit unit) {
         super(unit);
         this.name = "Death and Decay";
+        this.castRange = 150;
+        this.cooldown = 0.5;
+        this.damage = 0.01;
+        this.description = "Deals " + damage*100 + "% of enemy maxhealth every " + cooldown + " seconds in a " + castRange + " radius.";
+        this.icon = new Image("/images/deathanddecay.png", 1);
     }
 
     @Override
@@ -26,7 +28,7 @@ public class DeathAndDecay extends Ability {
         if(timer >= cooldown){
             for(Enemy enemy : gm.getEnemies()){
                 if((enemy.getDistTo(abilityOwner) <= castRange)){
-                    enemy.setHealth(enemy.getHealth()-(0.05*(enemy.getMaxHealth())));
+                    enemy.setHealth(enemy.getHealth()-(damage*(enemy.getMaxHealth())));
                 }
             }
             setTimer(0);
@@ -35,6 +37,6 @@ public class DeathAndDecay extends Ability {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawCircle((int)posX+abilityOwner.getWidth()/2, (int)posY+abilityOwner.getHeight()/2, castRange, 0xffbbbbbb, 2);
+        r.drawCircle((int)posX+abilityOwner.getWidth()/2, (int)posY+abilityOwner.getHeight()/2, castRange, 0xff0da500, 4);
     }
 }

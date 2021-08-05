@@ -65,8 +65,8 @@ public abstract class GameObject {
 
     protected void moveTowardsUnit(GameObject objMoveTo, double speed){
         double distance =  Math.sqrt((objMoveTo.getPosX() - posX)*(objMoveTo.getPosX() - posX) + (objMoveTo.getPosY() - posY)*(objMoveTo.getPosY() - posY)); //calculates the distance between the two points
-        double speedX = (objMoveTo.getPosX() - posX) /distance;
-        double speedY = (objMoveTo.getPosY() - posY) /distance;
+        double speedX = (objMoveTo.getPosX()+(objMoveTo.getWidth()/2) - posX) /distance;
+        double speedY = (objMoveTo.getPosY()+((objMoveTo.getHeight()/2)) - posY) /distance;
 
         posX += speed*speedX;
         posY += speed*speedY;

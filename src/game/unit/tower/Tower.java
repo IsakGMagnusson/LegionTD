@@ -20,7 +20,6 @@ public abstract class Tower extends Unit {
     protected String path;
     protected int cost;
 
-
     protected Healthbar healthbar = new Healthbar(this);
     protected BuildSquare square;
 

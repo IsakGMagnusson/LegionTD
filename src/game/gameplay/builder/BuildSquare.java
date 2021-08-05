@@ -11,9 +11,9 @@ public class BuildSquare extends GameObject {
     private double posX, posY;
     private boolean isOccupied;
 
-    private int color;
     private int regColor = 0xFFeeabff;
-    private int hooveredColor = 0xFFdd56ff;
+    private int hooveredColor = 0xFFffd6fe;
+    private int occupiedColor = 0xFFe685ff;
 
     public BuildSquare(int posX, int posY){
         this.isOccupied = false;
@@ -28,9 +28,14 @@ public class BuildSquare extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        color = (isSquareHoovered(gc)) ? hooveredColor : regColor;
+        if(isOccupied){
+            r.drawFillRect((int)posX, (int)posY, SQUARE_WIDTH, SQUARE_WIDTH, occupiedColor);
+        } else if(isSquareHoovered(gc)){
+            r.drawFillRect((int)posX, (int)posY, SQUARE_WIDTH, SQUARE_WIDTH, hooveredColor);
+        } else{
+            r.drawFillRect((int)posX, (int)posY, SQUARE_WIDTH, SQUARE_WIDTH, regColor);
+        }
 
-        r.drawFillRect((int)posX, (int)posY, SQUARE_WIDTH, SQUARE_WIDTH, color);
         r.drawRect((int)posX, (int)posY, SQUARE_WIDTH, SQUARE_WIDTH, 0xFF000000);
     }
 

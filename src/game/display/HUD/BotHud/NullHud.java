@@ -11,6 +11,6 @@ public class NullHud extends BotHud {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawText("Nothing selected", (int)getPosX(), (int)getPosY(), 0xFF000000, 3);
+        r.drawText("Nothing selected", (int)getPosX(), (int)getPosY(), 0xFF000000, 2);
     }
 }

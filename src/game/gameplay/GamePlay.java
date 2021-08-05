@@ -3,16 +3,13 @@ package game.gameplay;
 import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
-import game.GameObject;
 import game.display.HUD.TopHud;
 import game.display.popup.Toast;
 import game.unit.enemy.Enemy;
 import game.unit.enemy.EnemySpawn;
 import game.unit.enemy.Waves.Wave;
-import game.unit.misc.Projectile;
 import game.unit.tower.Tower;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -25,13 +22,15 @@ public class GamePlay{
     private static State state = State.BUYTIME;
 
     private Player player;
-    private double buildTime = 5;
+    private double buildTime = 45;
     private int waveCount = 1;
     private double timeLeft = buildTime;
     private Wave currentWave;
 
     private EnemySpawn enemySpawn = new EnemySpawn();
     private boolean isEnemySpawnMovable = false;
+
+    private Camera camera = new Camera();
 
     public GamePlay(){
         player = new Player(this);
@@ -43,10 +42,11 @@ public class GamePlay{
             isEnemySpawnMovable = true;
         }
 
+
         timeLeft -= dt;
-        TopHud.setInfo("Time: " + (int)timeLeft + " |  State: " + state + "  |  wave: " + waveCount + "  |  Gold: " + player.getGold());
+        TopHud.setInfo("Time: " + (int)timeLeft + "   State: " + state + "    wave: " + waveCount + "    Gold: " + player.getGold());
         player.update(gc, gm, dt);
-        camera(gc, gm);
+        camera.moveCamera(gc, gm);
 
         if(state.equals(State.BATTLE)) duringWave(gm);
         if(timeLeft <= 0 && state.equals(State.BUYTIME)) startWave(gm);
@@ -77,10 +77,7 @@ public class GamePlay{
         gm.getTowers().clear();
         gm.getTowers().addAll(player.getOwnedTowers());
 
-        for(Projectile proj : gm.getProjectiles()){
-            proj.setDead(true);
-        }
-
+        gm.getProjectiles().forEach((proj) -> proj.setDead(true));
         player.getOwnedTowers().forEach(Tower::resetTower);
     }
 
@@ -112,28 +109,5 @@ public class GamePlay{
         return state;
     }
 
-    private void camera(GameContainer gc, GameManager gm) {
-        if(gc.getInput().getMouseX() < 5){
-            for(ArrayList<GameObject> object : gm.getObjects()){
-                object.forEach((obj) -> obj.setPosX(obj.getPosX()+1));
-            }
-        }
-        if(gc.getInput().getMouseX() > GameManager.SCREEN_WIDTH-5){
-            for(ArrayList<GameObject> object : gm.getObjects()){
-                object.forEach((obj) -> obj.setPosX(obj.getPosX()-1));
-            }
-        }
 
-        if(gc.getInput().getMouseY() < 5){
-            for(ArrayList<GameObject> object : gm.getObjects()){
-                object.forEach((obj) -> obj.setPosY(obj.getPosY()+1));
-            }
-        }
-
-        if(gc.getInput().getMouseY() > GameManager.SCREEN_HEIGHT-25){
-            for(ArrayList<GameObject> object : gm.getObjects()){
-                object.forEach((obj) -> obj.setPosY(obj.getPosY()-1));
-            }
-        }
-    }
 }

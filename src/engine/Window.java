@@ -1,7 +1,5 @@
 package engine;
 
-import game.display.HUD.TopHud;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -15,9 +13,6 @@ public class Window {
     private BufferStrategy bs;
     private Graphics g;
 
-    private TopHud topHud = new TopHud();
-
-
     public Window(GameContainer gc){
         image = new BufferedImage(gc.getWidth(), gc.getHeight(), BufferedImage.TYPE_INT_RGB);
         canvas = new Canvas();
@@ -30,10 +25,6 @@ public class Window {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(canvas, BorderLayout.CENTER);
-
-        topHud.setLayout(new BoxLayout(topHud, BoxLayout.X_AXIS));
-        frame.add(topHud, BorderLayout.NORTH);
-
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
@@ -47,11 +38,8 @@ public class Window {
     }
 
     public void update(){
-        topHud.update();
-
         g.drawImage(image,0,0,canvas.getWidth(),canvas.getHeight(), null);
         bs.show();
-
     }
 
     public Canvas getCanvas() {

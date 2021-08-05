@@ -10,6 +10,7 @@ import game.unit.tower.Tower;
 
 public class BotHud extends GameObject {
 
+    private int color = 0xFFfda3ff;
     private int botHUDheight = 50;
 
     public enum SelectedObj{
@@ -50,10 +51,10 @@ public class BotHud extends GameObject {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawFillRect((int)posX, (int)posY, width, height, 0xFFFFFFFF);
+        r.drawFillRect((int)posX, (int)posY, width, height, color);
 
         if(selectedEnum != SelectedObj.NULL)selectedHud.render(gc, r);
-        else r.drawText("Nothing selected", (int)getPosX(), (int)getPosY(), 0xFF000000, 3);
+        else r.drawText("Nothing selected", (int)getPosX(), (int)getPosY(), 0xFF000000, 2);
     }
 
     private void updateEnum(){

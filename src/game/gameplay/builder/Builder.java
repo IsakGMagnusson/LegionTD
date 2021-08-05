@@ -24,25 +24,14 @@ public class Builder {
 
     private boolean addBuildArea = false;
 
-    /*
-    the reason behind the use of this array is to avoid
-       private ImageTile getAnimationTile(int tier){
-        switch (tier) {
-            case 1:
-                return towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile();
-            ...
-        }
-    }
-    ,creating new objects every iteration
-    */
     private ImageTile[] imageArray;
 
-    public Builder(Player player, GamePlay gamePlay, int tier1ID, int tier2ID, int tier3ID){
+    public Builder(Player player, GamePlay gamePlay){
         this.player = player;
         this.gamePlay = gamePlay;
-        this.tier1ID = tier1ID;
-        this.tier2ID = tier2ID;
-        this.tier3ID = tier3ID;
+        this.tier1ID = 0;
+        this.tier2ID = 0;
+        this.tier3ID = 0;
 
         //null is for (tier1 = first index), and so on. Maybe fix so (tier1 = tier0)?
         imageArray = new ImageTile[]{null,
@@ -69,11 +58,11 @@ public class Builder {
                 if (buildArea.isSquareFree(gc)){
                     buildTower(gc, gm);
                 } else if(getHooveredTower(gc) != null){
+                    gm.addToast(new Toast("square occupied", false));
                     getHooveredTower(gc);
                 }
                 else{
                     gm.addToast(new Toast("bad terrain", false));
-
                 }
             }
         }

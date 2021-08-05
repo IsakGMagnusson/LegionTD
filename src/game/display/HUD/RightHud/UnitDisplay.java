@@ -5,25 +5,29 @@ import engine.Renderer;
 import engine.gfx.Image;
 import game.GameManager;
 import game.display.Buttons.BuyButton;
+import game.display.HUD.RightHud.InfoBox.BriefTowerInfoBox;
+import game.display.HUD.RightHud.InfoBox.DetailedTowerInfoBox;
 import game.unit.tower.Tower;
 
 public class UnitDisplay {
 
     private BuyButton buyButton;
-    private double buyButtonSize = 1.2;
+    private BriefTowerInfoBox briefTowerInfoBox;
+    private DetailedTowerInfoBox detailedTowerInfoBox;
+
+    private double buyButtonSize = 1;
     private double posX, posY;
     private Tower tower;
-    String ability;
+
 
     public UnitDisplay(double posX, double posY, Tower tower){
         this.posX = posX;
         this.posY = posY;
         this.tower = tower;
 
-        if(tower.getUnitAbilities() != null) ability = tower.getUnitAbilities()[0].getName();
-        else ability = "";
-
-        buyButton = new BuyButton(posX+30, posY+15, new Image(tower.getPath()+"icon.png", buyButtonSize), tower);
+        buyButton = new BuyButton(posX+5, posY+10, new Image(tower.getPath()+"icon.png", buyButtonSize), tower);
+        this.briefTowerInfoBox = new BriefTowerInfoBox(posX, posY, tower);
+        detailedTowerInfoBox = new DetailedTowerInfoBox(tower);
     }
 
     public void update(GameContainer gc, GameManager gm, float dt) {
@@ -32,7 +36,14 @@ public class UnitDisplay {
 
     public void render(GameContainer gc, Renderer r) {
         buyButton.render(gc, r);
-        r.drawText(ability, (int)posX, (int)posY+80, 0xFF000000,2);
+
+        if(buyButton.isHoovered(gc)){
+            briefTowerInfoBox.render(gc, r);
+        }
+
+        if(buyButton.isHoovered(gc) && gc.getInput().isButton(3)){
+            detailedTowerInfoBox.render(gc, r);
+        }
     }
 
 
@@ -58,5 +69,9 @@ public class UnitDisplay {
 
     public void setTower(Tower tower) {
         this.tower = tower;
+    }
+
+    public BuyButton getBuyButton() {
+        return buyButton;
     }
 }

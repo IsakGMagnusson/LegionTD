@@ -37,9 +37,6 @@ public class GameManager extends AbstractGame {
 
     ArrayList<GameObject> toRemove = new ArrayList();
 
-
-
-
     GamePlay gamePlay = new GamePlay();
 
     public GameManager(){
@@ -70,8 +67,7 @@ public class GameManager extends AbstractGame {
         selectAble.addAll(enemies);
         selectAble.addAll(kings);
 
-
-
+        toRemove.clear();
         for(ArrayList<GameObject> arr : objects) {
             for(GameObject obj : arr) {
                 obj.update(gc, this, dt);
@@ -80,16 +76,7 @@ public class GameManager extends AbstractGame {
                 }
             }
         }
-
         objects.forEach((arr) -> arr.removeIf((obj) -> toRemove.contains(obj)));
-
-       /* for(int i = 0; i < objects.size(); i++){
-            objects.get(i).update(gc, this, dt);
-            if(objects.get(i).isDead()){
-                objects.remove(i);
-                i--;
-            }
-        }*/
     }
 
 
@@ -100,9 +87,7 @@ public class GameManager extends AbstractGame {
                 obj.render(gc, r);
             }
         }
-
         gamePlay.render(gc, r);
-
     }
 
     public void addObject(ArrayList object){
@@ -176,9 +161,6 @@ public class GameManager extends AbstractGame {
         GameContainer gc = new GameContainer(new GameManager());
         gc.setWidth(SCREEN_WIDTH);
         gc.setHeight(SCREEN_HEIGHT);
-       // gc.setWidth(1920/4);
-      //  gc.setHeight(1080/4);
-        //gc.setScale(3f);
         gc.start();
     }
 }

@@ -7,7 +7,7 @@ public abstract class Unit extends GameObject {
     protected int view = 80*15;
     protected int friendView = view*2;
 
-    protected Ability[] unitAbilities;
+    protected Ability[] unitAbilities = null;
     protected double health, maxHealth, percentHealth;
     protected double damage, range, attackSpeed;
 
