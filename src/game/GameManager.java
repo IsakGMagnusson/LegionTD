@@ -157,7 +157,7 @@ public class GameManager extends AbstractGame {
     }
 
 
-    public static void main(String args[]){
+    public static void main(String[] args){
         GameContainer gc = new GameContainer(new GameManager());
         gc.setWidth(SCREEN_WIDTH);
         gc.setHeight(SCREEN_HEIGHT);

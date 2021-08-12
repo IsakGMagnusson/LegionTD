@@ -38,13 +38,11 @@ public class Button extends GameObject {
     }
 
     public boolean getIsPressed(GameContainer gc) {
-        if(isHoovered(gc) && leftClick(gc)) return true;
-        else return false;
+        return isHoovered(gc) && leftClick(gc);
     }
 
     private boolean leftClick(GameContainer gc){
-        if(gc.getInput().isButtonDown(1)) return true;
-        else return false;
+        return gc.getInput().isButtonDown(1);
     }
 
     public boolean getIsActive() {

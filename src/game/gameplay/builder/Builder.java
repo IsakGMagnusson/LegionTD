@@ -18,29 +18,23 @@ public class Builder {
     private TowerFactory towerFactory = new TowerFactory();
     private Player player;
     private GamePlay gamePlay;
-    private int tier1ID;
-    private int tier2ID;
-    private int tier3ID;
 
     private boolean addBuildArea = false;
 
     private ImageTile[] imageArray;
-
-    public Builder(Player player, GamePlay gamePlay){
+    int[] towerIDs;
+    
+    public Builder(Player player, GamePlay gamePlay, int[] towerIDs){
         this.player = player;
         this.gamePlay = gamePlay;
-        this.tier1ID = 0;
-        this.tier2ID = 0;
-        this.tier3ID = 0;
-
+        this.towerIDs = towerIDs;
+        
         //null is for (tier1 = first index), and so on. Maybe fix so (tier1 = tier0)?
         imageArray = new ImageTile[]{null,
-                towerFactory.getTier1(tier1ID, 0, 0, null).getAnimationTile(),
-                towerFactory.getTier2(tier2ID, 0, 0, null).getAnimationTile(),
-                towerFactory.getTier3(tier3ID, 0, 0, null).getAnimationTile()
+                towerFactory.getTier1(towerIDs[0], 0, 0, null).getAnimationTile(),
+                towerFactory.getTier2(towerIDs[1], 0, 0, null).getAnimationTile(),
+                towerFactory.getTier3(towerIDs[2], 0, 0, null).getAnimationTile()
         };
-
-        giveRightHUDTowers();
     }
 
     public void update(GameContainer gc, GameManager gm) {
@@ -88,7 +82,6 @@ public class Builder {
     }
 
 
-
     public Tower getHooveredTower(GameContainer gc){
         for(Tower t : player.getOwnedTowers()) {
             if (t.getSquare().equals(buildArea.getHooveredSquare(gc))) {
@@ -114,11 +107,11 @@ public class Builder {
     private Tower createTower(int x, int y, BuildSquare square) {
         switch (RightHud.buying) {
             case 1:
-                return towerFactory.getTier1(tier1ID, x, y, square);
+                return towerFactory.getTier1(towerIDs[0], x, y, square);
             case 2:
-                return towerFactory.getTier2(tier2ID, x, y, square);
+                return towerFactory.getTier2(towerIDs[1], x, y, square);
             case 3:
-                return towerFactory.getTier3(tier3ID, x, y, square);
+                return towerFactory.getTier3(towerIDs[2], x, y, square);
             default:
                 return null;
         }
@@ -137,11 +130,5 @@ public class Builder {
             soldTower.getSquare().setIsOccupied(false);
             gm.addGoldPop(new GoldPop((int)soldTower.getSquare().getPosX(), (int)soldTower.getSquare().getPosY(), soldTower.getCost()/2));
         }
-    }
-
-    private void giveRightHUDTowers(){
-        RightHud.setTierOneInfo(towerFactory.getTier1(tier1ID, 0, 0, null));
-        RightHud.setTierTwoInfo(towerFactory.getTier2(tier2ID, 0, 0, null));
-        RightHud.setTierThreeInfo(towerFactory.getTier3(tier3ID, 0, 0, null));
     }
 }

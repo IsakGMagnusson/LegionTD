@@ -66,7 +66,7 @@ public class DetailedTowerInfoBox extends GameObject {
     }
 
     private String[] getTowerInfo(Tower tower){
-        String[] allInfo = {
+        return new String[]{
                 "Tier: " + tower.getTier(),
                 "Name: " + tower.getName(),
                 "Dmg: " + (int) tower.getDamage(),
@@ -74,7 +74,6 @@ public class DetailedTowerInfoBox extends GameObject {
                 "Health: " + (int) tower.getHealth(),
                 "Cost: " + tower.getCost()
         };
-        return allInfo;
     }
 
     private ArrayList<String> getAbilityInfo(Ability ability){

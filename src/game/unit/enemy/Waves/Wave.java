@@ -23,6 +23,6 @@ public abstract class Wave {
     }
 
     public static boolean areEnemiesDead(Wave wave){
-        return wave.getWaveUnits().isEmpty() ? true : false;
+        return wave.getWaveUnits().isEmpty();
     }
 }

@@ -54,13 +54,8 @@ public abstract class GameObject {
     }
 
     public boolean isHoovered(GameContainer gc){
-        if(gc.getInput().getMouseX() >= posX && gc.getInput().getMouseX() <= posX + width
-                && gc.getInput().getMouseY() >= posY && gc.getInput().getMouseY() <= posY + height
-        ){
-            return true;
-        } else{
-            return false;
-        }
+        return gc.getInput().getMouseX() >= posX && gc.getInput().getMouseX() <= posX + width
+                && gc.getInput().getMouseY() >= posY && gc.getInput().getMouseY() <= posY + height;
     }
 
     protected void moveTowardsUnit(GameObject objMoveTo, double speed){

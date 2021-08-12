@@ -10,24 +10,16 @@ import game.unit.tower.Tower;
 
 public class BotHud extends GameObject {
 
-    private int color = 0xFFfda3ff;
-    private int botHUDheight = 50;
+    protected int botHUDheight = 80;
 
     public enum SelectedObj{
-        NULL,
         TOWER,
         ENEMY,
         KING
     }
-    public static SelectedObj selectedEnum = SelectedObj.NULL;
+    public static SelectedObj selectedEnum = SelectedObj.KING;
     public static Object selectedObj;
 
-    /*
-    the reason behind the use of this boolean is to avoid
-    having to create selectHUD().update()/render()
-    and instead use update on <BotHud selectedHud>
-    to avoid creating new Hud every iteration
-     */
     public static boolean newHudSelected = false;
     private BotHud selectedHud;
 
@@ -45,20 +37,15 @@ public class BotHud extends GameObject {
             selectedHud = selectHUD();
             newHudSelected = false;
         }
-
-        if(selectedEnum != SelectedObj.NULL) selectedHud.update(gc,gm,dt);
+        selectedHud.update(gc,gm,dt);
     }
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-        r.drawFillRect((int)posX, (int)posY, width, height, color);
-
-        if(selectedEnum != SelectedObj.NULL)selectedHud.render(gc, r);
-        else r.drawText("Nothing selected", (int)getPosX(), (int)getPosY(), 0xFF000000, 2);
+        selectedHud.render(gc, r);
     }
 
     private void updateEnum(){
-        if(selectedObj == null)          selectedEnum = SelectedObj.NULL;
         if(selectedObj instanceof Tower) selectedEnum = SelectedObj.TOWER;
         if(selectedObj instanceof Enemy) selectedEnum = SelectedObj.ENEMY;
         if(selectedObj instanceof King)  selectedEnum = SelectedObj.KING;
@@ -77,8 +64,11 @@ public class BotHud extends GameObject {
             case TOWER:
                 return new TowerHud((Tower) selectedObj);
 
+            case KING:
+                return new KingHud();
+
             default:
-                return new NullHud();
+                return null;
         }
     }
 

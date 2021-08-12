@@ -30,7 +30,7 @@ public class GamePlay{
     private EnemySpawn enemySpawn = new EnemySpawn();
     private boolean isEnemySpawnMovable = false;
 
-    private Camera camera = new Camera();
+    private final Camera camera = new Camera();
 
     public GamePlay(){
         player = new Player(this);
@@ -101,8 +101,7 @@ public class GamePlay{
     }
 
     public boolean isBuyState(){
-        if(state == State.BUYTIME) return true;
-        else return false;
+        return state == State.BUYTIME;
     }
 
     public static State getState(){

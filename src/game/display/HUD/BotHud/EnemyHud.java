@@ -8,6 +8,8 @@ import game.unit.enemy.Enemy;
 public class EnemyHud extends BotHud {
     private String info;
     private Enemy enemy;
+    private int color = 0xFFfda3ff;
+    private int deadColor = 0xFFd0d1c9;
 
     public EnemyHud(Enemy enemy) {
         this.enemy = enemy;
@@ -21,7 +23,7 @@ public class EnemyHud extends BotHud {
 
     @Override
     public void render(GameContainer gc, Renderer r) {
-       // r.drawFillRect((int)getPosX(), (int)getPosY(), getWidth(), getHeight(), 0xFFFFFFFF);
+        r.drawFillRect((int)posX, (int)posY, width, height, enemy.isDead() ? deadColor: color);
         r.drawText(info, (int) getPosX(), (int)getPosY(), 0xff000000, 2);
     }
 }

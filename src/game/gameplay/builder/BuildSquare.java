@@ -40,10 +40,8 @@ public class BuildSquare extends GameObject {
     }
 
     public boolean isSquareHoovered(GameContainer gc){
-        if(gc.getInput().getMouseX() >= posX && gc.getInput().getMouseX() <= posX + SQUARE_WIDTH-1
-                && gc.getInput().getMouseY() >= posY && gc.getInput().getMouseY() <= posY + SQUARE_WIDTH-1
-        ) return true;
-         else return false;
+        return gc.getInput().getMouseX() >= posX && gc.getInput().getMouseX() <= posX + SQUARE_WIDTH - 1
+                && gc.getInput().getMouseY() >= posY && gc.getInput().getMouseY() <= posY + SQUARE_WIDTH - 1;
     }
 
     public double getPosX(){

@@ -44,11 +44,7 @@ public class Projectile extends GameObject {
     }
 
     private boolean hasHitTarget(Unit target){
-        if(posX >= target.getPosX() && target.getPosX() + target.getWidth() >= posX &&
-                posY >= target.getPosY() && target.getPosY() + target.getHeight() >= posY){
-            return true;
-        }
-
-        return false;
+        return posX >= target.getPosX() && target.getPosX() + target.getWidth() >= posX &&
+                posY >= target.getPosY() && target.getPosY() + target.getHeight() >= posY;
     }
 }

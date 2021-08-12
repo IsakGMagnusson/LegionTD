@@ -29,14 +29,17 @@ public class Player {
 
     private int gold;
     private ArrayList<Tower> ownedTowers = new ArrayList();
-
+    private int[] towerIDs = {0,0,0};
     public Player(GamePlay gamePlay){
         this.gold = 100;
-        builder = new Builder(this, gamePlay);
+        builder = new Builder(this, gamePlay, towerIDs);
         king = new King();
-        rightHud = new RightHud();
+        selectedObject = king;
+        rightHud = new RightHud(towerIDs);
         botHud = new BotHud();
         topHud = new TopHud();
+
+        BotHud.selectedNewObject(king);
 
     }
 
