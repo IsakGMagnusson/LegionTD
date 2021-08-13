@@ -10,6 +10,9 @@ import game.unit.tower.Tower;
 
 public class BotHud extends GameObject {
 
+    protected int color = 0xFFfda3ff;
+    protected int deadColor = 0xFFd0d1c9;
+
     protected int botHUDheight = 80;
 
     public enum SelectedObj{
@@ -17,10 +20,11 @@ public class BotHud extends GameObject {
         ENEMY,
         KING
     }
-    public static SelectedObj selectedEnum = SelectedObj.KING;
-    public static Object selectedObj;
 
-    public static boolean newHudSelected = false;
+    private SelectedObj selectedEnum = SelectedObj.KING;
+    private Object selectedObj;
+    private boolean newHudSelected = false;
+
     private BotHud selectedHud;
 
     public BotHud(){
@@ -41,19 +45,19 @@ public class BotHud extends GameObject {
     }
 
     @Override
-    public void render(GameContainer gc, Renderer r) {
-        selectedHud.render(gc, r);
+    public void render(GameContainer gc, Renderer r){
+            selectedHud.render(gc, r);
+    }
+
+    public void selectedNewObject(Object object){
+        selectedObj = object;
+        newHudSelected = true;
     }
 
     private void updateEnum(){
         if(selectedObj instanceof Tower) selectedEnum = SelectedObj.TOWER;
         if(selectedObj instanceof Enemy) selectedEnum = SelectedObj.ENEMY;
         if(selectedObj instanceof King)  selectedEnum = SelectedObj.KING;
-    }
-
-    public static void selectedNewObject(Object object){
-        selectedObj = object;
-        BotHud.newHudSelected = true;
     }
 
     private BotHud selectHUD(){

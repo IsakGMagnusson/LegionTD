@@ -4,11 +4,12 @@ import engine.GameContainer;
 import engine.Renderer;
 import game.GameManager;
 import game.GameObject;
+import game.display.LetterSizes;
 import game.unit.tower.Tower;
 
 public class BriefTowerInfoBox extends GameObject {
     private Tower tower;
-    private int scale = 3;
+    private int scale = 2;
     private int yMargin = 20;
     private int textColor = 0xff000000;
 
@@ -39,25 +40,24 @@ public class BriefTowerInfoBox extends GameObject {
     }
 
     private String[] getTowerInfo(Tower tower){
-        String[] allInfo = {
-                "Tier: " + tower.getTier(),
-                "Name: " + tower.getName(),
-                "Health: " + (int) tower.getHealth(),
-                "Dmg: " + (int) tower.getDamage(),
-                "Cost: " + tower.getCost()
+        return new String[]{
+                "TIER: " + tower.getTier(),
+                "NAME: " + tower.getName(),
+                "HEALTH: " + (int) tower.getHealth(),
+                "DMG: " + (int) tower.getDamage(),
+                "COST: " + tower.getCost()
         };
-        return allInfo;
     }
 
     private int getTowerInfoWidth(String[] towerInfo){
         int longestInfoRow = 0;
+
         for(String string : towerInfo){
-            if(string.length() > longestInfoRow){
-                longestInfoRow = string.length();
+            if(LetterSizes.stringWidth(string) > longestInfoRow){
+                longestInfoRow = LetterSizes.stringWidth(string);
             }
         }
 
-        int fontWidth = 4;
-        return (longestInfoRow*scale*fontWidth)+3;
+        return (longestInfoRow*scale);
     }
 }

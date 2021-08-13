@@ -37,10 +37,6 @@ public class UnitDisplay {
     public void render(GameContainer gc, Renderer r) {
         buyButton.render(gc, r);
 
-        if(buyButton.isHoovered(gc)){
-            briefTowerInfoBox.render(gc, r);
-        }
-
         if(buyButton.isHoovered(gc) && gc.getInput().isButton(3)){
             detailedTowerInfoBox.render(gc, r);
         }
@@ -73,5 +69,9 @@ public class UnitDisplay {
 
     public BuyButton getBuyButton() {
         return buyButton;
+    }
+
+    public BriefTowerInfoBox getBriefTowerInfoBox() {
+        return briefTowerInfoBox;
     }
 }

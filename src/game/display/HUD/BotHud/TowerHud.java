@@ -16,12 +16,8 @@ public class TowerHud extends BotHud {
     private static Boolean isSelling = false;
     private static Button sellTower;
 
-    private int color = 0xFFfda3ff;
-    private int deadColor = 0xFFd0d1c9;
-
     public TowerHud(Tower tower) {
         this.tower = tower;
-
         sellTower = new Button(getPosX()+5, getPosY()+5, new Image("/images/sell.png", 1));
     }
 

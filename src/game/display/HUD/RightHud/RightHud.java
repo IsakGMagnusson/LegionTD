@@ -27,7 +27,9 @@ public class RightHud  {
         UnitDisplay tier1Display = new UnitDisplay(posX, posY, towerFactory.getTier1(towerIDs[0], 0, 0, null));
         UnitDisplay tier2Display = new UnitDisplay(posX+xMargin, posY, towerFactory.getTier2(towerIDs[1], 0, 0, null));
         UnitDisplay tier3Display = new UnitDisplay(posX, posY+yMargin, towerFactory.getTier3(towerIDs[2], 0, 0, null));
-        unitDisplays = new UnitDisplay[]{tier1Display, tier2Display, tier3Display};
+        UnitDisplay tier34isplay = new UnitDisplay(posX+xMargin, posY+yMargin, towerFactory.getTier4(towerIDs[3], 0, 0, null));
+
+        unitDisplays = new UnitDisplay[]{tier1Display, tier2Display, tier3Display, tier34isplay};
     }
 
     public void update(GameContainer gc, GameManager gm, float dt) {
@@ -42,6 +44,14 @@ public class RightHud  {
         for(UnitDisplay unitDisplay : unitDisplays){
             unitDisplay.render(gc, r);
         }
+
+        //this is rendered here and not in UnitDisplay to avoid new buttons cover brieftowerinfo
+        for(UnitDisplay unitDisplay : unitDisplays){
+            if(unitDisplay.getBuyButton().isHoovered(gc)){
+                unitDisplay.getBriefTowerInfoBox().render(gc, r);
+            }
+        }
+
     }
 
 }

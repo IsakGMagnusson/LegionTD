@@ -12,8 +12,8 @@ import game.gameplay.builder.Builder;
 import game.unit.King;
 import game.unit.Unit;
 import game.unit.tower.Tower;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
@@ -28,19 +28,19 @@ public class Player {
     private TopHud topHud;
 
     private int gold;
-    private ArrayList<Tower> ownedTowers = new ArrayList();
-    private int[] towerIDs = {0,0,0};
+    private List<Tower> ownedTowers = new ArrayList();
+    private int[] towerIDs = {0,0,0,0};
+
     public Player(GamePlay gamePlay){
         this.gold = 100;
         builder = new Builder(this, gamePlay, towerIDs);
         king = new King();
-        selectedObject = king;
         rightHud = new RightHud(towerIDs);
         botHud = new BotHud();
         topHud = new TopHud();
 
-        BotHud.selectedNewObject(king);
-
+        selectedObject = king;
+        botHud.selectedNewObject(king);
     }
 
     public void update(GameContainer gc, GameManager gm, float dt) {
@@ -72,7 +72,7 @@ public class Player {
         for(Unit unit : gm.getSelectAble()){
             if (unit.isHoovered(gc)){
                 TowerHud.setIsSelling(false);
-                BotHud.selectedNewObject(unit);
+                botHud.selectedNewObject(unit);
                 return unit;
             }
         }
@@ -103,7 +103,7 @@ public class Player {
         ownedTowers.add(tower);
     }
 
-    public ArrayList<Tower> getOwnedTowers() {
+    public List<Tower> getOwnedTowers() {
         return ownedTowers;
     }
 

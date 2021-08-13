@@ -33,7 +33,8 @@ public class Builder {
         imageArray = new ImageTile[]{null,
                 towerFactory.getTier1(towerIDs[0], 0, 0, null).getAnimationTile(),
                 towerFactory.getTier2(towerIDs[1], 0, 0, null).getAnimationTile(),
-                towerFactory.getTier3(towerIDs[2], 0, 0, null).getAnimationTile()
+                towerFactory.getTier3(towerIDs[2], 0, 0, null).getAnimationTile(),
+                towerFactory.getTier4(towerIDs[3], 0, 0, null).getAnimationTile()
         };
     }
 
@@ -112,6 +113,8 @@ public class Builder {
                 return towerFactory.getTier2(towerIDs[1], x, y, square);
             case 3:
                 return towerFactory.getTier3(towerIDs[2], x, y, square);
+            case 4:
+                return towerFactory.getTier4(towerIDs[3], x, y, square);
             default:
                 return null;
         }

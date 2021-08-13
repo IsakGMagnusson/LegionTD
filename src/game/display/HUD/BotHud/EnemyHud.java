@@ -8,8 +8,6 @@ import game.unit.enemy.Enemy;
 public class EnemyHud extends BotHud {
     private String info;
     private Enemy enemy;
-    private int color = 0xFFfda3ff;
-    private int deadColor = 0xFFd0d1c9;
 
     public EnemyHud(Enemy enemy) {
         this.enemy = enemy;
